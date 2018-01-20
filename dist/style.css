@@ -1,0 +1,1031 @@
+/***************************************
+MASTER FILE FOR SCSS
+***************************************/
+/***************************************
+MANIFEST FOR UTILITIES PARTIALS
+***************************************/
+/****************************************************
+VARIABLES TO BE USED BY THE OTHER PARTIALS
+****************************************************/
+/*****************************************************
+SCSS Functions
+*****************************************************/
+/*****************************************************
+Helpers
+*****************************************************/
+.group:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/*****************************************************
+Mixins
+*****************************************************/
+/***************************************
+MANIFEST FOR BASE STYLE PARTIALS
+***************************************/
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block; }
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline; }
+
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+[hidden],
+template {
+  display: none; }
+
+a {
+  background: transparent; }
+
+a:active,
+a:hover {
+  outline: 0; }
+
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+b,
+strong {
+  font-weight: bold; }
+
+dfn {
+  font-style: italic; }
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+mark {
+  background: #ff0;
+  color: #000; }
+
+small {
+  font-size: 80%; }
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+img {
+  border: 0; }
+
+svg:not(:root) {
+  overflow: hidden; }
+
+figure {
+  margin: 1em 40px; }
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0; }
+
+pre {
+  overflow: auto; }
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  margin: 0; }
+
+button {
+  overflow: visible; }
+
+button,
+select {
+  text-transform: none; }
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer; }
+
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+input {
+  line-height: normal; }
+
+* input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0; }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box; }
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+legend {
+  border: 0;
+  padding: 0; }
+
+textarea {
+  overflow: auto; }
+
+optgroup {
+  font-weight: bold; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td,
+th {
+  padding: 0; }
+
+/********************************************************
+BASE STYLES
+********************************************************/
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5; }
+
+a {
+  text-decoration: none; }
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+
+button {
+  outline: 0; }
+
+/***************************************
+MANIFEST FOR LAYOUT PARTIALS
+***************************************/
+/***************************************
+MANIFEST FOR COMPONENT PARTIALS
+***************************************/
+.welcome__container {
+  min-height: 320px;
+  background-color: #2e1e72;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
+
+.welcome__heading {
+  font-family: sans-serif;
+  color: #fff;
+  font-size: 2.875em;
+  font-weight: 700; }
+
+.main-container {
+  background-color: #111;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transition: left ease-out 0.3s;
+  padding-top: 50px;
+  padding-bottom: 110px; }
+  @media (min-width: 768px) {
+    .main-container {
+      padding-bottom: 90px; } }
+
+.nav-open.main-container {
+  left: 200px; }
+
+.container {
+  padding: 20px; }
+
+#root {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh; }
+
+.authorise__container {
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; }
+
+.authorise__title {
+  font-family: "Montserrat";
+  font-size: 2em;
+  font-weight: 700;
+  color: #fff;
+  margin: 8px; }
+
+.authorise__paragraph {
+  font-family: "Lato";
+  font-size: 1.125em;
+  font-weight: 300;
+  color: #fff;
+  margin-top: 8px;
+  margin-bottom: 32px; }
+
+.authorise__button {
+  font-family: "Montserrat";
+  font-size: 0.875em;
+  font-weight: 700;
+  color: #fff;
+  background-color: #1db954;
+  padding: 8px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color ease-in-out 0.3s; }
+  .authorise__button:hover {
+    background-color: #168d40; }
+
+.button {
+  font-family: "Montserrat";
+  font-size: 0.875em;
+  font-weight: 700;
+  color: #fff;
+  background-color: #1db954;
+  padding: 8px 24px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color ease-in-out 0.3s; }
+  .button:hover {
+    background-color: #168d40; }
+
+.search {
+  background-color: #222;
+  padding: 8px 16px; }
+  .search__label {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em;
+    color: #fff;
+    margin-top: 8px;
+    margin-bottom: 8px; }
+  .search__input {
+    background: none;
+    font-family: "Montserrat";
+    font-weight: 700;
+    color: #fff;
+    font-size: 2.5em;
+    border: none; }
+    .search__input:focus {
+      outline: none; }
+
+.results {
+  padding: 16px; }
+  .results__container {
+    display: flex;
+    flex-wrap: wrap; }
+  .results__result-container {
+    flex-basis: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    text-align: center; }
+    @media (min-width: 600px) {
+      .results__result-container {
+        flex-basis: 50%; } }
+    @media (min-width: 768px) {
+      .results__result-container {
+        flex-basis: 33.33333%; } }
+    @media (min-width: 900px) {
+      .results__result-container {
+        flex-basis: 25%; } }
+    @media (min-width: 1200px) {
+      .results__result-container {
+        flex-basis: 20%; } }
+    @media (min-width: 1400px) {
+      .results__result-container {
+        flex-basis: 16.66666%; } }
+  .results__result-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto; }
+    @media (min-width: 600px) {
+      .results__result-image {
+        width: 90%;
+        height: auto;
+        padding-bottom: 90%; } }
+  .results__result-name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em;
+    color: #fff; }
+  .results__result-link {
+    display: inline-block;
+    width: 100%; }
+
+.nav-toggle {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  cursor: pointer; }
+  .nav-toggle__line {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background-color: #fff;
+    border-radius: 8px;
+    transition: all ease-out 0.3s; }
+  .nav-toggle__line--1 {
+    top: 0; }
+  .nav-toggle__line--2 {
+    top: 12px; }
+  .nav-toggle__line--3 {
+    bottom: 0; }
+
+.top-bar {
+  background-color: #1db954;
+  min-height: 50px;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000; }
+
+.nav-open .nav-toggle__line--1,
+.nav-open .nav-toggle__line--2 {
+  top: 12px;
+  transform: rotate(45deg); }
+
+.nav-open .nav-toggle__line--3 {
+  top: 12px;
+  transform: rotate(-45deg); }
+
+.nav__item {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-bottom: solid 1px #fff; }
+
+.nav__link {
+  font-family: "Lato";
+  font-weight: 300;
+  color: #fff;
+  font-size: 1em;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px; }
+
+.nav-container {
+  background-color: #060606;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  width: 200px;
+  padding: 50px 20px;
+  position: fixed; }
+
+.artist-header {
+  position: relative;
+  min-height: 320px; }
+  @media (min-width: 768px) {
+    .artist-header {
+      display: flex;
+      align-items: flex-start;
+      position: static;
+      min-height: 0;
+      padding: 20px; } }
+  .artist-header__image {
+    display: none; }
+    @media (min-width: 768px) {
+      .artist-header__image {
+        display: initial;
+        width: 280px;
+        height: auto; } }
+    @media (min-width: 1000px) {
+      .artist-header__image {
+        width: 360px; } }
+  .artist-header__background-image {
+    background: linear-gradient(rgba(17, 17, 17, 0.2), #111111), url("/img/profile.jpg");
+    background-position-x: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    @media (min-width: 768px) {
+      .artist-header__background-image {
+        display: none;
+        position: absolute; } }
+  .artist-header__info-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+    @media (min-width: 768px) {
+      .artist-header__info-container {
+        align-self: stretch;
+        justify-content: center;
+        align-items: flex-end;
+        text-align: right;
+        flex-grow: 1;
+        position: static;
+        top: initial;
+        left: initial;
+        width: initial;
+        height: initial; } }
+  .artist-header__artist-name {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.625em;
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 24px;
+    line-height: 1.4; }
+  .artist-header__artist-genres {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em;
+    color: #fff;
+    margin: 0; }
+
+.top-track {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer; }
+  .top-track:nth-child(even) {
+    background-color: #222; }
+  .top-track.is-selected {
+    color: #1db954; }
+  .top-track__image {
+    width: 50px;
+    height: auto; }
+  .top-track__name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em; }
+  .top-track__length {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 0.75em;
+    margin-left: auto;
+    display: inline-block;
+    padding-left: 16px; }
+  .top-track .svg-inline--fa,
+  .top-track .fas {
+    margin-left: 16px;
+    margin-right: 16px;
+    font-size: 24px; }
+
+.top-tracks-container {
+  margin-top: 48px;
+  margin-bottom: 48px; }
+
+.top-tracks-title {
+  font-family: "Montserrat";
+  font-weight: 700;
+  font-size: 2.25em; }
+
+.recent-albums {
+  text-align: center;
+  margin-top: 48px;
+  margin-bottom: 48px; }
+  .recent-albums__title {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.25em;
+    text-align: left; }
+  .recent-albums__container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px; }
+  .recent-albums__button {
+    font-family: "Montserrat";
+    font-size: 1em;
+    font-weight: 700;
+    color: #fff;
+    background-color: #1db954;
+    padding: 16px 40px;
+    border-radius: 4px;
+    display: block;
+    cursor: pointer;
+    transition: background-color ease-in-out 0.3s; }
+    .recent-albums__button:hover {
+      background-color: #168d40; }
+    @media (min-width: 600px) {
+      .recent-albums__button {
+        display: inline-block; } }
+
+.album-card {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-basis: 50%; }
+  @media (min-width: 600px) {
+    .album-card {
+      flex-basis: 33.33333%; } }
+  @media (min-width: 768px) {
+    .album-card {
+      flex-basis: 25%; } }
+  @media (min-width: 1200px) {
+    .album-card {
+      flex-basis: 20%; } }
+  @media (min-width: 1400px) {
+    .album-card {
+      flex-basis: 16.66666%; } }
+  .album-card__image {
+    width: 100%;
+    height: auto; }
+  .album-card__name {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 1em; }
+
+.top-related {
+  text-align: center;
+  margin-top: 48px;
+  margin-bottom: 48px; }
+  .top-related__title {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.25em;
+    text-align: left; }
+  .top-related__container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px; }
+  .top-related__button {
+    font-family: "Montserrat";
+    font-size: 1em;
+    font-weight: 700;
+    color: #fff;
+    background-color: #1db954;
+    padding: 16px 40px;
+    border-radius: 4px;
+    display: block;
+    cursor: pointer;
+    transition: background-color ease-in-out 0.3s; }
+    .top-related__button:hover {
+      background-color: #168d40; }
+    @media (min-width: 600px) {
+      .top-related__button {
+        display: inline-block; } }
+
+.artist-card {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-basis: 50%; }
+  @media (min-width: 600px) {
+    .artist-card {
+      flex-basis: 33.33333%; } }
+  @media (min-width: 768px) {
+    .artist-card {
+      flex-basis: 25%; } }
+  @media (min-width: 1200px) {
+    .artist-card {
+      flex-basis: 20%; } }
+  @media (min-width: 1400px) {
+    .artist-card {
+      flex-basis: 16.66666%; } }
+  .artist-card__image-holder {
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover; }
+  .artist-card__name {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 1em; }
+
+.album {
+  margin-top: 48px;
+  margin-bottom: 48px; }
+  @media (min-width: 1000px) {
+    .album {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 100px;
+      margin-bottom: 100px; } }
+  .album__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 32px; }
+    @media (min-width: 768px) {
+      .album__header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start; } }
+    @media (min-width: 1000px) {
+      .album__header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-right: 60px;
+        margin-top: 20px;
+        width: 320px; } }
+  .album__image {
+    width: 220px;
+    height: auto; }
+    @media (min-width: 600px) {
+      .album__image {
+        width: 280px; } }
+    @media (min-width: 1000px) {
+      .album__image {
+        width: 320px; } }
+  .album__info {
+    padding: 16px 0; }
+    @media (min-width: 768px) {
+      .album__info {
+        padding-left: 16px; } }
+  .album__title {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.25em;
+    margin-top: 0;
+    margin-bottom: 8px; }
+  .album__artist {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 1em;
+    margin-top: 8px;
+    margin-bottom: 8px; }
+  .album__release-date {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 1em;
+    margin-top: 8px;
+    margin-bottom: 8px; }
+  @media (min-width: 1000px) {
+    .album__tracks-list {
+      flex-grow: 1; } }
+
+.album-track {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer; }
+  .album-track:nth-child(even) {
+    background-color: #222; }
+  .album-track.is-selected {
+    color: #1db954; }
+  .album-track__number {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em;
+    display: inline-block;
+    width: 35px;
+    text-align: center; }
+  .album-track__name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em; }
+  .album-track__length {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 0.75em;
+    margin-left: auto;
+    display: inline-block;
+    padding-left: 16px; }
+  .album-track .svg-inline--fa,
+  .album-track .fas {
+    font-size: 24px;
+    margin-right: 8px; }
+
+.player-controls {
+  position: fixed;
+  width: 100%;
+  height: 110px;
+  bottom: 0;
+  background-color: #060606;
+  border-top: solid 1px #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform ease-in-out 0.25s;
+  z-index: 1000; }
+  @media (min-width: 768px) {
+    .player-controls {
+      flex-direction: row;
+      height: 90px; } }
+  .player-controls.show-player {
+    transform: translateY(0); }
+
+.controls-container {
+  text-align: center;
+  padding: 8px; }
+  .controls-container .svg-inline--fa,
+  .controls-container .fas {
+    font-size: 20px;
+    margin: auto 4px; }
+
+.progress-bar--outer {
+  width: 220px;
+  height: 6px;
+  border-radius: 6px;
+  background-color: #fafafa;
+  margin-top: 8px;
+  cursor: pointer; }
+
+.progress-bar--inner {
+  height: 6px;
+  border-radius: 6px;
+  background-color: #1db954; }
+
+.track-info {
+  display: flex;
+  align-items: center; }
+  @media (min-width: 768px) {
+    .track-info {
+      position: absolute;
+      left: 20px; } }
+  .track-info__image {
+    display: none; }
+    @media (min-width: 768px) {
+      .track-info__image {
+        display: initial;
+        width: 50px;
+        height: 50px; } }
+  .track-info__text-container {
+    text-align: center; }
+    @media (min-width: 768px) {
+      .track-info__text-container {
+        margin-left: 8px;
+        text-align: left; } }
+  .track-info__track-name {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 0.875em;
+    margin-top: 4px;
+    margin-bottom: 0; }
+  .track-info__artist-name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 0.75em;
+    margin-top: 0;
+    margin-bottom: 4px; }
+
+.user-header {
+  text-align: center;
+  padding: 20px; }
+  .user-header__image {
+    border-radius: 100%; }
+  .user-header__name {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.625em;
+    color: #fff; }
+
+.recent-track {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer; }
+  .recent-track:nth-child(even) {
+    background-color: #222; }
+  .recent-track.is-selected {
+    color: #1db954; }
+  .recent-track__image {
+    width: 50px;
+    height: auto; }
+  .recent-track__name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em; }
+  .recent-track__length {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 0.75em;
+    margin-left: auto;
+    display: inline-block;
+    padding-left: 16px; }
+  .recent-track .svg-inline--fa,
+  .recent-track .fas {
+    margin-left: 16px;
+    margin-right: 16px;
+    font-size: 24px; }
+
+.artist-collection {
+  margin-top: 32px;
+  margin-bottom: 32px; }
+  .artist-collection__title {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.25em; }
+  .artist-collection__container {
+    display: flex;
+    flex-wrap: wrap; }
+
+.artist-collection-item {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  text-align: center; }
+  @media (min-width: 600px) {
+    .artist-collection-item {
+      flex-basis: 33.33333%; } }
+  @media (min-width: 768px) {
+    .artist-collection-item {
+      flex-basis: 25%; } }
+  @media (min-width: 1200px) {
+    .artist-collection-item {
+      flex-basis: 20%; } }
+  @media (min-width: 1400px) {
+    .artist-collection-item {
+      flex-basis: 16.66666%; } }
+  .artist-collection-item__link {
+    display: inline-block;
+    width: 100%; }
+  .artist-collection-item__image {
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; }
+  .artist-collection-item__name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em;
+    color: #fff; }
+
+.album-collection {
+  text-align: center;
+  margin-top: 48px;
+  margin-bottom: 48px; }
+  .album-collection__title {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.25em;
+    text-align: left; }
+  .album-collection__container {
+    display: flex;
+    flex-wrap: wrap; }
+
+.album-collection-item {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-basis: 50%; }
+  @media (min-width: 600px) {
+    .album-collection-item {
+      flex-basis: 33.33333%; } }
+  @media (min-width: 768px) {
+    .album-collection-item {
+      flex-basis: 25%; } }
+  @media (min-width: 1200px) {
+    .album-collection-item {
+      flex-basis: 20%; } }
+  @media (min-width: 1400px) {
+    .album-collection-item {
+      flex-basis: 16.66666%; } }
+  .album-collection-item__image {
+    width: 100%;
+    height: auto; }
+  .album-collection-item__name {
+    font-family: "Lato";
+    font-weight: 400;
+    font-size: 1em;
+    color: #fff;
+    margin-bottom: 8px; }
+    .album-collection-item__name:hover {
+      color: #fff; }
+  .album-collection-item__postText {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 0.75em;
+    color: #fff;
+    margin-top: 8px; }
+
+.track-collection {
+  margin-top: 48px;
+  margin-bottom: 48px; }
+  .track-collection__title {
+    font-family: "Montserrat";
+    font-weight: 700;
+    font-size: 2.25em; }
+
+.track-collection-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer; }
+  .track-collection-item:nth-child(even) {
+    background-color: #222; }
+  .track-collection-item.is-selected {
+    color: #1db954; }
+  .track-collection-item__image {
+    width: 50px;
+    height: auto; }
+  .track-collection-item__name {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 1em; }
+  .track-collection-item__length {
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 0.75em;
+    margin-left: auto;
+    display: inline-block;
+    padding-left: 16px; }
+  .track-collection-item .svg-inline--fa,
+  .track-collection-item .fas {
+    margin-left: 16px;
+    margin-right: 16px;
+    font-size: 24px; }
+
+/***************************************
+MANIFEST FOR PAGE-STYLES PARTIALS
+***************************************/

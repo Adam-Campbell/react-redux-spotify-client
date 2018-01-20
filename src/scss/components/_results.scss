@@ -1,0 +1,67 @@
+//
+// Make the min-width in the media queries smaller so that the 'artist list items' go into rows of 2, 3 and 4 
+// at smaller breakpoints.
+//
+// Make the width of the image 100%, with a padding bottom of 100% (this preserves the aspect ratio). Only do 
+// this from the first breakpoint upwards - so only when the layout change so there are two of the images or more
+// in a row. When they are a single column (mobile layout) the images should still be fixed size.
+//
+
+.results {
+    padding: 16px;
+    &__title {
+
+    }
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &__result-container {
+        flex-basis: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        text-align: center;
+        @media(min-width: 600px) {
+            flex-basis: 50%;
+        }
+        @media(min-width: 768px) {
+            flex-basis: 33.33333%;
+        }
+        @media(min-width: 900px) {
+            flex-basis: 25%;
+        }
+        @media(min-width: 1200px) {
+            flex-basis: 20%;
+        }
+        @media(min-width: 1400px) {
+            flex-basis: 16.66666%;
+        }
+    }
+    &__result-image {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        @media(min-width: 600px) {
+            width: 90%;
+            height: auto;
+            padding-bottom: 90%;
+        }
+    }
+    &__result-name {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(16px);
+        color: $color--white;
+    }
+    &__result-link {
+        display: inline-block;
+        width: 100%;
+    }
+}

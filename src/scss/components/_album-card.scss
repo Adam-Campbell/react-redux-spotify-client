@@ -1,0 +1,29 @@
+.album-card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex-basis: 50%;
+    @media(min-width: 600px) {
+        flex-basis: 33.33333%;
+    }
+    @media(min-width: 768px) {
+        flex-basis: 25%;
+    }
+    @media(min-width: 1200px) {
+        flex-basis: 20%;
+    }
+    @media(min-width: 1400px) {
+        flex-basis: 16.66666%;
+    }
+    &__image {
+        width: 100%;
+        height: auto;
+    }
+    &__name {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--regular;
+        font-size: em(16px);
+    }
+}

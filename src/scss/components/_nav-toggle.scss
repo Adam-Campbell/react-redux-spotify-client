@@ -1,0 +1,45 @@
+.nav-toggle {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    &__line {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background-color: $color--white;
+        border-radius: 8px;
+        transition: all ease-out 0.3s;
+    }
+    &__line--1 {
+        top: 0;
+    }
+    &__line--2 {
+        top: 12px;
+    }
+    &__line--3 {
+        bottom: 0;
+    }
+}
+
+.top-bar {
+    background-color: $color--brand-green;
+    min-height: 50px;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-open .nav-toggle__line--1,
+.nav-open .nav-toggle__line--2 {
+    top: 12px;
+    transform: rotate(45deg);
+}
+
+.nav-open .nav-toggle__line--3 {
+    top: 12px;
+    transform: rotate(-45deg);
+}

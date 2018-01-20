@@ -1,0 +1,76 @@
+.artist-header {
+    position: relative;
+    min-height: 320px;
+    @media(min-width: 768px) {
+        display: flex;
+        align-items: flex-start;
+        position: static;
+        min-height: 0;
+        padding: 20px;
+    }
+    &__image {
+        display: none;
+        @media(min-width: 768px) {
+            display: initial;
+            width: 280px;
+            height: auto;
+        }
+        @media(min-width: 1000px) {
+            width: 360px;
+        }
+    }
+    &__background-image {
+        background: linear-gradient(rgba(17,17,17,0.2), rgba(17,17,17,1)), url('/img/profile.jpg');
+        background-position-x: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @media(min-width: 768px) {
+            display: none;
+            position: absolute;
+        }
+    }
+    &__info-container {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @media(min-width: 768px) {
+            align-self: stretch;
+            justify-content: center;
+            align-items: flex-end;
+            text-align: right;
+            flex-grow: 1;
+            position: static;
+            top: initial;
+            left: initial;
+            width: initial;
+            height: initial;
+        }
+        
+    }
+    &__artist-name {
+        font-family: $font-stack--primary;
+        font-weight: $font-weight--bold;
+        font-size: em(42px);
+        color: $color--white;
+        margin-top: 0;
+        margin-bottom: 24px;
+        line-height: 1.4;
+    }
+    &__artist-genres {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(16px);
+        color: $color--white;
+        margin: 0;
+    }
+}

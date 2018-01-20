@@ -1,0 +1,23 @@
+.search {
+    background-color: $color--brand-grey-lightened;
+    padding: 8px 16px;
+    &__label {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(16px);
+        color: $color--white;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    &__input {
+        background: none;
+        font-family: $font-stack--primary;
+        font-weight: $font-weight--bold;
+        color: $color--white;
+        font-size: em(40px);
+        border: none;
+        &:focus {
+            outline: none;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as ActionCreators from '../actions';
+import SearchBox from './SearchBox';
+import SearchResults from './SearchResults';
+import ArtistCollection from './ArtistCollection';
+
+class SearchView extends Component {
+    render() {
+        return (
+            <div> 
+                <SearchBox />
+                <div className="container">
+                    <ArtistCollection 
+                        artistArray={this.props.searchResults}
+                        accessToken={this.props.accessToken}
+                        fetchArtist={this.props.fetchArtist}
+                        title='Search Results'
+                    />
+                </div>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        searchResults: state.searchResults,
+        accessToken: state.accessToken
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchArtist(id, token) {
+            dispatch(
+                ActionCreators.fetchArtist(id, token)
+            );
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchView);

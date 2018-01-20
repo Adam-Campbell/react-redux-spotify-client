@@ -1,0 +1,13 @@
+.user-header {
+    text-align: center;
+    padding: 20px;
+    &__image {
+        border-radius: 100%;
+    }
+    &__name {
+        font-family: $font-stack--primary;
+        font-weight: $font-weight--bold;
+        font-size: em(42px);
+        color: $color--white;
+    }
+}

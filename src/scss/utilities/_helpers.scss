@@ -1,0 +1,20 @@
+/*****************************************************
+Helpers
+*****************************************************/
+
+// either utilise clearfix by adding @extend %clearfix to an SCSS selector...
+
+%clearfix {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+}
+  
+// ... or by adding the .group class to an element in the markup
+
+.group {
+    @extend %clearfix;
+}
+  

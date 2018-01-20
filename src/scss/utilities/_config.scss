@@ -1,0 +1,40 @@
+/****************************************************
+VARIABLES TO BE USED BY THE OTHER PARTIALS
+****************************************************/
+
+// font variables
+$base__font-size: 16px;
+$base__line: 24px;
+$letter-space: 1px;
+
+// font stacks
+$font-stack--primary: 'Montserrat';
+$font-stack--secondary: 'Lato';
+
+// font weights
+$font-weight--light: 300;
+$font-weight--regular: 400;
+$font-weight--bold: 700;
+
+
+// descriptive color name variables
+$mountain-meadow: #1db954;
+$cod-grey: #111;
+$mine-shaft: #222;
+$midnight-grey: #060606;
+$white: #fff;
+// functional color variable names linked to the descriptive ones
+$color--white: $white;
+$color--brand-green: $mountain-meadow;
+$color--brand-green-darkened: darken($color--brand-green, 10%);
+$color--brand-grey: $cod-grey;
+$color--brand-grey-lightened: $mine-shaft;
+$color--brand-grey-darkened: $midnight-grey;
+
+// breakpoints
+$breakpoint--mobile: 570px;
+$breakpoint--tablet: 870px; 
+$breakpoint--desktop: 1000px;
+$breakpoint--desktop-large: 1350px;
+
+
