@@ -6,14 +6,10 @@ import * as ActionCreators from './actions';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import SearchView from './components/SearchView';
 import SignIn from './components/SignIn';
-import LandingView from './components/LandingView';
-import ArtistOverview from './components/ArtistOverview';
-import AlbumsView from './components/AlbumsView';
 import Navigation from './components/Navigation';
 import TopBar from './components/TopBar';
-import RelatedArtistsView from './components/RelatedArtistsView';
 import PlayerControls from './components/PlayerControls';
-import UserProfile from './components/UserProfile';
+import UserProfileView from './components/UserProfileView';
 import BrowseView from './components/BrowseView';
 import ArtistGroupView from './components/ArtistGroupView';
 import OrphanAlbumView from './components/OrphanAlbumView';
@@ -54,7 +50,7 @@ class App extends Component {
                                 <Route exact path="/" render={() => <Redirect to="/browse"/>} />
                                 <Route path="/search" component={SearchView}/>
                                 <Route path="/artist" component={ArtistGroupView} />
-                                <Route path="/me" component={UserProfile} />
+                                <Route path="/me" component={UserProfileView} />
                                 <Route path="/browse" component={BrowseView} />
                                 <Route 
                                     path="/album/:albumID" 

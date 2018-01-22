@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CategoryCollectionItem from './CategoryCollectionItem';
 
 const CategoryCollection = props => {
-    //console.log(props.categoryArray);
+    
     return (
         <section className="card-collection">
             <h1 className="heading heading--regular">{props.title}</h1>

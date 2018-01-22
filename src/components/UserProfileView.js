@@ -8,7 +8,7 @@ import ArtistCollection from './ArtistCollection';
 import PlaylistCollection from './PlaylistCollection';
 
 
-class UserProfile extends Component {
+class UserProfileView extends Component {
 
     componentDidMount() {
         if(!this.props.userInfo.userID) {
@@ -82,4 +82,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);

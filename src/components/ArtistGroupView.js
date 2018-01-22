@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
-
-import TopBar from './TopBar';
 import ArtistHeader from './ArtistHeader';
-import AlbumsOverview from './AlbumsOverview';
-import RelatedArtistsOverview from './RelatedArtistsOverview';
-import ArtistCollection from './ArtistCollection';
-import AlbumCollection from './AlbumCollection';
-//import TrackCollection from './TrackCollection';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ArtistOverview from './ArtistOverview';
 import AlbumsView from './AlbumsView';

@@ -4,9 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faMusic from '@fortawesome/fontawesome-free-solid/faMusic';
 
 const ArtistHeader = props => {
-
-    const genreString = props.genres.join(', ');
-
+    
     return (
         <header className="artist-header">
             <div 
