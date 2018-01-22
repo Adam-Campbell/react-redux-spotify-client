@@ -1,0 +1,29 @@
+.inline-nav {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    &__list {
+
+    }
+    &__list-item {
+        margin-top: 16px;
+        margin-bottom: 16px;
+        padding: 0 16px;
+        @media(min-width: 520px) {
+            display: inline-block;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+    &__link {
+        padding: 8px;
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--regular;
+        font-size: em(16px);
+        color: $color--white;
+    }
+    &__link-active {
+        border-bottom: solid $color--brand-green 2px;
+        box-sizing: initial;
+    }
+}

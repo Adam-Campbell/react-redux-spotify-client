@@ -1,6 +1,9 @@
+// this is the new one
+
 .album {
-    margin-top: 48px;
-    margin-bottom: 48px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding: 20px;
     @media(min-width: 1000px) {
         display: flex;
         align-items: flex-start;
@@ -48,21 +51,14 @@
         margin-top: 0;
         margin-bottom: 8px;
     }
-    &__artist {
+    &__paragraph {
         font-family: $font-stack--secondary;
         font-weight: $font-weight--regular;
         font-size: em(16px);
         margin-top: 8px;
         margin-bottom: 8px;
     }
-    &__release-date {
-        font-family: $font-stack--secondary;
-        font-weight: $font-weight--regular;
-        font-size: em(16px);
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-    &__tracks-list {
+    &__tracks-container {
         @media(min-width: 1000px) {
             flex-grow: 1;
         }

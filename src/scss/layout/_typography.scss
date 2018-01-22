@@ -1,0 +1,18 @@
+.heading {
+    font-family: $font-stack--primary;
+    font-weight: $font-weight--bold;
+    color: $color--white;
+    &--large {
+        font-size: em(46px);
+        margin-top: em(8px);
+        margin-bottom: em(8px);
+    }
+    &--regular {
+        font-size: em(32px);
+        margin-top: em(8px);
+        margin-bottom: em(8px);
+    }
+    &--small {
+        font-size: em(24px);
+    }
+}

@@ -1,0 +1,15 @@
+.main-container {
+    min-height: 100vh;
+    padding-top: 45px;
+    padding-bottom: 90px;
+    background-color: $color--brand-grey;
+    position: relative;
+    top: 0;
+    left: 0;
+    transition: all ease-out 0.4s;
+}
+
+.nav-open .main-container {
+    transform: translateX(250px);
+    overflow-x: hidden;
+}
