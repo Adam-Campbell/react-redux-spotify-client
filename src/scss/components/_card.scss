@@ -47,6 +47,16 @@
         font-size: em(16px);
         color: $color--white;
     }
+    &__text--condensed {
+        margin-bottom: 4px;
+    }
+    &__text--small {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(12px);
+        color: $color--white;
+    }
+
     & .fa-arrow-alt-circle-right {
         color: $color--white;
         font-size: em(36px);

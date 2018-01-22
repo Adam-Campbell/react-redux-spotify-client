@@ -11,9 +11,9 @@ import ArtistCollectionItem from './ArtistCollectionItem';
 
 const ArtistCollection = props => {
     return (
-        <section className="artist-collection">
-            <h3 className="artist-collection__title">{props.title}</h3>
-            <div className="artist-collection__container">
+        <section className="card-collection">
+                <h1 className="heading heading--regular">{props.title}</h1>
+                <div className="card-collection__container">
                 {
                     props.artistArray.map(artist => {
                         return (

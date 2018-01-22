@@ -5,7 +5,7 @@ import ArtistCollection from './ArtistCollection';
 
 const RelatedArtistsView = props => {
     return (
-        <div className="container">
+        <div>
             <ArtistCollection 
                 artistArray={props.artistInfo.relatedArtists}
                 title='Related Artists'

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TrackWithNumber from './TrackWithNumber';
+import AlbumTrack from './AlbumTrack';
 
 
 const Album = props => {
@@ -9,17 +9,17 @@ const Album = props => {
             <div className="album__header">
                 <img src={props.albumImage} alt="" className="album__image"></img>
                 <div className="album__info">
-                    <h1 className="heading heading--regular">{props.albumName}</h1>
-                    <p className="album__paragraph">{props.artistName}</p>
-                    <p className="album__paragraph">{props.releaseDate}</p>
+                    <h1 className="album__title">{props.albumName}</h1>
+                    <p className="album__artist">{props.artistName}</p>
+                    <p className="album__release-date">{props.releaseDate}</p>
                 </div>
             </div>
-            <div className="album__tracks-container">
-                <ul className="track-collection__list">
-                    {
-                        props.albumTracks.map(track => {
-                            return (
-                                <TrackWithNumber 
+            <ul className="album__tracks-list">
+
+                {
+                    props.albumTracks.map(track => {
+                        return (
+                            <AlbumTrack 
                                 trackName={track.trackName}
                                 trackID={track.trackID}
                                 key={track.trackID}
@@ -30,16 +30,15 @@ const Album = props => {
                                 identifier={track.identifier}
                                 currentlySelectedCollection={props.currentlySelectedCollection}
                                 playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
-                                /> 
-                            );
-                        })
-                    }
-                </ul>
-            </div>
+                            />
+                        )
+                    })
+                }
+
+            </ul>
         </section>
     );
 }
-
 
 Album.propTypes = {
     albumName: PropTypes.string,
@@ -48,8 +47,7 @@ Album.propTypes = {
     releaseDate: PropTypes.string,
     albumImage: PropTypes.string,
     albumTracks: PropTypes.array,
-    playPauseTrack: PropTypes.func,
-    currentlySelectedCollection: PropTypes.object
+    playPauseTrack: PropTypes.func
 }
 
 export default Album;

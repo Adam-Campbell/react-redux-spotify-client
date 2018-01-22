@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TrackWithNumber from './TrackWithNumber';
+import TrackWithImage from './TrackWithImage';
 
 
-const Album = props => {
+const Playlist = props => {
     return (
         <section className="album">
             <div className="album__header">
-                <img src={props.albumImage} alt="" className="album__image"></img>
+                <img src={props.playlistImage} alt="" className="album__image"></img>
                 <div className="album__info">
-                    <h1 className="heading heading--regular">{props.albumName}</h1>
-                    <p className="album__paragraph">{props.artistName}</p>
-                    <p className="album__paragraph">{props.releaseDate}</p>
+                    <h1 className="heading heading--regular">{props.playlistName}</h1>
+                    <p className="album__paragraph">{props.ownerName}</p>
                 </div>
             </div>
             <div className="album__tracks-container">
                 <ul className="track-collection__list">
                     {
-                        props.albumTracks.map(track => {
+                        props.playlistTracks.map(track => {
                             return (
-                                <TrackWithNumber 
+                                <TrackWithImage 
                                 trackName={track.trackName}
                                 trackID={track.trackID}
                                 key={track.trackID}
@@ -35,21 +34,21 @@ const Album = props => {
                         })
                     }
                 </ul>
-            </div>
+            </div>   
         </section>
     );
 }
 
 
-Album.propTypes = {
-    albumName: PropTypes.string,
-    artistName: PropTypes.string,
-    albumID: PropTypes.string,
-    releaseDate: PropTypes.string,
-    albumImage: PropTypes.string,
-    albumTracks: PropTypes.array,
+Playlist.propTypes = {
+    playlistName: PropTypes.string,
+    playlistID: PropTypes.string,
+    playlistImage: PropTypes.string,
+    ownerID: PropTypes.string,
+    ownerName: PropTypes.string,
+    playlistTracks: PropTypes.array,
     playPauseTrack: PropTypes.func,
     currentlySelectedCollection: PropTypes.object
 }
 
-export default Album;
+export default Playlist;

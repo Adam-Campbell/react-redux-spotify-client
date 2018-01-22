@@ -95,14 +95,14 @@ import AlbumsOverview from './AlbumsOverview';
 import RelatedArtistsOverview from './RelatedArtistsOverview';
 import ArtistCollection from './ArtistCollection';
 import AlbumCollection from './AlbumCollection';
-import TrackCollection from './TrackCollection';
+import InlineTrackCollection from './InlineTrackCollection';
 
 
 
 const ArtistOverview = props => {
     return (
-        <div className="container">
-            <TrackCollection 
+        <div>
+            <InlineTrackCollection 
                 trackArray={props.artistInfo.topTracks}
                 title="Popular Tracks"
                 playPauseTrack={props.playPauseTrack}

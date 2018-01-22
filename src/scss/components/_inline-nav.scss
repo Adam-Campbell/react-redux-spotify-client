@@ -21,9 +21,10 @@
         font-weight: $font-weight--regular;
         font-size: em(16px);
         color: $color--white;
-    }
-    &__link-active {
-        border-bottom: solid $color--brand-green 2px;
-        box-sizing: initial;
+        border-bottom: solid 2px transparent;
+        transition: border-bottom ease-in-out 0.25s;
+        &.active {
+            border-bottom: solid $color--brand-green 2px;
+        }
     }
 }

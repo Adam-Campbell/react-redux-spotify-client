@@ -10,7 +10,9 @@
     &.is-selected {
         color: $color--brand-green;
     }
-    & .fa-play-circle {
+    & .fa-play-circle,
+    & .fa-pause-circle,
+    & .svg-inline--fa {
         margin-left: 16px;
         margin-right: 16px;
         font-size: 24px;

@@ -9,12 +9,13 @@ import AlbumsOverview from './AlbumsOverview';
 import RelatedArtistsOverview from './RelatedArtistsOverview';
 import ArtistCollection from './ArtistCollection';
 import AlbumCollection from './AlbumCollection';
-import TrackCollection from './TrackCollection';
+//import TrackCollection from './TrackCollection';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ArtistOverview from './ArtistOverview';
 import AlbumsView from './AlbumsView';
 import RelatedArtistsView from './RelatedArtistsView';
 import SingularAlbum from './SingularAlbum';
+import InlineNav from './InlineNav';
 
 class ArtistGroupView extends Component {
 
@@ -31,10 +32,12 @@ class ArtistGroupView extends Component {
         return (
             <div>
                 <ArtistHeader 
-                    image={this.props.artistInfo.artistImage}
-                    name={this.props.artistInfo.artistName}
+                    artistImage={this.props.artistInfo.artistImage}
+                    artistName={this.props.artistInfo.artistName}
                     genres={this.props.artistInfo.genres}
                 />
+
+                <InlineNav />
                     
                         <Switch>
                             <Route 

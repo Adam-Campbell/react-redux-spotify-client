@@ -5,9 +5,9 @@ import CategoryCollectionItem from './CategoryCollectionItem';
 const CategoryCollection = props => {
     //console.log(props.categoryArray);
     return (
-        <section className="album-collection">
-            <h2 className="album-collection__title">{props.title}</h2>
-            <div className="album-collection__container">
+        <section className="card-collection">
+            <h1 className="heading heading--regular">{props.title}</h1>
+            <div className="card-collection__container">
                 {
                     props.categoryArray.map(category => {
                         return (
