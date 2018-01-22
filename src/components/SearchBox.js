@@ -11,11 +11,11 @@ class SearchBox extends Component {
 
     render() {
         return (
-            <section className="search">
-                <p className="search__label">Search for an artist</p>
+            <section className="search-box">
+                <p className="search-box__label">Search for an artist</p>
                 <input 
                     type="text" 
-                    className="search__input" 
+                    className="search-box__input" 
                     placeholder="Start typing..."
                     value={this.props.currentSearch}
                     onChange={

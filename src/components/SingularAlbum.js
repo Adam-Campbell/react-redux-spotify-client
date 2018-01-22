@@ -8,7 +8,7 @@ const SingularAlbum = props => {
     const album = props.artistInfo.albums[albumIndex];
 
     return (
-        <div className="container">
+        <div>
             <Album 
                 albumName={album.albumName}
                 artistName={album.artistName}

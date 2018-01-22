@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import UserHeader from './UserHeader';
-import TrackCollection from './TrackCollection';
+import InlineTrackCollection from './InlineTrackCollection';
 import ArtistCollection from './ArtistCollection';
 import PlaylistCollection from './PlaylistCollection';
 
 
-class UserProfile extends Component {
+class UserProfileView extends Component {
 
     componentDidMount() {
         if(!this.props.userInfo.userID) {
@@ -23,12 +23,12 @@ class UserProfile extends Component {
             );
         } else {
             return (
-                <div className="container">
+                <div>
                     <UserHeader 
                         userName={this.props.userInfo.userName}
                         userImage={this.props.userInfo.userImage}
                     />
-                    <TrackCollection 
+                    <InlineTrackCollection 
                         trackArray={this.props.userInfo.recentTracks || []}
                         title="Recently Played Tracks"
                         playPauseTrack={this.props.playPauseUserRecentTrack}
@@ -82,4 +82,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);

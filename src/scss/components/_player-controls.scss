@@ -9,6 +9,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
     transform: translateY(100%);
     transition: transform ease-in-out 0.25s;
     z-index: 1000;
@@ -26,9 +28,22 @@
     padding: 8px;
     .svg-inline--fa,
     .fas {
-        font-size: 20px;
+        font-size: 24px;
         margin: auto 4px;
+        vertical-align: middle;
     }
+    .fa-sync-alt {
+        font-size: 16px;
+        margin-left: 24px;
+    }
+    .fa-random {
+        font-size: 16px;
+        margin-right: 24px;
+    }
+}
+
+.icon--green {
+    color: $color--brand-green;
 }
 
 .progress-bar--outer {
@@ -49,23 +64,29 @@
 .track-info {
     display: flex;
     align-items: center;
+    width: 100%;
     @media(min-width: 768px) {
         position: absolute; 
-        left: 20px;       
+        left: 20px; 
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(50% - 140px)      
     }
     &__image {
         display: none;
         @media(min-width: 768px) {
-            display: initial;
+            display: block;
             width: 50px;
             height: 50px;
         }
     }
     &__text-container {
         text-align: center;
+        width: 100%;
         @media(min-width: 768px) {
             margin-left: 8px;
             text-align: left;
+            width: calc(100% - 60px)
         }
     }
     &__track-name {
@@ -74,6 +95,9 @@
         font-size: em(14px);
         margin-top: 4px;
         margin-bottom: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     &__artist-name {
         font-family: $font-stack--secondary;
@@ -81,5 +105,8 @@
         font-size: em(12px);
         margin-top: 0;
         margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faArrowAltCircleRight from '@fortawesome/fontawesome-free-solid/faArrowAltCircleRight';
 
 const ArtistCollectionItem = props => {
     return (
-        <div className="artist-collection-item">
-            <Link
-                to="/artist"
-                className="artist-collection-item__link"
+        <div className="card-collection__card-holder">
+            <Link 
+                to="/artist/overview"
+                className="card"
                 onClick={() => props.fetchArtist(props.artistID, props.accessToken)}
             >
-                <div
-                    className="artist-collection-item__image"
-                    style={{backgroundImage: `url('${props.artistImage}')`}}
-                >
+                <div className="card__image-outer card__image-outer--rounded">
+                    <div className="card__image-inner" style={{backgroundImage: `url('${props.artistImage}')`}}></div>
+                    <div className="card__image-overlay">
+                        <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                    </div>
                 </div>
-                <p className="artist-collection-item__name">{props.artistName}</p>
+                <p className="card__text">{props.artistName}</p>
             </Link>
         </div>
     );

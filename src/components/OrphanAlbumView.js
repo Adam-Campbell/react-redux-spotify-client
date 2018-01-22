@@ -6,7 +6,7 @@ import Album from './Album';
 
 
 
-class OrphanAlbum extends Component {
+class OrphanAlbumView extends Component {
 
 
     componentDidMount() {
@@ -20,19 +20,16 @@ class OrphanAlbum extends Component {
         if (this.props.orphanAlbums.hasOwnProperty(albumID)) {
             const album = this.props.orphanAlbums[albumID];
             return (
-                <div className="container">
-                    <Album 
-                        albumName={album.albumName}
-                        artistName={album.artistName}
-                        albumID={album.albumID}
-                        key={album.albumID}
-                        releaseDate={album.releaseDate}
-                        albumImage={album.albumImage}
-                        albumTracks={album.albumTracks}
-                        playPauseTrack={this.props.playPauseOrphanAlbumTrack}
-                        currentlySelectedCollection={this.props.currentlySelectedCollection}
-                    />
-                </div> 
+                <Album 
+                    albumName={album.albumName}
+                    albumID={album.albumID}
+                    artistName={album.artistName}
+                    releaseDate={album.releaseDate}
+                    albumImage={album.albumImage}
+                    albumTracks={album.albumTracks}
+                    playPauseTrack={this.props.playPauseOrphanAlbumTrack}
+                    currentlySelectedCollection={this.props.currentlySelectedCollection}
+                />
             );
         } else if (this.props.isFetchingOrphanAlbum) {
             return (
@@ -70,5 +67,5 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrphanAlbum);
+export default connect(mapStateToProps, mapDispatchToProps)(OrphanAlbumView);
 

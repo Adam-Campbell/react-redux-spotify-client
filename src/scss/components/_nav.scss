@@ -1,30 +1,49 @@
 .nav {
+    margin-top: 45px;
     &__list {
 
     }
-    &__item {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        border-bottom: solid 1px $color--white;
+    &__list-item {
+        padding: 0 8px;
     }
     &__link {
+        padding: 8px;
+        display: block;
         font-family: $font-stack--secondary;
         font-weight: $font-weight--light;
-        color: $color--white;
         font-size: em(16px);
+        color: $color--white;
+        border-bottom: solid 1px $color--white;
+    }
+    &__sub-nav-label {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--bold;
+        font-size: em(16px);
+    }
+    &__sub-nav {
+        padding-left: 16px;
+    }
+    &__sub-nav-list-item {
+        padding: 0 8px;
+    }
+    &__sub-nav-link {
+        padding: 8px;
         display: block;
-        padding-top: 8px;
-        padding-bottom: 8px;
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(16px);
+        color: $color--white;
+        border-bottom: solid 1px $color--white;
     }
 }
 
-.nav-container {
-    background-color: $color--brand-grey-darkened;
-    position: absolute;
-    top: 0;
-    left: 0;
-    min-height: 100vh;
-    width: 200px;
-    padding: 50px 20px;
-    position: fixed;
+.nav__link.active,
+.nav__sub-nav-link.active {
+    color: $color--brand-green;
+}
+
+.nav__link:hover,
+.nav__sub-nav-link:hover {
+    color: $color--brand-grey;
+    background-color: rgba(255,255,255,0.8);
 }

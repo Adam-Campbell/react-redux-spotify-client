@@ -1,17 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faArrowAltCircleRight from '@fortawesome/fontawesome-free-solid/faArrowAltCircleRight';
 
 const AlbumCollectionItem = props => {
     return (
-        <div className="album-collection-item">
-            <Link to={`/artist/album/${props.albumID}`} className="album-collection-item__link">
-                <img src={props.albumImage} alt="" className="album-collection-item__image"></img>
-                <p className="album-collection-item__name">{props.albumName}</p>
+        <div className="card-collection__card-holder">
+            <Link 
+                to={`/artist/album/${props.albumID}`}
+                className="card"
+            >
+                <div className="card__image-outer">
+                    <div className="card__image-inner" style={{backgroundImage: `url('${props.albumImage}')`}}></div>
+                    <div className="card__image-overlay">
+                        <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                    </div>
+                </div>
+                <p className="card__text">{props.albumName}</p>
             </Link>
         </div>
     );
 }
+
+
+
 
 AlbumCollectionItem.propTypes = {
     albumImage: PropTypes.string,

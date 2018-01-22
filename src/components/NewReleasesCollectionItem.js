@@ -1,14 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faArrowAltCircleRight from '@fortawesome/fontawesome-free-solid/faArrowAltCircleRight';
 
 const NewReleasesCollectionItem = props => {
     return (
-        <div className="album-collection-item">
-            <Link to={`/album/${props.albumID}`} className="album-collection-item__link">
-                <img src={props.albumImage} alt="" className="album-collection-item__image"></img>
-                <p className="album-collection-item__name">{props.albumName}</p>
-                <p className="album-collection-item__postText">{props.artistName}</p>
+        <div className="card-collection__card-holder">
+            <Link 
+                to={`/album/${props.albumID}`}
+                className="card"
+            >
+                <div className="card__image-outer">
+                    <div className="card__image-inner" style={{backgroundImage: `url('${props.albumImage}')`}}></div>
+                    <div className="card__image-overlay">
+                        <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                    </div>
+                </div>
+                <p className="card__text card__text--condensed">{props.albumName}</p>
+                <p className="card__text--small">{props.artistName}</p>
             </Link>
         </div>
     );
@@ -18,7 +28,7 @@ const NewReleasesCollectionItem = props => {
 NewReleasesCollectionItem.propTypes = {
     albumName: PropTypes.string,
     albumID: PropTypes.string,
-    albummage: PropTypes.string,
+    albumImage: PropTypes.string,
     artistName: PropTypes.string,
     artistID: PropTypes.string
 }

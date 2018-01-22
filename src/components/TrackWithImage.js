@@ -4,16 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlayCircle from '@fortawesome/fontawesome-free-solid/faPlayCircle';
 import faPauseCircle from '@fortawesome/fontawesome-free-solid/faPauseCircle';
 
-//
-//  we need to know if identifier is the same as collectionKey
-//      If so then find the index position of the track that matches this tracks trackID.   
-//      Then locally save the two booleans off of that track. These are the booleans you use
-//      to render the DOM appropriately.
-//
-
-
-const TrackCollectionItem = props => {
-
+const TrackWithImage = props => {
     let isPlaying = false;
     let isCurrentlySelected = false;
     const {collection, collectionKey} = props.currentlySelectedCollection;
@@ -25,7 +16,7 @@ const TrackCollectionItem = props => {
 
     return (
         <li 
-            className={(isCurrentlySelected) ? "track-collection-item is-selected" : "track-collection-item" }
+            className={(isCurrentlySelected) ? "track is-selected" : "track" }
             onClick={() => {
                         if (props.previewURL) {    
                             props.playPauseTrack();
@@ -35,24 +26,12 @@ const TrackCollectionItem = props => {
                     }
                 }   
         >
-            <img className="track-collection-item__image" src={props.albumImage} alt=""></img>
+            <img className="track__image" src={props.albumImage} alt=""></img>
             <FontAwesomeIcon icon={(isPlaying) ? faPauseCircle : faPlayCircle} />
-            <p className="track-collection-item__name">{props.trackName}</p>
-            <span className="track-collection-item__length">{props.duration}</span>
+            <p className="track__name">{props.trackName}</p>
+            <span className="track__duration">{props.duration}</span>
         </li>  
-    )
+    );
 }
 
-TrackCollectionItem.propTypes = {
-    trackName: PropTypes.string,
-    trackID: PropTypes.string,
-    albumImage: PropTypes.string,
-    duration: PropTypes.string,
-    previewURL: PropTypes.string,
-    identifier: PropTypes.string,
-    isPlaying: PropTypes.bool,
-    isCurrentlySelected: PropTypes.bool,
-    playPauseTrack: PropTypes.func
-}
-
-export default TrackCollectionItem;
+export default TrackWithImage;

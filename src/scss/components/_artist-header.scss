@@ -1,76 +1,61 @@
 .artist-header {
     position: relative;
+    width:100%;
     min-height: 320px;
     @media(min-width: 768px) {
         display: flex;
         align-items: flex-start;
-        position: static;
-        min-height: 0;
         padding: 20px;
+    }
+    &__background-image-holder {
+        background: linear-gradient(rgba(17,17,17,0.2), rgba(17,17,17,1)), url('https://i.scdn.co/image/c1b216802d3f28bd0c2c594e76705db7fdc0754d');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        @media(min-width: 768px) {
+            filter: blur(5px);
+        }
     }
     &__image {
         display: none;
         @media(min-width: 768px) {
-            display: initial;
+            display: block;
             width: 280px;
+            min-width: 280px;
             height: auto;
+            z-index: 100;
         }
-        @media(min-width: 1000px) {
-            width: 360px;
+        @media(min-width: 1080px) {
+            width: 320px;
+            min-width: 320px;
         }
     }
-    &__background-image {
-        background: linear-gradient(rgba(17,17,17,0.2), rgba(17,17,17,1)), url('/img/profile.jpg');
-        background-position-x: center;
+    &__content-holder {
+        padding: 20px;
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        @media(min-width: 768px) {
-            display: none;
-            position: absolute;
-        }
-    }
-    &__info-container {
-        padding: 20px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
         justify-content: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
         @media(min-width: 768px) {
-            align-self: stretch;
-            justify-content: center;
+            position: static;
+            z-index: 100;
+            margin-left: 32px;
             align-items: flex-end;
             text-align: right;
-            flex-grow: 1;
-            position: static;
-            top: initial;
-            left: initial;
-            width: initial;
-            height: initial;
+            padding: 0;
+            align-self: center;
         }
-        
     }
-    &__artist-name {
-        font-family: $font-stack--primary;
-        font-weight: $font-weight--bold;
-        font-size: em(42px);
-        color: $color--white;
-        margin-top: 0;
-        margin-bottom: 24px;
-        line-height: 1.4;
-    }
-    &__artist-genres {
-        font-family: $font-stack--secondary;
-        font-weight: $font-weight--light;
-        font-size: em(16px);
-        color: $color--white;
-        margin: 0;
+    &__genre-block-holder {
+        max-width: 500px;
     }
 }

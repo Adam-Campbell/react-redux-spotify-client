@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 const TopBar = () => {
 
     function toggleNav() {
-        document.querySelector('.main-container').classList.toggle('nav-open');
+        document.getElementById('root').classList.toggle('nav-open');
     }
 
     return (
         <div className="top-bar">
-            <div id="nav-toggle" className="nav-toggle" onClick={toggleNav}>
-                <span className="nav-toggle__line nav-toggle__line--1"></span>
-                <span className="nav-toggle__line nav-toggle__line--2"></span>
-                <span className="nav-toggle__line nav-toggle__line--3"></span>
+            <div id="navToggle" className="nav-toggle" onClick={toggleNav}>
+                <span className="nav-toggle__line nav-toggle__line-1"></span>
+                <span className="nav-toggle__line nav-toggle__line-2"></span>
+                <span className="nav-toggle__line nav-toggle__line-3"></span>
             </div>
         </div>
     );

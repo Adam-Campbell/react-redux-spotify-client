@@ -4,7 +4,7 @@ import Album from './Album';
 
 const AlbumsView = props => {
     return (
-        <div className="container">
+        <div>
             {
                 props.artistInfo.albums.map(album => {
                     return (

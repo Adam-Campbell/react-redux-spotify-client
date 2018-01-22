@@ -1,150 +1,3 @@
-/*
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as ActionCreators from '../actions';
-
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faPlayCircle from '@fortawesome/fontawesome-free-solid/faPlayCircle';
-import faPauseCircle from '@fortawesome/fontawesome-free-solid/faPauseCircle';
-import faStepBackward from '@fortawesome/fontawesome-free-solid/faStepBackward';
-import faStepForward from '@fortawesome/fontawesome-free-solid/faStepForward';
-import { skipTrackBackwards } from '../actions';
-
-class PlayerControls extends Component {
-
-    constructor() {
-        super();
-        this.findSelectedTrack = this.findSelectedTrack.bind(this);
-    }
-
-    findSelectedTrack() {
-        let selectedTrack;
-        if(!this.props.artistInfo.artistID) return false;
-        this.props.artistInfo.topTracks.forEach(track => {
-            if (track.isCurrentlySelected) {
-                selectedTrack = track;
-            }
-        });
-        if (selectedTrack) return selectedTrack;
-        this.props.artistInfo.albums.forEach(album => {
-            album.albumTracks.forEach(track => {
-                if (track.isCurrentlySelected) {
-                    selectedTrack = track;
-                }
-            });
-        });
-        if (selectedTrack) {
-            return selectedTrack;
-        } else {
-            return false;
-        }
-        
-    }
-
-    scrubTrack(e) {
-        const audio = document.getElementById('audioElem');
-        const { width, x } = document.querySelector('.progress-bar--outer').getBoundingClientRect();
-        const scrubTo = e.clientX - x; 
-        const percent = (scrubTo * 100) / width;
-        audio.currentTime = (audio.duration / 100) * percent;
-    }
-
-    componentDidUpdate() {
-        let au = document.getElementById('audioElem');
-        let curr = this.findSelectedTrack();
-        let progBarInner = document.querySelector('.progress-bar--inner');
-        if (curr.isPlaying) {
-            au.play();
-        } else {
-            au.pause();
-        }
-        setInterval(() => {
-            progBarInner.style.width =`${(au.currentTime * 100) / au.duration}%`;
-        }, 50);
-        
-
-    }
-
-    
-
-    render() {
-        const selectedTrack = this.findSelectedTrack();
-        return (
-            <section className={(selectedTrack) ? "player-controls show-player" : "player-controls"}>
-
-                <div className="track-info">
-                    <img className="track-info__image" src={selectedTrack.albumImage}></img>
-                    <div className="track-info__text-container">
-                        <p className="track-info__track-name">{selectedTrack.trackName}</p>
-                        <p className="track-info__artist-name">{selectedTrack.artistName}</p>
-                    </div>
-                </div>
-
-                <div className="controls-container">
-                    <FontAwesomeIcon 
-                        icon={faStepBackward} 
-                        onClick={this.props.skipTrackBackwards}
-                    />
-                    <FontAwesomeIcon 
-                        icon={(selectedTrack.isPlaying) ? faPauseCircle : faPlayCircle} 
-                        onClick={() => this.props.playPauseTrack(selectedTrack.trackID)}
-                    />
-                    <FontAwesomeIcon 
-                        icon={faStepForward}
-                        onClick={this.props.skipTrackForwards} 
-                    />
-                    <div 
-                        className="progress-bar--outer"
-                        onClick={this.scrubTrack}
-                    >
-                        <div className="progress-bar--inner"></div>
-                    </div>
-                </div>
-                <audio 
-                    id="audioElem" 
-                    src={selectedTrack.previewURL}
-                    onEnded={this.props.skipTrackForwards}
-                >
-                </audio>
-
-            </section>
-        );
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        artistInfo: state.artistInfo
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        playPauseTrack(trackID) {
-            dispatch(
-                ActionCreators.playPauseTrack(trackID)
-            );
-        },
-        skipTrackForwards() {
-            dispatch(
-                ActionCreators.skipTrackForwards()
-            );
-        },
-        skipTrackBackwards() {
-            dispatch(
-                ActionCreators.skipTrackBackwards()
-            );
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerControls);
-
-*/
-
-
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -243,7 +96,12 @@ class PlayerControls extends Component {
                 <div className="controls-container">
 
                     <FontAwesomeIcon 
-                        icon={faRandom} 
+                        icon={faRandom}
+                        className={
+                            (this.props.currentlySelectedCollection.isShuffled) ?
+                            "icon--green" :
+                            ""
+                        } 
                         onClick={
                             () => {
                                 if (this.props.currentlySelectedCollection.isShuffled) {
@@ -277,6 +135,11 @@ class PlayerControls extends Component {
                     />
                     <FontAwesomeIcon 
                         icon={faSyncAlt}
+                        className={
+                            (this.props.currentlySelectedCollection.isRepeating) ?
+                            "icon--green" :
+                            ""
+                        } 
                         onClick={this.props.toggleRepeat} 
                     />
                     <div 

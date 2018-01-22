@@ -3,20 +3,16 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from './actions';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import SearchView from './components/SearchView';
 import SignIn from './components/SignIn';
-import LandingView from './components/LandingView';
-import ArtistOverview from './components/ArtistOverview';
-import AlbumsView from './components/AlbumsView';
 import Navigation from './components/Navigation';
 import TopBar from './components/TopBar';
-import RelatedArtistsView from './components/RelatedArtistsView';
 import PlayerControls from './components/PlayerControls';
-import UserProfile from './components/UserProfile';
+import UserProfileView from './components/UserProfileView';
 import BrowseView from './components/BrowseView';
 import ArtistGroupView from './components/ArtistGroupView';
-import OrphanAlbum from './components/OrphanAlbum';
+import OrphanAlbumView from './components/OrphanAlbumView';
 import CategoryView from './components/CategoryView';
 import PlaylistView from './components/PlaylistView';
 
@@ -47,19 +43,18 @@ class App extends Component {
                 <BrowserRouter>
                     <div>
                         <Navigation accessToken={this.props.accessToken}/>
+                        <TopBar />
                         <div className="main-container">
-                            <TopBar />
+                            
                             <Switch>
-                                <Route exact path="/" component={SearchView} />
+                                <Route exact path="/" render={() => <Redirect to="/browse"/>} />
                                 <Route path="/search" component={SearchView}/>
                                 <Route path="/artist" component={ArtistGroupView} />
-                                <Route path="/albums" component={AlbumsView} />
-                                <Route path="/related-artists" component={RelatedArtistsView} />
-                                <Route path="/me" component={UserProfile} />
+                                <Route path="/me" component={UserProfileView} />
                                 <Route path="/browse" component={BrowseView} />
                                 <Route 
                                     path="/album/:albumID" 
-                                    render={({match}) => <OrphanAlbum albumID={match.params.albumID} />}
+                                    render={({match}) => <OrphanAlbumView albumID={match.params.albumID} />}
                                 />
                                 <Route 
                                     path="/category/:category"

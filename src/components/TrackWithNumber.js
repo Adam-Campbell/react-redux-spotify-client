@@ -4,7 +4,9 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlayCircle from '@fortawesome/fontawesome-free-solid/faPlayCircle';
 import faPauseCircle from '@fortawesome/fontawesome-free-solid/faPauseCircle';
 
-const AlbumTrack = props => {
+
+
+const TrackWithNumber = props => {
 
     let isPlaying = false;
     let isCurrentlySelected = false;
@@ -17,7 +19,7 @@ const AlbumTrack = props => {
 
     return (
         <li 
-            className={(isCurrentlySelected) ? "album-track is-selected" : "album-track" }
+            className={(isCurrentlySelected) ? "track is-selected" : "track" }
             onClick={() => {
                     if (props.previewURL) {    
                         props.playPauseTrack();
@@ -28,21 +30,12 @@ const AlbumTrack = props => {
             }
         >
             <FontAwesomeIcon icon={(isPlaying) ? faPauseCircle : faPlayCircle} />
-            <span className="album-track__number">{props.trackNumber}</span>
-            <p className="album-track__name">{props.trackName}</p>
-            <span className="album-track__length">{props.duration}</span>
+            <span className="track__number">{props.trackNumber}</span>
+            <p className="track__name">{props.trackName}</p>
+            <span className="track__duration">{props.duration}</span>
         </li>
     );
 }
 
-AlbumTrack.propTypes = {
-    trackName: PropTypes.string,
-    trackID: PropTypes.string,
-    duration: PropTypes.string,
-    trackNumber: PropTypes.number,
-    albumImage: PropTypes.string,
-    previewURL: PropTypes.string,
-    playPauseTrack: PropTypes.func
-}
 
-export default AlbumTrack;
+export default TrackWithNumber;

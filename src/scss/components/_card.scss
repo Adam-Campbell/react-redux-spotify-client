@@ -1,0 +1,81 @@
+.card {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    background-color: $color--brand-grey-lightened;
+    border-radius: 4px;
+    text-align: center;
+    &__image {
+        width: 100%;
+        height: auto;
+    }
+    &__image-outer {
+        width: 100%;
+        padding-bottom: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    &__image-outer--rounded {
+        border-radius: 100%;
+    }
+    &__image-inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: all ease-out 0.25s;
+    }
+    &__image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all ease-out 0.25s;
+    }
+    &__text {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--regular;
+        font-size: em(16px);
+        color: $color--white;
+    }
+    &__text--condensed {
+        margin-bottom: 4px;
+    }
+    &__text--small {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(12px);
+        color: $color--white;
+    }
+
+    & .fa-arrow-alt-circle-right {
+        color: $color--white;
+        font-size: em(36px);
+        transform: translateX(-300px);
+        transition: transform ease-out 0.25s;
+    }
+}
+
+
+// hover styles
+
+.card:hover {
+    & .card__image-inner {
+        transform: scale(1.25);
+    }
+    & .card__image-overlay {
+        background-color: rgba(17,17,17,0.6);
+    }
+    & .fa-arrow-alt-circle-right {
+        transform: translateX(0);
+    }
+}

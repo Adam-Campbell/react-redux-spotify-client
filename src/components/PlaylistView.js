@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
-import TrackCollectionItem from './TrackCollectionItem';
+import Playlist from './Playlist';
 
 class PlaylistView extends Component {
 
@@ -17,36 +17,16 @@ class PlaylistView extends Component {
         if (this.props.playlists.hasOwnProperty(playlistID)) {
             const playlist = this.props.playlists[playlistID];
             return (
-                <div className="container">
-                    <section className="album">
-                        <div className="album__header">
-                            <img src={playlist.playlistImage} alt="" className="album__image"></img>
-                            <div className="album__info">
-                                <h1 className="album__title">{playlist.playlistName}</h1>
-                                <p className="album__artist">{`A playlist by ${playlist.ownerName}`}</p>
-                            </div>
-                        </div>
-                        <ul className="album__tracks-list">
-                            {
-                                playlist.playlistTracks.map(track => {
-                                    return (
-                                        <TrackCollectionItem 
-                                            trackName={track.trackName}
-                                            trackID={track.trackID}
-                                            key={track.trackID}
-                                            albumImage={track.albumImage}
-                                            duration={track.duration}
-                                            identifier={track.identifier}
-                                            previewURL={track.previewURL}
-                                            currentlySelectedCollection={this.props.currentlySelectedCollection}
-                                            playPauseTrack={() => this.props.playPausePlaylistTrack(track.trackID, track.identifier)}
-                                        />
-                                    )
-                                })
-                            }
-                        </ul>
-                    </section>
-                </div>
+                <Playlist 
+                    playlistName={playlist.playlistName}
+                    playlistID={playlist.playlistID}
+                    playlistImage={playlist.playlistImage}
+                    ownerID={playlist.ownerID}
+                    ownerName={playlist.ownerName}
+                    playlistTracks={playlist.playlistTracks}
+                    playPauseTrack={this.props.playPausePlaylistTrack}
+                    currentlySelectedCollection={this.props.currentlySelectedCollection}
+                />
             );
         } else {
             return null;
@@ -54,6 +34,9 @@ class PlaylistView extends Component {
     }
 
 }
+
+
+
 
 
 const mapStateToProps = state => {

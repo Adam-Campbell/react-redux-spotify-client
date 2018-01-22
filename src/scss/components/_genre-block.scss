@@ -1,0 +1,18 @@
+.genre-block {
+    background-color: $color--brand-green;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 6px 16px;
+    margin: 6px  4px;
+    &__text {
+        text-transform: capitalize;
+        margin: 0 0 0 8px;
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--bold; 
+        font-size: em(12px);
+        display: inline-block;   
+    }
+    & .fa-music {
+        font-size: 12px;
+    }
+}
