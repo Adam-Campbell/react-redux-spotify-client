@@ -10,6 +10,7 @@ import faStepBackward from '@fortawesome/fontawesome-free-solid/faStepBackward';
 import faStepForward from '@fortawesome/fontawesome-free-solid/faStepForward';
 import faRandom from '@fortawesome/fontawesome-free-solid/faRandom';
 import faSyncAlt from '@fortawesome/fontawesome-free-solid/faSyncAlt';
+import faCaretUp from '@fortawesome/fontawesome-free-solid/faCaretUp';
 
 
 class PlayerControls extends Component {
@@ -45,8 +46,8 @@ class PlayerControls extends Component {
 
     scrubTrack(e) {
         const audio = document.getElementById('audioElem');
-        const { width, x } = document.querySelector('.progress-bar--outer').getBoundingClientRect();
-        const scrubTo = e.clientX - x; 
+        const { width, left } = document.querySelector('.progress-bar--outer').getBoundingClientRect();
+        const scrubTo = e.clientX - left; 
         const percent = (scrubTo * 100) / width;
         audio.currentTime = (audio.duration / 100) * percent;
     }
@@ -71,9 +72,14 @@ class PlayerControls extends Component {
         const oldKey = this.props.currentlySelectedCollection.collectionKey;
         const newKey = nextProps.currentlySelectedCollection.collectionKey;
         const au = document.getElementById('audioElem');
-        if (oldKey !== newKey) {
+        if (oldKey !== newKey && au.src) {
             au.currentTime = 0;
         }
+    }
+
+    toggleFullScreen() {
+        const player = document.querySelector('.player-controls');
+        player.classList.toggle('full-screen-player');
     }
 
     
@@ -83,7 +89,14 @@ class PlayerControls extends Component {
         const collection = this.props.currentlySelectedCollection.collection;
         const selectedTrack = collection[collection.findIndex(track => track.isCurrentlySelected)] || false;
         return (
+            
             <section className={(collection.length) ? "player-controls show-player" : "player-controls"}>
+            <div className="player-controls__inner-wrapper">
+
+                <FontAwesomeIcon 
+                    icon={faCaretUp}
+                    onClick={this.toggleFullScreen} 
+                />                
 
                 <div className="track-info">
                     <img className="track-info__image" src={selectedTrack.albumImage}></img>
@@ -164,8 +177,9 @@ class PlayerControls extends Component {
                     }
                 >
                 </audio>
-
+            </div>
             </section>
+           
         );
     }
 }

@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Album from './Album';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 const AlbumsView = props => {
     return (
-        <div>
+        <ReactCSSTransitionGroup
+            component="div"
+            transitionName="fade"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+        >
             {
                 props.artistInfo.albums.map(album => {
                     return (
@@ -22,7 +31,7 @@ const AlbumsView = props => {
                     );
                 })
             }
-        </div>
+        </ReactCSSTransitionGroup>
     );
 }
 

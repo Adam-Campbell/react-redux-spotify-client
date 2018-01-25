@@ -6,11 +6,20 @@ import ArtistCollection from './ArtistCollection';
 import AlbumCollection from './AlbumCollection';
 import InlineTrackCollection from './InlineTrackCollection';
 
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 
 const ArtistOverview = props => {
     return (
-        <div>
+        <ReactCSSTransitionGroup
+            component="div"
+            transitionName="fade"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+        >
             <InlineTrackCollection 
                 trackArray={props.artistInfo.topTracks}
                 title="Popular Tracks"
@@ -28,7 +37,7 @@ const ArtistOverview = props => {
                 accessToken={props.accessToken}
                 fetchArtist={props.fetchArtist}
             />
-        </div>
+        </ReactCSSTransitionGroup>
     );
 }
 

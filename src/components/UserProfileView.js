@@ -6,7 +6,7 @@ import UserHeader from './UserHeader';
 import InlineTrackCollection from './InlineTrackCollection';
 import ArtistCollection from './ArtistCollection';
 import PlaylistCollection from './PlaylistCollection';
-
+import Loader from './Loader';
 
 class UserProfileView extends Component {
 
@@ -19,7 +19,7 @@ class UserProfileView extends Component {
     render() {
         if (this.props.isFetchingUser) {
             return (
-                <p>Your profile information is being fetched</p>
+                <Loader />
             );
         } else {
             return (
@@ -57,7 +57,7 @@ const mapStateToProps = state => {
     return {
         userInfo: state.userInfo,
         isFetchingUser: state.isFetchingUser,
-        accessToken: state.accessToken,
+        accessToken: state.accessToken.token,
         currentlySelectedCollection: state.currentlySelectedCollection
     };
 }

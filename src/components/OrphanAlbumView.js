@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import Album from './Album';
+import Loader from './Loader';
 
 
 
@@ -33,7 +34,7 @@ class OrphanAlbumView extends Component {
             );
         } else if (this.props.isFetchingOrphanAlbum) {
             return (
-                <p>Currently fetching album!</p>
+                <Loader />
             )
         }
         else {
@@ -46,7 +47,7 @@ const mapStateToProps = state => {
     return {
         orphanAlbums: state.orphanAlbums,
         isFetchingOrphanAlbum: state.isFetchingOrphanAlbum,
-        accessToken: state.accessToken,
+        accessToken: state.accessToken.token,
         currentlySelectedCollection: state.currentlySelectedCollection
     }
 }

@@ -26,7 +26,7 @@ class SearchView extends Component {
 const mapStateToProps = state => {
     return {
         searchResults: state.searchResults,
-        accessToken: state.accessToken
+        accessToken: state.accessToken.token
     }
 }
 

@@ -6,6 +6,7 @@ import * as ActionCreators from '../actions';
 import PlaylistCollection from './PlaylistCollection';
 import CategoryCollection from './CategoryCollection';
 import NewReleasesCollection from './NewReleasesCollection';
+import Loader from './Loader';
 
 class BrowseView extends Component {
 
@@ -18,11 +19,11 @@ class BrowseView extends Component {
     render() {
         if (this.props.isFetchingHighlights) {
             return (
-                <p>Spotifys highlights are being fetched</p>
+                <Loader />
             );
         } else {
             return (
-                <div className="container">
+                <div>
                     <NewReleasesCollection 
                         newReleasesArray={
                                             (this.props.highlights.newReleases) ?
@@ -64,7 +65,7 @@ const mapStateToProps = state => {
     return {
         highlights: state.highlights,
         isFetchingHighlights: state.isFetchingHighlights,
-        accessToken: state.accessToken,
+        accessToken: state.accessToken.token,
     }
 }
 

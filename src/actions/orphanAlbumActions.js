@@ -29,7 +29,7 @@ function formatOrphanAlbum(album) {
         artistName: artistName,
         albumID: albumID,
         albumName: albumName,
-        releaseDate: album.release_date,
+        releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
         albumImage: (album.images.length) ? album.images[0].url : '',
         albumTracks: album.tracks.items.map(track => {
             return {

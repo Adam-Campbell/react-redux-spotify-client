@@ -25,24 +25,41 @@ class App extends Component {
     }
 
     checkForAccessToken() {
-        if(this.props.accessToken) {
+        console.log('checkForAccessToken was called');
+        const now = Date.now();
+        const thresh = 10000;
+        if(this.props.accessToken && now - this.props.accessToken.timestamp < thresh) {
+            console.log('first block was entered!');
             return true;
+        } else if (
+                window.localStorage.accessToken && 
+                now - JSON.parse(window.localStorage.accessToken).timestamp < thresh
+        ) { 
+            console.log('second block was entered!');
+            const accessToken = JSON.parse(window.localStorage.accessToken);
+            this.props.storeToken(accessToken);
+            return true; 
         } else if (window.location.hash) {
-            let token = window.location.hash.split('#access_token=')[1].split('&')[0];
-            this.props.storeToken(token); 
+            console.log('third block was entered!');
+            const accessToken = {
+                token: window.location.hash.replace(/.*access_token=([^&]+).*/, '$1'),
+                timestamp: Date.now()
+            };
+            window.localStorage.setItem('accessToken', JSON.stringify(accessToken));
+            this.props.storeToken(accessToken); 
             return true;
         } else {
+            console.log('final block was entered!');
             return false;
         }
     }
 
     render() {
-
         if (this.checkForAccessToken()) {
             return(
                 <BrowserRouter>
                     <div>
-                        <Navigation accessToken={this.props.accessToken}/>
+                        <Navigation accessToken={this.props.accessToken.token}/>
                         <TopBar />
                         <div className="main-container">
                             
@@ -69,15 +86,16 @@ class App extends Component {
                                             }
                                 />
                             </Switch>
-                            <PlayerControls />
+                            
                         </div>
+                        <PlayerControls />
+                        
                     </div>
                 </BrowserRouter>
             );
         } else {
-            return (
-                <SignIn />
-            );
+            window.location = "https://accounts.spotify.com/authorize?client_id=bc785a3e64da41a8a122a4458dc4afc3&response_type=token&redirect_uri=http:%2F%2Flocalhost:8080&show_dialog=false&scope=playlist-read-private,playlist-read-collaborative,user-follow-read,user-library-read,user-top-read,user-read-recently-played,user-read-playback-state";
+            return null;
         }
 
     }
@@ -105,4 +123,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

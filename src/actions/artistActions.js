@@ -90,7 +90,7 @@ function createAlbumsArray(data) {
             albumName: albumName,
             artistName: artistName,
             artistID: artistID,
-            releaseDate: album.release_date,
+            releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
             albumImage: (album.images.length) ? album.images[0].url : '',
             albumTracks: album.tracks.items.map(track => {
                 return {
