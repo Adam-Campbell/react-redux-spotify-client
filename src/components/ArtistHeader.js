@@ -10,15 +10,11 @@ const ArtistHeader = props => {
             <div 
                 className="artist-header__background-image-holder"
                 style={
-                    {
-                        background: `linear-gradient(rgba(17, 17, 17, 0.2), #111111), url("${props.artistImage}")`,
-                        backgroundPosition: 'center',
-                        backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat'
-                    }
+                    { backgroundImage: `url("${props.artistImage}")` }
                 }
             >
-            </div>    
+            </div>
+            <div className="artist-header__gradient-holder"></div>    
             <img className="artist-header__image" src={props.artistImage}></img>
             <div className="artist-header__content-holder">
                 <h1 className="heading heading--large">{props.artistName}</h1>

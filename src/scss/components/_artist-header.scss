@@ -6,9 +6,9 @@
         display: flex;
         align-items: flex-start;
         padding: 20px;
+        overflow: hidden;
     }
     &__background-image-holder {
-        background: linear-gradient(rgba(17,17,17,0.2), rgba(17,17,17,1)), url('https://i.scdn.co/image/c1b216802d3f28bd0c2c594e76705db7fdc0754d');
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -19,7 +19,16 @@
         width: 100%;
         @media(min-width: 768px) {
             filter: blur(5px);
+            //filter: url(#f1);
         }
+    }
+    &__gradient-holder {
+        background-image: linear-gradient(rgba(17,17,17,0.2), rgba(17,17,17,1));
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
     &__image {
         display: none;
@@ -29,6 +38,7 @@
             min-width: 280px;
             height: auto;
             z-index: 100;
+            align-self: center;
         }
         @media(min-width: 1080px) {
             width: 320px;
@@ -37,25 +47,26 @@
     }
     &__content-holder {
         padding: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        z-index: 100;
         @media(min-width: 768px) {
             position: static;
-            z-index: 100;
             margin-left: 32px;
             align-items: flex-end;
             text-align: right;
             padding: 0;
             align-self: center;
         }
+        & .heading {
+            z-index: inherit;
+        }
     }
     &__genre-block-holder {
         max-width: 500px;
+        z-index: inherit;
     }
 }

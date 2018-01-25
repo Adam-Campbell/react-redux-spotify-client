@@ -50,7 +50,7 @@ const mapStateToProps = state => {
     return {
         highlights: state.highlights,
         isFetchingHighlights: state.isFetchingHighlights,
-        accessToken: state.accessToken
+        accessToken: state.accessToken.token
     }
 }
 

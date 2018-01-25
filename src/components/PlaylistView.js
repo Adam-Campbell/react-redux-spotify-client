@@ -43,7 +43,7 @@ const mapStateToProps = state => {
     return {
         playlists: state.playlists,
         isFetchingPlaylist: state.isFetchingPlaylist,
-        accessToken: state.accessToken,
+        accessToken: state.accessToken.token,
         currentlySelectedCollection: state.currentlySelectedCollection
     };
 };

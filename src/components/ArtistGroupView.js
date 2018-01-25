@@ -9,13 +9,16 @@ import AlbumsView from './AlbumsView';
 import RelatedArtistsView from './RelatedArtistsView';
 import SingularAlbum from './SingularAlbum';
 import InlineNav from './InlineNav';
+import Loader from './Loader';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 
 class ArtistGroupView extends Component {
 
     render() {
         if (this.props.isFetchingArtist) {
             return (
-                <p>Artist is currently being fetched</p>
+                <Loader />
             )
         } else if (!this.props.artistInfo.artistID) {
             return (
@@ -31,7 +34,6 @@ class ArtistGroupView extends Component {
                 />
 
                 <InlineNav />
-                    
                         <Switch>
                             <Route 
                                 path={`${this.props.match.url}/albums`}
@@ -81,7 +83,6 @@ class ArtistGroupView extends Component {
                                 } 
                             />
                         </Switch>
-                   
                     
             </div>
         );
@@ -94,7 +95,7 @@ const mapStateToProps = state => {
     return {
         artistInfo: state.artistInfo,
         isFetchingArtist: state.isFetchingArtist,
-        accessToken: state.accessToken,
+        accessToken: state.accessToken.token,
         currentlySelectedCollection: state.currentlySelectedCollection
     }
 }
