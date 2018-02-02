@@ -1,5 +1,25 @@
 import * as ActionTypes from '../actiontypes';
+import { fetchWrapper } from './helpers';
 
+
+//
+// Exported thunk action
+//
+
+export function fetchCategory(token, id) {
+    return async function(dispatch) {
+        dispatch(requestCategory());
+        const categoryInfo = await fetchWrapper(`https://api.spotify.com/v1/browse/categories/${id}/playlists`, token);
+        const category = formatCategory(categoryInfo.playlists.items);  
+
+        dispatch(receiveCategory(category, id));
+    }
+}
+
+
+//
+// Other actions called by thunk (not exported)
+//
 
 function requestCategory() {
     return {
@@ -18,6 +38,10 @@ function receiveCategory(playlistArray, id) {
 }
 
 
+//
+// Helper functions 
+//
+
 function formatCategory(arr) {
     return arr.map(playlist => {
         return {
@@ -31,14 +55,5 @@ function formatCategory(arr) {
 
 
 
-export function fetchCategory(token, id) {
-    return async function(dispatch) {
-        dispatch(requestCategory());
-        const getCategory = await fetch(`https://api.spotify.com/v1/browse/categories/${id}/playlists?access_token=${token}`);
-        const getCategoryJSON = await getCategory.json();
 
-        const category = formatCategory(getCategoryJSON.playlists.items);        
-        dispatch(receiveCategory(category, id));
-    }
-}
 

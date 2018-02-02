@@ -1,7 +1,55 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec } from './helpers';
+import { convertMsToMinSec, fetchWrapper } from './helpers';
 
 
+//
+// Exported thunk action
+//
+
+export function fetchUserProfile(token) {
+    return async function(dispatch) {
+        // dispatch initial event
+        dispatch(requestUser());
+
+        // initiate the API calls for all the data we will need - in parellel
+        const userInfo = fetchWrapper('https://api.spotify.com/v1/me', token);
+        const usersTopTracks = fetchWrapper('https://api.spotify.com/v1/me/top/tracks', token);
+        const usersTopArtists = fetchWrapper('https://api.spotify.com/v1/me/top/artists', token);
+        const usersSavedPlaylists = fetchWrapper('https://api.spotify.com/v1/me/playlists', token);
+        const usersRecentTracks = fetchWrapper('https://api.spotify.com/v1/me/player/recently-played', token);
+        
+        // ensure we await all of the API calls before resuming
+        const userInfoComplete = await userInfo;
+        const usersTopTracksComplete = await usersTopTracks;
+        const usersTopArtistsComplete = await usersTopArtists;
+        const usersSavedPlaylistsComplete = await usersSavedPlaylists;
+        const usersRecentTracksComplete = await usersRecentTracks;
+
+        // take the info we got back and turn it into an object in the shape that we want
+        // our state to be in. 
+        const userObject = {
+            userName: userInfoComplete.display_name,
+            userID: userInfoComplete.id,
+            userImage: (userInfoComplete.images.length) ? userInfoComplete.images[0].url : '',
+            topTracks: formatUsersTopTracks(usersTopTracksComplete),
+            topArtists: formatUsersTopArtists(usersTopArtistsComplete),
+            playlists: formatUsersSavedPlaylists(usersSavedPlaylistsComplete),
+            recentTracks: formatUsersRecentTracks(usersRecentTracksComplete)
+        };
+
+        // then dispatch that object to the store for state to be updated
+        dispatch(receiveUser(userObject));
+        dispatch(setMarket(userInfoComplete.country));
+
+
+    }
+}
+
+
+
+//
+// Other actions called by thunk (not exported)
+//
 
 function requestUser() {
     return {
@@ -17,14 +65,18 @@ function receiveUser(userObject) {
 }
 
 
-function noParamFetch(url, token) {
-    const headers = new Headers();
-    headers.append('Authorization', `Bearer ${token}`);
-    const init = {
-        headers
+function setMarket(market) {
+    return {
+        type: ActionTypes.SET_MARKET,
+        payload: market
     };
-    return fetch(url, init);
 }
+
+
+
+//
+// Helper functions 
+//
 
 function formatUsersTopTracks(data) {
     return data.items.map(track => {
@@ -40,9 +92,6 @@ function formatUsersTopTracks(data) {
             albumImage: (track.album.images.length) ? track.album.images[0].url : '',
             isCurrentlySelected: false,
             isPlaying: false,
-            context: {
-                location: 'userTopTracks'
-            }
         }
     });
 }
@@ -89,47 +138,4 @@ function formatUsersRecentTracks(data) {
     return unfiltered.filter((el, index, arr) => {
         return (arr.findIndex(elem => elem.trackID === el.trackID) === index);
     }).slice(0,5)
-    
-}
-
-
-export function fetchUserProfile(token) {
-    return async function(dispatch) {
-        dispatch(requestUser());
-        const userObject = {};
-        // async magic here
-
-        const userInfo = noParamFetch('https://api.spotify.com/v1/me', token);
-        const usersTopTracks = noParamFetch('https://api.spotify.com/v1/me/top/tracks', token);
-        const usersTopArtists = noParamFetch('https://api.spotify.com/v1/me/top/artists', token);
-        const usersSavedPlaylists = noParamFetch('https://api.spotify.com/v1/me/playlists', token);
-        const usersRecentTracks = noParamFetch('https://api.spotify.com/v1/me/player/recently-played', token);
-
-        const userInfoComplete = await userInfo;
-        const userInfoJSON = await userInfoComplete.json();
-        userObject.userName = userInfoJSON.display_name;
-        userObject.userID = userInfoJSON.id;
-        userObject.userImage = (userInfoJSON.images.length) ? userInfoJSON.images[0].url : '';
-
-        const usersTopTracksComplete = await usersTopTracks;
-        const usersTopTracksJSON = await usersTopTracksComplete.json();
-        userObject.topTracks = formatUsersTopTracks(usersTopTracksJSON);
-
-        const usersTopArtistsComplete = await usersTopArtists;
-        const usersTopArtistsJSON = await usersTopArtistsComplete.json();
-        userObject.topArtists = formatUsersTopArtists(usersTopArtistsJSON);
-
-        const usersSavedPlaylistsComplete = await usersSavedPlaylists;
-        const usersSavedPlaylistsJSON = await usersSavedPlaylistsComplete.json();
-        userObject.playlists = formatUsersSavedPlaylists(usersSavedPlaylistsJSON);
-
-        const usersRecentTracksComplete = await usersRecentTracks;
-        const usersRecentTracksJSON = await usersRecentTracksComplete.json();
-        userObject.recentTracks = formatUsersRecentTracks(usersRecentTracksJSON);
-
-        // then dispatch it when done
-        dispatch(receiveUser(userObject));
-
-
-    }
 }

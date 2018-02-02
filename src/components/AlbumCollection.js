@@ -15,7 +15,6 @@ const AlbumCollection = props => {
                                 albumName={album.albumName}
                                 albumID={album.albumID}
                                 key={album.albumID}
-                                accessToken={props.accessToken}
                             />
                         )
                     })
@@ -28,7 +27,6 @@ const AlbumCollection = props => {
 AlbumCollection.propTypes = {
     albumArray: PropTypes.array,
     title: PropTypes.string,
-    accessToken: PropTypes.string
 }
 
 export default AlbumCollection;

@@ -38,6 +38,7 @@
     }
     &__info {
         padding: 16px 0;
+        max-width: 100%;
         @media(min-width: 768px) {
             padding-left: 16px;
         }
@@ -56,9 +57,21 @@
         margin-top: 8px;
         margin-bottom: 8px;
     }
+    &__link {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--regular;
+        color: $color--white;
+        font-size: em(16px);
+        margin-top: 8px;
+        margin-bottom: 8px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
     &__tracks-container {
         @media(min-width: 1000px) {
             flex-grow: 1;
+            min-width: 0;
         }
     }
 }

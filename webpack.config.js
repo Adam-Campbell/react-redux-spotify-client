@@ -9,7 +9,8 @@ module.exports = {
     },
     //entry: ['babel-polyfill', './src/index.js'],
     devServer: {
-        contentBase: './dist'
+        contentBase: './dist',
+        historyApiFallback: true
     },
     output: {
         filename: '[name].bundle.js',

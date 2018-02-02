@@ -52,6 +52,21 @@ class PlayerControls extends Component {
         audio.currentTime = (audio.duration / 100) * percent;
     }
 
+    changeVolume(e) {
+        //
+        //  - Work out position of event as a percentage of volume-control--outer height
+        //  - Set track volume to corresponding decimal
+        //  - Set volum-control--inner height to the percentage
+        const audio = document.getElementById('audioElem');
+        const volumeControl = document.querySelector('.volume-control--inner');
+        const { height, top } = document.querySelector('.volume-control--outer').getBoundingClientRect();
+        const posFromBottom = height - (e.clientY - top);
+        const percent = (posFromBottom * 100) / height;
+        const decimal = percent / 100;
+        volumeControl.style.height = `${percent}%`;
+        audio.volume = decimal;
+    }
+
     componentDidUpdate() {
         const collection = this.props.currentlySelectedCollection.collection;
         const selectedTrack = collection[collection.findIndex(track => track.isCurrentlySelected)] || false;
@@ -162,6 +177,12 @@ class PlayerControls extends Component {
                         <div className="progress-bar--inner"></div>
                     </div>
                 </div>
+                <div 
+                    className="volume-control--outer"
+                    onClick={this.changeVolume}
+                >
+                        <div className="volume-control--inner"></div>
+                </div>
                 <audio 
                     id="audioElem" 
                     src={selectedTrack.previewURL}
@@ -193,21 +214,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        playPauseTrack(trackID) {
-            dispatch(
-                ActionCreators.playPauseTrack(trackID)
-            );
-        },
-        skipTrackForwards() {
-            dispatch(
-                ActionCreators.skipTrackForwards()
-            );
-        },
-        skipTrackBackwards() {
-            dispatch(
-                ActionCreators.skipTrackBackwards()
-            );
-        },
         playPauseFromPlayer(trackID) {
             dispatch(
                 ActionCreators.playPauseFromPlayer(trackID)

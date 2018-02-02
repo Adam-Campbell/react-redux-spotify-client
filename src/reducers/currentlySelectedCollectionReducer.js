@@ -1,31 +1,36 @@
 import * as ActionTypes from '../actiontypes';
 
-
-export default function currentlySelectedCollection(state={ 
+const defaultState = {
     collectionKey: '', 
     collection: [], 
     isShuffled: false, 
     isRepeating: false 
-}, action) {
+};
+
+
+export default function currentlySelectedCollection(state=defaultState, action) {
     switch(action.type) {
 
         case ActionTypes.SWITCH_CURRENTLY_SELECTED_COLLECTION:
             return {
+                ...state,
                 collectionKey: action.payload.collectionKey,
-                collection: action.payload.collection,
-                isShuffled: state.isShuffled,
-                isRepeating: state.isRepeating
+                collection: action.payload.collection.map((track, index) => {
+                    return {
+                        ...track, 
+                        isCurrentlySelected: (track.trackID === action.payload.trackID) ? true : false,
+                        isPlaying: (track.trackID === action.payload.trackID) ? true : false,
+                        nonShuffledIndex: index
+                    }
+                })
             }
 
         case ActionTypes.UPDATE_CURRENTLY_SELECTED_COLLECTION:
             return {
-                isShuffled: state.isShuffled,
-                isRepeating: state.isRepeating,
-                collectionKey: state.collectionKey,
+                ...state,
                 collection: state.collection.map((track, index) => {
                     return {
                         ...track, 
-                        //nonShuffledIndex: index, 
                         isCurrentlySelected: (track.trackID === action.payload) ? true : false,
                         isPlaying: (track.trackID === action.payload) ? !track.isPlaying : false
                     }
@@ -34,9 +39,7 @@ export default function currentlySelectedCollection(state={
         
         case ActionTypes.PLAY_PAUSE_FROM_PLAYER:
             return {
-                isShuffled: state.isShuffled,
-                isRepeating: state.isRepeating,
-                collectionKey: state.collectionKey,
+                ...state,
                 collection: state.collection.map(track => {
                     return {
                         ...track, 
@@ -48,34 +51,28 @@ export default function currentlySelectedCollection(state={
 
         case ActionTypes.SKIP_TO_NEXT_TRACK:
             return {
-                isShuffled: state.isShuffled,
-                isRepeating: state.isRepeating,
-                collectionKey: state.collectionKey,
+                ...state,
                 collection: skipForwards(state.collection),
             }
 
         case ActionTypes.SKIP_TO_PREVIOUS_TRACK:
             return {
-                isShuffled: state.isShuffled,
-                isRepeating: state.isRepeating,
-                collectionKey: state.collectionKey,
+                ...state,
                 collection: skipBackwards(state.collection)
             }
 
         case ActionTypes.SHUFFLE_CURRENT_COLLECTION:
             return {
-                collectionKey: state.collectionKey,
+                ...state,
                 collection: shuffleCollection(state.collection),
-                isShuffled: true,
-                isRepeating: state.isRepeating
+                isShuffled: true
             }
 
         case ActionTypes.UNSHUFFLE_CURRENT_COLLECTION:
             return {
-                collectionKey: state.collectionKey,
+                ...state,
                 collection: [...state.collection].sort((a,b) => a.nonShuffledIndex - b.nonShuffledIndex),
-                isShuffled: false,
-                isRepeating: state.isRepeating
+                isShuffled: false
             }
 
         case ActionTypes.TOGGLE_REPEAT:
@@ -91,10 +88,13 @@ export default function currentlySelectedCollection(state={
 
 
 
+//
+// Helper Functions
+//
 
-
-
-
+// Skips to next track, but if there is no previewURL for that track it will keep skipping
+// forward through the tracks until it finds one with a previewURL. Worst case it will loop
+// through the entire playlist before returning to the track it was already playing. 
 function skipForwards(collection) {
     const currentIndex = collection.findIndex(track => track.isCurrentlySelected);
     const length = collection.length;
@@ -121,7 +121,7 @@ function skipForwards(collection) {
 }
 
 
-
+// Similar to skipForwards, but skips backwards through the tracklist. 
 function skipBackwards(collection) {
     const currentIndex = collection.findIndex(track => track.isCurrentlySelected);
     const length = collection.length;
@@ -150,7 +150,8 @@ function skipBackwards(collection) {
 
 
 
-
+// Shuffles the currently playing collection / tracklist. 
+// The unshuffle function is much simpler so I have just inlined it within the reducer.
 function shuffleCollection(collection) {
     // create copy of old collection, and new empty collection.
     const oldCollection = [...collection];
@@ -169,7 +170,6 @@ function shuffleCollection(collection) {
 }
 
 
-function unshuffleCollection(collection) {
-    return [...collection].sort((a,b) => a.nonShuffledIndex - b.nonShuffledIndex);
-}
+
+
 

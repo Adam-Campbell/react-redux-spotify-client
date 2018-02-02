@@ -16,19 +16,15 @@ const RelatedArtistsView = props => {
             transitionAppearTimeout={500}
         >
             <ArtistCollection 
-                artistArray={props.artistInfo.relatedArtists}
+                artistArray={props.artist.relatedArtists}
                 title='Related Artists'
-                fetchArtist={props.fetchArtist}
-                accessToken={props.accessToken}
             />
         </ReactCSSTransitionGroup>
     );
 }
 
 RelatedArtistsView.propTypes = {
-    artistInfo: PropTypes.object,
-    accessToken: PropTypes.string,
-    fetchArtist: PropTypes.func
+    artist: PropTypes.object
 }
 
 

@@ -1,6 +1,56 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec } from './helpers';
+import { convertMsToMinSec, fetchWrapper } from './helpers';
 
+
+//
+// Exported thunk action
+//
+
+export function fetchArtist(id, token) {
+    return async function(dispatch, getState) {
+        const currentState =  getState();
+        const market = currentState.market;
+        dispatch(requestArtist())
+
+        const artistInfo = fetchWrapper(`https://api.spotify.com/v1/artists/${id}`, token);
+        const topTracks = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=${market}`, token);
+        const relatedArtists = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/related-artists`, token);
+        const albums = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/albums?album_type=album,single&limit=50&market=${market}`, token);
+
+        const artistInfoComplete = await artistInfo;
+        const topTracksComplete = await topTracks;
+        const relatedArtistsComplete = await relatedArtists;
+        const albumsComplete = await albums;
+
+        const artistObject = {
+            artistName: artistInfoComplete.name,
+            artistID: artistInfoComplete.id,
+            genres: artistInfoComplete.genres,
+            followers: artistInfoComplete.followers,
+            artistImage: (artistInfoComplete.images.length) ? 
+                            artistInfoComplete.images[0].url :
+                            '',
+            topTracks: createTopTracksArray(topTracksComplete.tracks),
+            relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
+            albums: createAlbumsArray(albumsComplete.items)
+        };
+
+        dispatch(receiveArtist(artistObject, id))
+        
+    }
+}
+
+
+//
+// Other actions
+//
+
+export function switchCurrentArtist(artistID) {
+    return {
+        type: ActionTypes.SWITCH_CURRENT_ARTIST,
+        payload: artistID
+    }
+}
 
 function requestArtist() {
     return {
@@ -8,22 +58,21 @@ function requestArtist() {
     }
 }
 
-function receiveArtist(artistObject) {
+function receiveArtist(artistObject, artistID) {
     return {
         type: ActionTypes.FETCH_ARTIST_SUCCESS,
-        payload: artistObject
+        payload: {
+            artistObject: artistObject,
+            artistID: artistID
+        }
     }
 }
 
-function fetchArtistInfo(id, token) {
-    const endpoint = `https://api.spotify.com/v1/artists/${id}?access_token=${token}`;
-    return fetch(endpoint);
-}
 
-function fetchTopTracks(id, token) {
-    const endpoint = `https://api.spotify.com/v1/artists/${id}/top-tracks?country=GB&access_token=${token}`;
-    return fetch(endpoint);
-}
+
+//
+// Helper functions 
+//
 
 function createTopTracksArray(data) {
     let arr = [];
@@ -41,16 +90,12 @@ function createTopTracksArray(data) {
             isPlaying: false,
             isCurrentlySelected: false,
             isTopTrack: true,
-            identifier: `${data[i].artists[0].id}-topTracks`
+            //identifier: `${data[i].artists[0].id}-topTracks`
+            identifier: data[i].artists[0].id
         }
         arr.push(track);
     }
     return arr;
-}
-
-function fetchRelatedArtists(id, token) {
-    const endpoint = `https://api.spotify.com/v1/artists/${id}/related-artists?access_token=${token}`;
-    return fetch(endpoint);
 }
 
 function createRelatedArtistsArray(data) {
@@ -63,97 +108,100 @@ function createRelatedArtistsArray(data) {
     })
 }
 
-function fetchAlbumsIDs(id, token) {
-    const endpoint = `https://api.spotify.com/v1/artists/${id}/albums?album_type=album&market=GB&access_token=${token}`;
-    return fetch(endpoint);
-}
-
 function transformIDsToList(data) {
     return data.filter(album => album.available_markets.includes('GB'))
     .map(album => album.id)
     .join(',')
 }
 
-function fetchAlbums(token, albumList) {
-    const endpoint = `https://api.spotify.com/v1/albums/?ids=${albumList}&access_token=${token}`;
-    return fetch(endpoint);
-}
 
 function createAlbumsArray(data) {
     return data.map(album => {
-        let artistName = album.artists[0].name;
-        let artistID = album.artists[0].id;
-        let albumName = album.name;
-        let albumID = album.id;
         return {
-            albumID: albumID,
-            albumName: albumName,
-            artistName: artistName,
-            artistID: artistID,
-            releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
+            albumName: album.name,
+            albumID: album.id,
+            albumType: album.album_type,
             albumImage: (album.images.length) ? album.images[0].url : '',
-            albumTracks: album.tracks.items.map(track => {
-                return {
-                    trackName: track.name,
-                    trackID: track.id,
-                    artistName: artistName,
-                    artistID: artistID,
-                    albumName: albumName,
-                    albumID: albumID,
-                    previewURL: track.preview_url,
-                    duration: convertMsToMinSec(track.duration_ms),
-                    trackNumber: track.track_number,
-                    albumImage: (album.images.length) ? album.images[0].url : '',
-                    isPlaying: false,
-                    isCurrentlySelected: false,
-                    isTopTrack: false,
-                    identifier: albumID
-                }
-            })
+            artistName: album.artists[0].name,
+            artistID: album.artists[0].id
         }
     })
 }
 
+// function createAlbumsArray(data) {
+//     return data.map(album => {
+//         let artistName = album.artists[0].name;
+//         let artistID = album.artists[0].id;
+//         let albumName = album.name;
+//         let albumID = album.id;
+//         return {
+//             albumID: albumID,
+//             albumName: albumName,
+//             artistName: artistName,
+//             artistID: artistID,
+//             releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
+//             albumImage: (album.images.length) ? album.images[0].url : '',
+//             albumTracks: album.tracks.items.map(track => {
+//                 return {
+//                     trackName: track.name,
+//                     trackID: track.id,
+//                     artistName: artistName,
+//                     artistID: artistID,
+//                     albumName: albumName,
+//                     albumID: albumID,
+//                     previewURL: track.preview_url,
+//                     duration: convertMsToMinSec(track.duration_ms),
+//                     trackNumber: track.track_number,
+//                     albumImage: (album.images.length) ? album.images[0].url : '',
+//                     isPlaying: false,
+//                     isCurrentlySelected: false,
+//                     isTopTrack: false,
+//                     identifier: albumID
+//                 }
+//             })
+//         }
+//     })
+// }
 
-export function fetchArtist(id, token) {
-    return async function(dispatch) {
-        dispatch(requestArtist())
-
-        const artistObject = {};
-
-        const artistInfo = fetchArtistInfo(id, token);
-        const topTracks = fetchTopTracks(id, token);
-        const relatedArtists = fetchRelatedArtists(id, token);
-        const albumsIDs = fetchAlbumsIDs(id, token);
 
 
-        const artistInfoComplete = await artistInfo;
-        const artistInfoJSON = await artistInfoComplete.json();
-        artistObject.artistName = artistInfoJSON.name;
-        artistObject.artistID = artistInfoJSON.id;
-        artistObject.genres = artistInfoJSON.genres;
-        artistObject.followers = artistInfoJSON.followers.total;
-        artistObject.artistImage = (artistInfoJSON.images.length) ? 
-                                artistInfoJSON.images[0].url :
-                                '';
+
+
+
+
+// export function fetchArtist(id, token) {
+//     return async function(dispatch, getState) {
+//         const currentState =  getState();
+//         const market = currentState.market;
+//         dispatch(requestArtist())
+
+//         const artistInfo = fetchWrapper(`https://api.spotify.com/v1/artists/${id}`, token);
+//         const topTracks = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=${market}`, token);
+//         const relatedArtists = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/related-artists`, token);
+//         const albumIDs = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/albums?album_type=album&market=${market}`, token);
+
+//         const artistInfoComplete = await artistInfo;
+//         const topTracksComplete = await topTracks;
+//         const relatedArtistsComplete = await relatedArtists;
+//         const albumIDsComplete = await albumIDs;
+
+//         const albumsList = transformIDsToList(albumIDsComplete.items);
+//         const albumsInfo = await fetchWrapper(`https://api.spotify.com/v1/albums/?ids=${albumsList}`, token);
+
+//         const artistObject = {
+//             artistName: artistInfoComplete.name,
+//             artistID: artistInfoComplete.id,
+//             genres: artistInfoComplete.genres,
+//             followers: artistInfoComplete.followers,
+//             artistImage: (artistInfoComplete.images.length) ? 
+//                             artistInfoComplete.images[0].url :
+//                             '',
+//             topTracks: createTopTracksArray(topTracksComplete.tracks),
+//             relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
+//             albums: createAlbumsArray(albumsInfo.albums)
+//         };
+
+//         dispatch(receiveArtist(artistObject))
         
-        const topTracksComplete = await topTracks;
-        const topTracksJSON = await topTracksComplete.json();
-        artistObject.topTracks = createTopTracksArray(topTracksJSON.tracks);
-        
-        const relatedArtistsComplete = await relatedArtists;
-        const relatedArtistsJSON = await relatedArtistsComplete.json();
-        artistObject.relatedArtists = createRelatedArtistsArray(relatedArtistsJSON.artists);
-        
-        const albumsIDsComplete = await albumsIDs;
-        const albumsIDsJSON = await albumsIDsComplete.json();
-        const albumList = transformIDsToList(albumsIDsJSON.items);
-
-        const albums = await fetchAlbums(token, albumList);
-        const albumsJSON = await albums.json();
-        artistObject.albums = createAlbumsArray(albumsJSON.albums);
-        
-        dispatch(receiveArtist(artistObject))
-        
-    }
-}
+//     }
+// }

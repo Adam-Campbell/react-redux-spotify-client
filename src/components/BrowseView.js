@@ -11,13 +11,13 @@ import Loader from './Loader';
 class BrowseView extends Component {
 
     componentDidMount() {
-        if(!this.props.highlights.newReleases) {
+        if(!this.props.highlights.newReleases.length) {
             this.props.fetchHighlights(this.props.accessToken);
         }
     }
 
     render() {
-        if (this.props.isFetchingHighlights) {
+        if (this.props.highlights.isFetching) {
             return (
                 <Loader />
             );
@@ -64,8 +64,7 @@ class BrowseView extends Component {
 const mapStateToProps = state => {
     return {
         highlights: state.highlights,
-        isFetchingHighlights: state.isFetchingHighlights,
-        accessToken: state.accessToken.token,
+        accessToken: state.accessToken,
     }
 }
 

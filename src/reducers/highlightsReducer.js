@@ -1,11 +1,27 @@
 import * as ActionTypes from '../actiontypes';
 
 
-export default function highlights(state={}, action) {
+const defaultState = {
+    newReleases: [],
+    featuredPlaylists: [],
+    categories: [],
+    isFetching: false
+};
+
+export default function highlights(state=defaultState, action) {
     switch (action.type) {
 
+        case ActionTypes.FETCH_HIGHLIGHTS_REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            }
+
         case ActionTypes.FETCH_HIGHLIGHTS_SUCCESS:
-            return action.payload;
+            return {
+                ...action.payload,
+                isFetching: false,
+            }
 
         case ActionTypes.FETCH_CATEGORY_SUCCESS:
             return {
@@ -23,7 +39,7 @@ export default function highlights(state={}, action) {
                             return category;
                         }
                     })
-                ]     
+                ]    
             }
 
         default:

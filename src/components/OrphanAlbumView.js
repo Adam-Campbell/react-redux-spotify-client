@@ -11,20 +11,21 @@ class OrphanAlbumView extends Component {
 
 
     componentDidMount() {
-        if (!this.props.orphanAlbums.hasOwnProperty(this.props.albumID)) {
+        if (!this.props.orphanAlbums.albumData.hasOwnProperty(this.props.albumID)) {
             this.props.fetchOrphanAlbum(this.props.accessToken, this.props.albumID);  
         }
     }
 
     render() {
         const albumID = this.props.albumID;
-        if (this.props.orphanAlbums.hasOwnProperty(albumID)) {
-            const album = this.props.orphanAlbums[albumID];
+        if (this.props.orphanAlbums.albumData.hasOwnProperty(albumID)) {
+            const album = this.props.orphanAlbums.albumData[albumID];
             return (
                 <Album 
                     albumName={album.albumName}
                     albumID={album.albumID}
                     artistName={album.artistName}
+                    artistID={album.artistID}
                     releaseDate={album.releaseDate}
                     albumImage={album.albumImage}
                     albumTracks={album.albumTracks}
@@ -32,7 +33,7 @@ class OrphanAlbumView extends Component {
                     currentlySelectedCollection={this.props.currentlySelectedCollection}
                 />
             );
-        } else if (this.props.isFetchingOrphanAlbum) {
+        } else if (this.props.orphanAlbums.isFetching) {
             return (
                 <Loader />
             )
@@ -46,8 +47,7 @@ class OrphanAlbumView extends Component {
 const mapStateToProps = state => {
     return {
         orphanAlbums: state.orphanAlbums,
-        isFetchingOrphanAlbum: state.isFetchingOrphanAlbum,
-        accessToken: state.accessToken.token,
+        accessToken: state.accessToken,
         currentlySelectedCollection: state.currentlySelectedCollection
     }
 }

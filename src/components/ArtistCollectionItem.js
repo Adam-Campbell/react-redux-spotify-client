@@ -8,9 +8,8 @@ const ArtistCollectionItem = props => {
     return (
         <div className="card-collection__card-holder">
             <Link 
-                to="/artist/overview"
+                to={`/artist/${props.artistID}/`}
                 className="card"
-                onClick={() => props.fetchArtist(props.artistID, props.accessToken)}
             >
                 <div className="card__image-outer card__image-outer--rounded">
                     <div className="card__image-inner" style={{backgroundImage: `url('${props.artistImage}')`}}></div>
@@ -29,8 +28,6 @@ ArtistCollectionItem.propTypes = {
     artistName: PropTypes.string.isRequired,
     artistID: PropTypes.string.isRequired,
     artistImage: PropTypes.string.isRequired,
-    accessToken: PropTypes.string.isRequired,
-    fetchArtist: PropTypes.func.isRequired
 };
 
 export default ArtistCollectionItem;

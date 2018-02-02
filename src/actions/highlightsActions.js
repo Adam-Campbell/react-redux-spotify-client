@@ -1,7 +1,39 @@
 import * as ActionTypes from '../actiontypes';
+import { fetchWrapper } from './helpers';
 
 
 
+//
+// Exported thunk action
+//
+
+export function fetchHighlights(token) {
+    return async function(dispatch) {
+
+        dispatch(requestHighlights())
+        
+        const newReleases = fetchWrapper("https://api.spotify.com/v1/browse/new-releases", token);
+        const featuredPlaylists = fetchWrapper("https://api.spotify.com/v1/browse/featured-playlists", token);
+        const categories = fetchWrapper("https://api.spotify.com/v1/browse/categories", token);
+
+        const newReleasesComplete = await newReleases;
+        const featuredPlaylistsComplete = await featuredPlaylists;
+        const categoriesComplete = await categories;
+
+        const highlightsObject = {
+            newReleases: createNewReleasesArray(newReleasesComplete.albums.items),
+            featuredPlaylists: createFeaturedPlaylistsArray(featuredPlaylistsComplete.playlists.items),
+            categories: createCategoriesArray(categoriesComplete.categories.items)
+        };
+
+        dispatch(receiveHighlights(highlightsObject));
+    }
+}
+
+
+//
+// Other actions called by thunk (not exported)
+//
 
 function requestHighlights() {
     return {
@@ -17,18 +49,9 @@ function receiveHighlights(highlightsObject) {
 }
 
 
-function fetchNewReleases(token) {
-    return fetch(`https://api.spotify.com/v1/browse/new-releases?access_token=${token}`);
-}
-
-function fetchFeaturedPlaylists(token) {
-    return fetch(`https://api.spotify.com/v1/browse/featured-playlists?access_token=${token}`);
-}
-
-function fetchCategories(token) {
-    return fetch(`https://api.spotify.com/v1/browse/categories?access_token=${token}`);
-}
-
+//
+// Helper functions 
+//
 
 function createNewReleasesArray(data) {
     return data.map(album => {
@@ -65,30 +88,3 @@ function createCategoriesArray(data) {
 }
 
 
-
-
-export function fetchHighlights(token) {
-    return async function(dispatch) {
-
-        dispatch(requestHighlights())
-        const highlightsObject = {};
-
-        const newReleases = fetchNewReleases(token);
-        const featuredPlaylists = fetchFeaturedPlaylists(token);
-        const categories = fetchCategories(token);
-
-        const newReleasesComplete = await newReleases;
-        const newReleasesJSON = await newReleasesComplete.json();
-        highlightsObject.newReleases = createNewReleasesArray(newReleasesJSON.albums.items);
-
-        const featuredPlaylistsComplete = await featuredPlaylists;
-        const featuredPlaylistsJSON = await featuredPlaylistsComplete.json();
-        highlightsObject.featuredPlaylists = createFeaturedPlaylistsArray(featuredPlaylistsJSON.playlists.items);
-        
-
-        const categoriesComplete = await categories;
-        const categoriesJSON = await categoriesComplete.json();
-        highlightsObject.categories = createCategoriesArray(categoriesJSON.categories.items);
-        dispatch(receiveHighlights(highlightsObject));
-    }
-}
