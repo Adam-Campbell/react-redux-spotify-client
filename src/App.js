@@ -16,7 +16,6 @@ import OrphanAlbumView from './components/OrphanAlbumView';
 import CategoryView from './components/CategoryView';
 import PlaylistView from './components/PlaylistView';
 
-import { saveTokenToStorage } from './localStorage';
 
 
 class App extends Component {
