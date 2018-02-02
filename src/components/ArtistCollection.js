@@ -22,8 +22,6 @@ const ArtistCollection = props => {
                                 artistImage={artist.artistImage}
                                 artistID={artist.artistID}
                                 key={artist.artistID}
-                                fetchArtist={props.fetchArtist}
-                                accessToken={props.accessToken}
                             />
                         )
                     })
@@ -35,9 +33,7 @@ const ArtistCollection = props => {
 
 ArtistCollection.propTypes = {
     artistArray: PropTypes.array,
-    title: PropTypes.string,
-    fetchArtist: PropTypes.func,
-    accessToken: PropTypes.string
+    title: PropTypes.string
 };
 
 export default ArtistCollection;

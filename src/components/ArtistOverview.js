@@ -21,18 +21,18 @@ const ArtistOverview = props => {
             transitionAppearTimeout={500}
         >
             <InlineTrackCollection 
-                trackArray={props.artistInfo.topTracks}
+                trackArray={props.artist.topTracks}
                 title="Popular Tracks"
                 playPauseTrack={props.playPauseTrack}
                 currentlySelectedCollection={props.currentlySelectedCollection}
             />
             <AlbumCollection 
-                albumArray={props.artistInfo.albums}
+                albumArray={props.artist.albums}
                 title="Albums"
                 accessToken={props.accessToken}
             />
             <ArtistCollection 
-                artistArray={props.artistInfo.relatedArtists.slice(0,5)}
+                artistArray={props.artist.relatedArtists.slice(0,5)}
                 title='Related Artists'
                 accessToken={props.accessToken}
                 fetchArtist={props.fetchArtist}

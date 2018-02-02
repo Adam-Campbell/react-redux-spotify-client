@@ -1,77 +1,38 @@
 import * as ActionTypes from '../actiontypes';
 
+const defaultState = {
+    artistData: {},
+    isFetching: false,
+    currentArtist: ''
+};
 
 
-export default function artistInfo(state={}, action) {
+export default function artistInfo(state=defaultState, action) {
     switch (action.type) {
 
-        case ActionTypes.FETCH_ARTIST_SUCCESS:
-            return action.payload;
-
-        case ActionTypes.PLAY_PAUSE_TRACK:
+        case ActionTypes.FETCH_ARTIST_REQUEST:
             return {
-                    ...state,
-                    topTracks: state.topTracks.map(track => {
-                        if (track.trackID === action.payload) {
-                            return {
-                                ...track,
-                                isCurrentlySelected: true,
-                                isPlaying: !track.isPlaying
-                            }
-                        } else {
-                            return {
-                                ...track,
-                                isCurrentlySelected: false,
-                                isPlaying: false
-                            }
-                        }
-                    }),
-                    albums: state.albums.map(album => {
-                        return {
-                            ...album,
-                            albumTracks: album.albumTracks.map(track => {
-                                if (track.trackID === action.payload) {
-                                    return {
-                                        ...track, 
-                                        isCurrentlySelected: true,
-                                        isPlaying: !track.isPlaying
-                                    }
-                                } else {
-                                    return {
-                                        ...track, 
-                                        isCurrentlySelected: false,
-                                        isPlaying: false
-                                    }
-                                }
-                            })
-                        }
-                    })
+                ...state,
+                isFetching: true
+            }
 
+        case ActionTypes.FETCH_ARTIST_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                artistData:{
+                    ...state.artistData,
+                    [action.payload.artistID]: {
+                        ...action.payload.artistObject
+                    }
                 }
+            }
 
-        case ActionTypes.SKIP_TRACK_FORWARDS:
-                return {
-                    ...state,
-                    topTracks: moveStateToNextTrack(state.topTracks),
-                    albums: state.albums.map(album => {
-                        return {
-                            ...album, 
-                            albumTracks: moveStateToNextTrack(album.albumTracks)
-                        }
-                    })
-                }
-
-        case ActionTypes.SKIP_TRACK_BACKWARDS:
-                return {
-                    ...state,
-                    topTracks: moveStateToPreviousTrack(state.topTracks),
-                    albums: state.albums.map(album => {
-                        return {
-                            ...album, 
-                            albumTracks: moveStateToPreviousTrack(album.albumTracks)
-                        }
-                    })
-                }
+        case ActionTypes.SWITCH_CURRENT_ARTIST:
+            return {
+                ...state,
+                currentArtist: action.payload
+            }
 
         default:
             return state;

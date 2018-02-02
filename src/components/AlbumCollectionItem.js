@@ -8,7 +8,7 @@ const AlbumCollectionItem = props => {
     return (
         <div className="card-collection__card-holder">
             <Link 
-                to={`/artist/album/${props.albumID}`}
+                to={`/album/${props.albumID}`}
                 className="card"
             >
                 <div className="card__image-outer">

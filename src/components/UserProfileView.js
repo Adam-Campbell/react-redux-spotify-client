@@ -11,13 +11,13 @@ import Loader from './Loader';
 class UserProfileView extends Component {
 
     componentDidMount() {
-        if(!this.props.userInfo.userID) {
+        if(!this.props.userInfo.hasFetched) {
             this.props.fetchUserProfile(this.props.accessToken);
         }
     }
 
     render() {
-        if (this.props.isFetchingUser) {
+        if (this.props.userInfo.isFetching) {
             return (
                 <Loader />
             );
@@ -56,8 +56,8 @@ class UserProfileView extends Component {
 const mapStateToProps = state => {
     return {
         userInfo: state.userInfo,
-        isFetchingUser: state.isFetchingUser,
-        accessToken: state.accessToken.token,
+        //isFetchingUser: state.isFetchingUser,
+        accessToken: state.accessToken,
         currentlySelectedCollection: state.currentlySelectedCollection
     };
 }

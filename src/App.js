@@ -17,6 +17,7 @@ import CategoryView from './components/CategoryView';
 import PlaylistView from './components/PlaylistView';
 
 
+
 class App extends Component {
 
     constructor() {
@@ -24,49 +25,90 @@ class App extends Component {
         this.checkForAccessToken = this.checkForAccessToken.bind(this);
     }
 
+    // checkForAccessToken() {
+    //     console.log('checkForAccessToken was called');
+    //     const now = Date.now();
+    //     const thresh = 3500000;
+    //     if(this.props.accessToken && now - this.props.accessToken.timestamp < thresh) {
+    //         console.log('first block was entered!');
+    //         return true;
+    //     } else if (
+    //             window.localStorage.accessToken && 
+    //             now - JSON.parse(window.localStorage.accessToken).timestamp < thresh
+    //     ) { 
+    //         console.log('second block was entered!');
+    //         const accessToken = JSON.parse(window.localStorage.accessToken);
+    //         this.props.storeToken(accessToken);
+    //         return true; 
+    //     } else if (window.location.hash) {
+    //         console.log('third block was entered!');
+    //         const accessToken = {
+    //             token: window.location.hash.replace(/.*access_token=([^&]+).*/, '$1'),
+    //             timestamp: Date.now()
+    //         };
+    //         window.localStorage.setItem('accessToken', JSON.stringify(accessToken));
+    //         this.props.storeToken(accessToken); 
+    //         return true;
+    //     } else {
+    //         console.log('final block was entered!');
+    //         return false;
+    //     }
+    // }
+
+    // checkForAccessToken() {
+    //     if (this.props.accessToken.token) {
+    //         console.log('first block was entered');
+    //         return true;
+    //     }
+    //     else if (window.location.hash) {
+    //         console.log('second block was entered');
+    //         const accessToken = {
+    //             token: window.location.hash.replace(/.*access_token=([^&]+).*/, '$1'),
+    //             timestamp: Date.now()
+    //         };
+    //         this.props.storeToken(accessToken);
+    //         saveTokenToStorage(accessToken);
+    //         return true;
+    //     } else {
+    //         console.log('third block was entered');
+    //         return false;
+    //     }
+    // }
+
     checkForAccessToken() {
-        console.log('checkForAccessToken was called');
-        const now = Date.now();
-        const thresh = 10000;
-        if(this.props.accessToken && now - this.props.accessToken.timestamp < thresh) {
-            console.log('first block was entered!');
+        if (this.props.accessToken) {
             return true;
-        } else if (
-                window.localStorage.accessToken && 
-                now - JSON.parse(window.localStorage.accessToken).timestamp < thresh
-        ) { 
-            console.log('second block was entered!');
-            const accessToken = JSON.parse(window.localStorage.accessToken);
+        }
+        else if (window.location.hash) {
+            const accessToken = window.location.hash.replace(/.*access_token=([^&]+).*/, '$1');    
             this.props.storeToken(accessToken);
-            return true; 
-        } else if (window.location.hash) {
-            console.log('third block was entered!');
-            const accessToken = {
-                token: window.location.hash.replace(/.*access_token=([^&]+).*/, '$1'),
-                timestamp: Date.now()
-            };
-            window.localStorage.setItem('accessToken', JSON.stringify(accessToken));
-            this.props.storeToken(accessToken); 
             return true;
         } else {
-            console.log('final block was entered!');
             return false;
         }
     }
 
     render() {
+        
         if (this.checkForAccessToken()) {
             return(
                 <BrowserRouter>
                     <div>
-                        <Navigation accessToken={this.props.accessToken.token}/>
+                        <Navigation accessToken={this.props.accessToken}/>
                         <TopBar />
                         <div className="main-container">
                             
                             <Switch>
-                                <Route exact path="/" render={() => <Redirect to="/browse"/>} />
+                                <Route exact path="/" render={() => <Redirect to="/me"/>} />
                                 <Route path="/search" component={SearchView}/>
-                                <Route path="/artist" component={ArtistGroupView} />
+                                <Route 
+                                    path="/artist/:artistID"
+                                    render={({match}) => <ArtistGroupView 
+                                                            artistID={match.params.artistID} 
+                                                            url={match.url}
+                                                        />
+                                            } 
+                                />
                                 <Route path="/me" component={UserProfileView} />
                                 <Route path="/browse" component={BrowseView} />
                                 <Route 
@@ -94,21 +136,19 @@ class App extends Component {
                 </BrowserRouter>
             );
         } else {
-            window.location = "https://accounts.spotify.com/authorize?client_id=bc785a3e64da41a8a122a4458dc4afc3&response_type=token&redirect_uri=http:%2F%2Flocalhost:8080&show_dialog=false&scope=playlist-read-private,playlist-read-collaborative,user-follow-read,user-library-read,user-top-read,user-read-recently-played,user-read-playback-state";
-            return null;
+            return <SignIn />
         }
 
     }
 }
 
-
 const mapStateToProps = state => {
     return {
         accessToken: state.accessToken,
-        isFetchingArtist: state.isFetchingArtist,
-        currentSearch: state.currentSearch,
-        searchResults: state.searchResults,
-        artistInfo: state.artistInfo
+        //isFetchingArtist: state.isFetchingArtist,
+        //currentSearch: state.currentSearch,
+        //searchResults: state.searchResults,
+        //artistInfo: state.artistInfo
     };
 };
 

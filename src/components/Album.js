@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TrackWithNumber from './TrackWithNumber';
-
+import { Link } from 'react-router-dom';
 
 const Album = props => {
     return (
@@ -10,7 +10,7 @@ const Album = props => {
                 <img src={props.albumImage} alt="" className="album__image"></img>
                 <div className="album__info">
                     <h1 className="heading heading--regular">{props.albumName}</h1>
-                    <p className="album__paragraph">{props.artistName}</p>
+                    <Link to={`/artist/${props.artistID}/overview`} className="album__link">{props.artistName}</Link>
                     <p className="album__paragraph">{props.releaseDate}</p>
                 </div>
             </div>

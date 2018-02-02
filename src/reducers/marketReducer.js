@@ -1,13 +1,15 @@
 import * as ActionTypes from '../actiontypes';
 
+const defaultState = '';
 
-export default function currentSearch(state='', action) {
+export default function market(state=defaultState, action) {
     switch(action.type) {
 
-        case ActionTypes.UPDATE_SEARCH:
+        case ActionTypes.SET_MARKET:
             return action.payload;
 
         default:
             return state;
+
     }
 }

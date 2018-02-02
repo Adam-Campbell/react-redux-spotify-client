@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import Playlist from './Playlist';
+import Loader from './Loader';
 
 class PlaylistView extends Component {
 
     componentDidMount() {
-        if (!this.props.playlists.hasOwnProperty(this.props.playlistID)) {
+        if (!this.props.playlists.playlistData.hasOwnProperty(this.props.playlistID)) {
             this.props.fetchPlaylist(this.props.accessToken, this.props.playlistID, this.props.userID);  
         }
     }
 
     render() {
         const playlistID = this.props.playlistID;
-        if (this.props.playlists.hasOwnProperty(playlistID)) {
-            const playlist = this.props.playlists[playlistID];
+        if (this.props.playlists.playlistData.hasOwnProperty(playlistID)) {
+            const playlist = this.props.playlists.playlistData[playlistID];
             return (
                 <Playlist 
                     playlistName={playlist.playlistName}
@@ -28,6 +29,8 @@ class PlaylistView extends Component {
                     currentlySelectedCollection={this.props.currentlySelectedCollection}
                 />
             );
+        } else if (this.props.playlists.isFetching) {
+            return <Loader />
         } else {
             return null;
         }
@@ -42,8 +45,8 @@ class PlaylistView extends Component {
 const mapStateToProps = state => {
     return {
         playlists: state.playlists,
-        isFetchingPlaylist: state.isFetchingPlaylist,
-        accessToken: state.accessToken.token,
+        //isFetchingPlaylist: state.isFetchingPlaylist,
+        accessToken: state.accessToken,
         currentlySelectedCollection: state.currentlySelectedCollection
     };
 };

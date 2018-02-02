@@ -1,6 +1,29 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec } from './helpers';
+import { convertMsToMinSec, fetchWrapper } from './helpers';
 
+
+//
+// Exported thunk action
+//
+
+export function fetchOrphanAlbum(token, id) {
+    return async function(dispatch, getState) {
+        dispatch(requestOrphanAlbum());
+
+        const currentState =  getState();
+        const market = currentState.market;
+
+        const albumInfo = await fetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);
+        const album = formatOrphanAlbum(albumInfo);        
+
+        dispatch(receiveOrphanAlbum(album, id));
+    }
+}
+
+
+//
+// Other actions called by thunk (not exported)
+//
 
 function requestOrphanAlbum() {
     return {
@@ -18,6 +41,10 @@ function receiveOrphanAlbum(albumObject, key) {
     }
 }
 
+
+//
+// Helper functions 
+//
 
 function formatOrphanAlbum(album) {
     let artistName = album.artists[0].name;
@@ -53,15 +80,5 @@ function formatOrphanAlbum(album) {
 }
 
 
-export function fetchOrphanAlbum(token, id) {
-    return async function(dispatch) {
-        dispatch(requestOrphanAlbum());
-        const getAlbum = await fetch(`https://api.spotify.com/v1/albums/${id}?access_token=${token}`);
-        const getAlbumJSON = await getAlbum.json();
 
-        const album = formatOrphanAlbum(getAlbumJSON);        
-
-        dispatch(receiveOrphanAlbum(album, id));
-    }
-}
 

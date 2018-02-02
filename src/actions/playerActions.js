@@ -5,25 +5,9 @@ export function playPauseOrphanAlbumTrack(trackID, identifier) {
     return function(dispatch, getState) {
         const currentState =  getState();
         if (currentState.currentlySelectedCollection.collectionKey !== identifier) {
-           //
-           //   Grab the new collection from state
-           //   Save it locally
-           //   Map over tracks, add both booleans, set both to true if trackID matches, 
-           //   but set both to false if it doesn't.
-           //   then dispatch that to update the currentlySelectedCollection part of state.
-           const correctCollection = currentState.orphanAlbums[identifier];
-           const nextCollection = correctCollection.albumTracks.map((track, index) => {
-               return {
-                    ...track, 
-                    isCurrentlySelected: (track.trackID === trackID) ? true : false,
-                    isPlaying: (track.trackID === trackID) ? true : false,
-                    nonShuffledIndex: index
-               }
-           });
-           dispatch(switchCurrentlySelectedCollection(identifier, nextCollection));
+           const correctCollection = currentState.orphanAlbums.albumData[identifier];
+           dispatch(switchCurrentlySelectedCollection(identifier, correctCollection.albumTracks, trackID));
         } else {
-            //
-            //  just dispatch the updateCurrentlySelectedCollection action with the trackID
             dispatch(updateCurrentlySelectedCollection(trackID));
         }
 
@@ -36,38 +20,24 @@ export function playPausePlaylistTrack(trackID, identifier) {
     return function(dispatch, getState) {
         const currentState =  getState();
         if (currentState.currentlySelectedCollection.collectionKey !== identifier) {
-           const correctCollection = currentState.playlists[identifier];
-           const nextCollection = correctCollection.playlistTracks.map((track, index) => {
-               return {
-                    ...track, 
-                    isCurrentlySelected: (track.trackID === trackID) ? true : false,
-                    isPlaying: (track.trackID === trackID) ? true : false,
-                    nonShuffledIndex: index
-               }
-           });
-           dispatch(switchCurrentlySelectedCollection(identifier, nextCollection));
+           const correctCollection = currentState.playlists.playlistData[identifier];
+           dispatch(switchCurrentlySelectedCollection(identifier, correctCollection.playlistTracks, trackID));
         } else {
             dispatch(updateCurrentlySelectedCollection(trackID));
         }
 
     }
 }
+
+
 
 
 export function playPauseArtistTopTrack(trackID, identifier) {
     return function(dispatch, getState) {
         const currentState =  getState();
         if (currentState.currentlySelectedCollection.collectionKey !== identifier) {
-           const correctCollection = currentState.artistInfo.topTracks;
-           const nextCollection = correctCollection.map((track, index) => {
-               return {
-                    ...track, 
-                    isCurrentlySelected: (track.trackID === trackID) ? true : false,
-                    isPlaying: (track.trackID === trackID) ? true : false,
-                    nonShuffledIndex: index
-               }
-           });
-           dispatch(switchCurrentlySelectedCollection(identifier, nextCollection));
+           const correctCollection = currentState.artistInfo.artistData[identifier].topTracks;
+           dispatch(switchCurrentlySelectedCollection(identifier, correctCollection, trackID));
         } else {
             dispatch(updateCurrentlySelectedCollection(trackID));
         }
@@ -75,28 +45,8 @@ export function playPauseArtistTopTrack(trackID, identifier) {
     }
 }
 
-export function playPauseArtistAlbumTrack(trackID, identifier) {
-    return function(dispatch, getState) {
-        const currentState =  getState();
-        if (currentState.currentlySelectedCollection.collectionKey !== identifier) {
-           const correctCollection = currentState.artistInfo.albums[
-               currentState.artistInfo.albums.findIndex(album => album.albumID === identifier)
-           ];
-           const nextCollection = correctCollection.albumTracks.map((track, index) => {
-               return {
-                    ...track, 
-                    isCurrentlySelected: (track.trackID === trackID) ? true : false,
-                    isPlaying: (track.trackID === trackID) ? true : false,
-                    nonShuffledIndex: index
-               }
-           });
-           dispatch(switchCurrentlySelectedCollection(identifier, nextCollection));
-        } else {
-            dispatch(updateCurrentlySelectedCollection(trackID));
-        }
 
-    }
-}
+
 
 
 export function playPauseUserRecentTrack(trackID, identifier) {
@@ -104,15 +54,7 @@ export function playPauseUserRecentTrack(trackID, identifier) {
         const currentState =  getState();
         if (currentState.currentlySelectedCollection.collectionKey !== identifier) {
            const correctCollection = currentState.userInfo.recentTracks;
-           const nextCollection = correctCollection.map((track, index) => {
-               return {
-                    ...track, 
-                    isCurrentlySelected: (track.trackID === trackID) ? true : false,
-                    isPlaying: (track.trackID === trackID) ? true : false,
-                    nonShuffledIndex: index
-               }
-           });
-           dispatch(switchCurrentlySelectedCollection(identifier, nextCollection));
+           dispatch(switchCurrentlySelectedCollection(identifier, correctCollection, trackID));
         } else {
             dispatch(updateCurrentlySelectedCollection(trackID));
         }
@@ -147,12 +89,13 @@ export function skipToPreviousTrack() {
 
 
 
-function switchCurrentlySelectedCollection(collectionKey, collection) {
+function switchCurrentlySelectedCollection(collectionKey, collection, trackID) {
     return {
         type: ActionTypes.SWITCH_CURRENTLY_SELECTED_COLLECTION,
         payload: {
             collectionKey: collectionKey,
-            collection: collection
+            collection: collection,
+            trackID: trackID
         }
     }
 }
@@ -182,3 +125,4 @@ export function toggleRepeat() {
         type: ActionTypes.TOGGLE_REPEAT
     }
 }
+

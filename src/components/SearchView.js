@@ -14,7 +14,6 @@ class SearchView extends Component {
                     <ArtistCollection 
                         artistArray={this.props.searchResults}
                         accessToken={this.props.accessToken}
-                        fetchArtist={this.props.fetchArtist}
                         title='Search Results'
                     />
                 
@@ -25,8 +24,8 @@ class SearchView extends Component {
 
 const mapStateToProps = state => {
     return {
-        searchResults: state.searchResults,
-        accessToken: state.accessToken.token
+        searchResults: state.searchResults.results,
+        accessToken: state.accessToken
     }
 }
 

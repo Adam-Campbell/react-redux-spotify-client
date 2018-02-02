@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Album from './Album';
+import AlbumCollection from './AlbumCollection';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const AlbumsView = props => {
+
+    const albums = props.artist.albums.filter(album => album.albumType === 'album');
+    const singles = props.artist.albums.filter(album => album.albumType === 'single');
+
     return (
         <ReactCSSTransitionGroup
             component="div"
@@ -14,31 +18,23 @@ const AlbumsView = props => {
             transitionAppear={true}
             transitionAppearTimeout={500}
         >
-            {
-                props.artistInfo.albums.map(album => {
-                    return (
-                        <Album 
-                            albumName={album.albumName}
-                            artistName={album.artistName}
-                            albumID={album.albumID}
-                            key={album.albumID}
-                            releaseDate={album.releaseDate}
-                            albumImage={album.albumImage}
-                            albumTracks={album.albumTracks}
-                            playPauseTrack={props.playPauseTrack}
-                            currentlySelectedCollection={props.currentlySelectedCollection}
-                        />
-                    );
-                })
-            }
+            <AlbumCollection 
+                albumArray={albums}
+                title="Albums"
+            />
+
+            <AlbumCollection 
+                albumArray={singles}
+                title="Singles"  
+            />
         </ReactCSSTransitionGroup>
     );
 }
 
 AlbumsView.propTypes = {
-    artistInfo: PropTypes.object,
-    accessToken: PropTypes.string,
-    playPauseTrack: PropTypes.func
+    artist: PropTypes.object,
+    //accessToken: PropTypes.string,
+    //playPauseTrack: PropTypes.func
 }
 
 export default AlbumsView;

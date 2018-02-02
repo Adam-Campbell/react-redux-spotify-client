@@ -1,5 +1,25 @@
 import * as ActionTypes from '../actiontypes';
+import { fetchWrapper } from './helpers';
 
+//
+// Exported thunk action
+//
+
+export function fetchSearchResults(query, token) {
+    return async function(dispatch) {
+        dispatch(requestSearchResults());
+
+        const searchResults = await fetchWrapper(`https://api.spotify.com/v1/search?q=${query}&type=artist`, token);
+        const artistsArray = searchResults.artists.items.map(artist => searchResultObjectCreator(artist));   
+
+        dispatch(receiveSearchResults(artistsArray));
+    }
+}
+
+
+//
+// Other actions 
+//
 
 export function updateSearch(search) {
     return {
@@ -21,6 +41,11 @@ function receiveSearchResults(results) {
     }
 }
 
+
+//
+// Helper functions 
+//
+
 function searchResultObjectCreator(data) {
     return {
         artistName: data.name, 
@@ -29,15 +54,6 @@ function searchResultObjectCreator(data) {
     };
 }
 
-export function fetchSearchResults(query, token) {
-    return async function(dispatch) {
-        dispatch(requestSearchResults());
-        const endpoint = `https://api.spotify.com/v1/search?q=${query}&type=artist&access_token=${token}`;
-        const response = await fetch(endpoint);
-        const json = await response.json();
-        const artistsArray = json.artists.items.map(artist => searchResultObjectCreator(artist));   
-        dispatch(receiveSearchResults(artistsArray));
-    }
-}
+
 
 
