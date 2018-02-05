@@ -1,7 +1,11 @@
 import * as ActionTypes from '../actiontypes';
 
 const defaultState = {
-    results: [],
+    results: {
+        artists: [],
+        albums: [],
+        playlists: []
+    },
     currentSearch: ''
 }
 
@@ -18,7 +22,7 @@ export default function searchResults(state=defaultState, action) {
         case ActionTypes.FETCH_SEARCH_RESULTS_SUCCESS:
             return {
                 ...state,
-                results: action.payload.length ? action.payload : state,
+                results: action.payload
             }
 
         default:

@@ -8,12 +8,14 @@ import { fetchWrapper } from './helpers';
 //
 
 export function fetchHighlights(token) {
-    return async function(dispatch) {
+    return async function(dispatch, getState) {
 
-        dispatch(requestHighlights())
+        const currentState =  getState();
+        const market = currentState.market;
+        dispatch(requestHighlights());
         
-        const newReleases = fetchWrapper("https://api.spotify.com/v1/browse/new-releases", token);
-        const featuredPlaylists = fetchWrapper("https://api.spotify.com/v1/browse/featured-playlists", token);
+        const newReleases = fetchWrapper(`https://api.spotify.com/v1/browse/new-releases?country=${market}&limit=50`, token);
+        const featuredPlaylists = fetchWrapper(`https://api.spotify.com/v1/browse/featured-playlists?country=${market}&limit=50`, token);
         const categories = fetchWrapper("https://api.spotify.com/v1/browse/categories", token);
 
         const newReleasesComplete = await newReleases;
