@@ -1,0 +1,36 @@
+.search-filter {
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    &__list-item {
+        display: inline-block;
+        border: solid $color--white 1px;
+        transition: background-color ease-out 0.25s;
+        &:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+        &:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+    }
+    &__link {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--light;
+        font-size: em(16px);
+        color: $color--white;
+        text-decoration: none;
+        margin: 0;
+        padding: 8px 24px;
+        display: block;
+        cursor: pointer;
+        transition: color ease-out 0.25s;
+    }
+}
+
+.search-filter__list-item.is-active {
+    background-color: $color--white;
+    & .search-filter__link {
+        color: $color--brand-green;
+        font-weight: $font-weight--bold;
+    }
+}

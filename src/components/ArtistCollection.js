@@ -10,23 +10,29 @@ import ArtistCollectionItem from './ArtistCollectionItem';
 //
 
 const ArtistCollection = props => {
+
+    let artistArr;
+    if (props.artistArray.length) {
+        artistArr = props.artistArray.map(artist => {
+            return (
+                <ArtistCollectionItem
+                    artistName={artist.artistName}
+                    artistImage={artist.artistImage}
+                    artistID={artist.artistID}
+                    key={artist.artistID}
+                />
+            )
+        });
+    } else {
+        artistArr = <p>Sorry, there are no artists to show here.</p>
+    }
+
     return (
         <section className="card-collection">
                 <h1 className="heading heading--regular">{props.title}</h1>
                 <div className="card-collection__container">
-                {
-                    props.artistArray.map(artist => {
-                        return (
-                            <ArtistCollectionItem
-                                artistName={artist.artistName}
-                                artistImage={artist.artistImage}
-                                artistID={artist.artistID}
-                                key={artist.artistID}
-                            />
-                        )
-                    })
-                }
-            </div>
+                    {artistArr}
+                </div>
         </section>
     );
 }
