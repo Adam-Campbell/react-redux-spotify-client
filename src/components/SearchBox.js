@@ -8,7 +8,11 @@ import { debounce } from 'lodash';
 
 class SearchBox extends Component {
 
-    
+    constructor(props) {
+        super(props);
+        this.debouncedSearch = debounce(this.props.fetchSearchResults, 350);
+    }
+   
 
     render() {
         return (
@@ -22,8 +26,9 @@ class SearchBox extends Component {
                     onChange={
                         e => {
                             e.preventDefault();
-                            this.props.updateSearch(e.target.value);
-                            this.props.fetchSearchResults(e.target.value, this.props.accessToken);   
+                            e.persist();
+                            this.props.updateSearch(e.target.value); 
+                            this.debouncedSearch(e.target.value, this.props.accessToken);  
                         }
                     }
                 >
@@ -59,37 +64,3 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
-
-
-
-
-
-
-
-// class SearchBox extends Component {
-
-    
-
-//     render() {
-//         return (
-//             <section className="search-box">
-//                 <p className="search-box__label">Search for an artist</p>
-//                 <input 
-//                     type="text" 
-//                     className="search-box__input" 
-//                     placeholder="Start typing..."
-//                     value={this.props.currentSearch}
-//                     onChange={
-//                         e => {
-//                             e.preventDefault();
-//                             this.props.updateSearch(e.target.value);
-//                             this.props.fetchSearchResults(e.target.value, this.props.accessToken);
-//                         }
-//                     }
-//                 >
-//                 </input>
-//             </section>
-//         );        
-//     }
-
-// }
