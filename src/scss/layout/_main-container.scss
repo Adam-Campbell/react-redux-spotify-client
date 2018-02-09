@@ -1,13 +1,15 @@
 .main-container {
     min-height: 100vh;
     padding-top: 45px;
-    padding-bottom: 90px;
+    padding-bottom: 120px;
     background-color: $color--brand-grey;
     position: relative;
     top: 0;
     left: 0;
     transition: all ease-out 0.4s;
-    //transform: translateX(0);
+    @media(min-width: 768px) {
+        padding-bottom: 100px;
+    }
 }
 
 .nav-open .main-container {

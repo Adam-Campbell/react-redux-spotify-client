@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 
-import PlaylistCollection from './PlaylistCollection';
+import PaginatedPlaylistCollection from './PaginatedPlaylistCollection';
 import CategoryCollection from './CategoryCollection';
 import NewReleasesCollection from './NewReleasesCollection';
 import Loader from './Loader';
@@ -27,17 +27,17 @@ class BrowseView extends Component {
                     <NewReleasesCollection 
                         newReleasesArray={
                                             (this.props.highlights.newReleases) ?
-                                            this.props.highlights.newReleases.slice(0,10) :
+                                            this.props.highlights.newReleases :
                                             []
                                         }
                         title="New Releases"
                         accessToken={this.props.accessToken}
                     />
 
-                    <PlaylistCollection 
+                    <PaginatedPlaylistCollection 
                         playlistArray={
                                         (this.props.highlights.featuredPlaylists) ? 
-                                        this.props.highlights.featuredPlaylists.slice(0,10) : 
+                                        this.props.highlights.featuredPlaylists : 
                                         []
                                     }
                         title="Featured Playlists"

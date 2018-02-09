@@ -1,42 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TrackWithImage from './TrackWithImage';
+import PlaylistTracks from './PlaylistTracks';
+import Paginator from './Paginator';
 
 
-const Playlist = props => {
-    return (
-        <section className="album">
-            <div className="album__header">
-                <img src={props.playlistImage} alt="" className="album__image"></img>
-                <div className="album__info">
-                    <h1 className="heading heading--regular">{props.playlistName}</h1>
-                    <p className="album__paragraph">{props.ownerName}</p>
+class Playlist extends Component {
+
+    constructor(props) {
+        super(props);
+        this.setPage = this.setPage.bind(this);
+        this.state = {currentPage: 1};  
+    }
+
+    setPage(e, num) {
+        e.preventDefault();
+        this.setState({currentPage: parseInt(num)});
+    }
+
+    render() {
+        return (
+            <div>
+            <section className="album">
+                <div className="album__header">
+                    <img src={this.props.playlistImage} alt="" className="album__image"></img>
+                    <div className="album__info">
+                        <h1 className="heading heading--regular">{this.props.playlistName}</h1>
+                        <p className="album__paragraph">{this.props.ownerName}</p>
+                    </div>
                 </div>
+                <PlaylistTracks 
+                    playlistTracks={this.props.playlistTracks}
+                    currentlySelectedCollection={this.props.currentlySelectedCollection}
+                    playPauseTrack={this.props.playPauseTrack}
+                    currentPage={this.state.currentPage}
+                />
+            </section>
+            <Paginator 
+                totalItems={this.props.playlistTracks.length}
+                itemsPerPage={50}
+                currentPage={this.state.currentPage}
+                setPage={this.setPage}
+            />
             </div>
-            <div className="album__tracks-container">
-                <ul className="track-collection__list">
-                    {
-                        props.playlistTracks.map(track => {
-                            return (
-                                <TrackWithImage 
-                                trackName={track.trackName}
-                                trackID={track.trackID}
-                                key={track.trackID}
-                                duration={track.duration}
-                                trackNumber={track.trackNumber}
-                                albumImage={track.albumImage}
-                                previewURL={track.previewURL}
-                                identifier={track.identifier}
-                                currentlySelectedCollection={props.currentlySelectedCollection}
-                                playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
-                                /> 
-                            );
-                        })
-                    }
-                </ul>
-            </div>   
-        </section>
-    );
+        );
+    }
 }
 
 
