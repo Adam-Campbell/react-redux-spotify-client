@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NewReleasesCollectionItem from './NewReleasesCollectionItem';
+import PlaylistCollectionItem from './PlaylistCollectionItem';
 import Paginator from './Paginator';
 
-
-class NewReleasesCollection extends Component {
+class PaginatedPlaylistCollection extends Component {
 
     constructor(props) {
         super(props);
@@ -16,7 +15,7 @@ class NewReleasesCollection extends Component {
         e.preventDefault();
         this.setState({currentPage: parseInt(num)});
     }
-    
+
     render() {
 
         const upperBound = this.state.currentPage * 10;
@@ -27,37 +26,34 @@ class NewReleasesCollection extends Component {
                 <h1 className="heading heading--regular">{this.props.title}</h1>
                 <div className="card-collection__container">
                     {
-                        this.props.newReleasesArray.slice(lowerBound, upperBound).map(release => {
+                        this.props.playlistArray.slice(lowerBound, upperBound).map(playlist => {
                             return (
-                                <NewReleasesCollectionItem 
-                                    albumName={release.albumName}
-                                    albumID={release.albumID}
-                                    key={release.albumID}
-                                    albumImage={release.albumImage}
-                                    artistName={release.artistName}
-                                    artistID={release.artistID}
+                                <PlaylistCollectionItem 
+                                    playlistImage={playlist.playlistImage}
+                                    playlistName={playlist.playlistName}
+                                    playlistID={playlist.playlistID}
+                                    ownerID={playlist.ownerID}
+                                    key={playlist.playlistID}
                                 />
-                            )
+                            );
                         })
                     }
                 </div>
                 <Paginator 
-                    totalItems={this.props.newReleasesArray.length}
+                    totalItems={this.props.playlistArray.length}
                     itemsPerPage={10}
                     currentPage={this.state.currentPage}
                     setPage={this.setPage}
                 />
             </section>
-        );
+        )
     }
 }
 
-
-
-NewReleasesCollection.propTypes = {
-    newReleasesArray: PropTypes.array,
+PaginatedPlaylistCollection.propTypes = {
+    playlistArray: PropTypes.array,
     title: PropTypes.string,
     accessToken: PropTypes.string
-}
+};
 
-export default NewReleasesCollection;
+export default PaginatedPlaylistCollection;

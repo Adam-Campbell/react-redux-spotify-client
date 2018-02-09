@@ -45,7 +45,6 @@ class PlaylistView extends Component {
 const mapStateToProps = state => {
     return {
         playlists: state.playlists,
-        //isFetchingPlaylist: state.isFetchingPlaylist,
         accessToken: state.accessToken,
         currentlySelectedCollection: state.currentlySelectedCollection
     };
