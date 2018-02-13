@@ -26,6 +26,7 @@ const PlaylistCollection = props => {
             <h1 className="heading heading--regular">{props.title}</h1>
             <div className="card-collection__container">
                 {playlistArr}
+                {props.children}
             </div>
         </section>
     )

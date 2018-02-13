@@ -62,6 +62,7 @@ function formatOrphanAlbum(album) {
             return {
                 trackName: track.name,
                 trackID: track.id,
+                trackURI: track.uri,
                 artistName: artistName,
                 artistID: artistID,
                 albumName: albumName,

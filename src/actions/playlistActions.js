@@ -36,6 +36,173 @@ export function fetchPlaylist(token, playlistID, userID) {
 }
 
 
+//
+//  updatePlaylistImage function - should be a thunk
+//  needs to be passed the ownerID, playlistID, and the image (base64 encoded).
+//
+//  calls the API endpoint with the info provided.
+//  if endpoint comes back with error, just let the user know of the error.
+//
+//  if endpoint comes back with success, save the image in the local store. 
+//
+//
+
+export function updatePlaylistImage(ownerID, playlistID, image, accessToken) {
+    return async function(dispatch) {
+        await postImage(ownerID, playlistID, image, accessToken);
+        dispatch(updatePlaylistImageSuccess(image, playlistID));
+    }
+}
+
+export function updatePlaylistName(ownerID, playlistID, newName, token) {
+    return async function(dispatch) {
+        await putPlaylistName(ownerID, playlistID, newName, token);
+        dispatch(updatePlaylistNameSuccess(newName, playlistID));
+    }
+}
+
+
+export function deleteTrackFromPlaylist(ownerID, playlistID, trackURI, index, token) {
+    return async function(dispatch) {
+        const settings = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            method: 'DELETE',
+            body: JSON.stringify({
+                "tracks": [
+                    {
+                        "uri": trackURI,
+                        "positions": [index]
+                    }
+                ]
+            })
+        };
+        console.log(settings);
+        await fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/tracks`, settings);
+        console.log(playlistID, index);
+        dispatch(deleteTrackFromPlaylistSuccess(playlistID, index));
+    }
+}
+
+
+export function addTrackToPlaylist(ownerID, playlistID, trackToAdd, token) {
+    return async function(dispatch, getState) {
+        const currentState = getState();
+        const playlists = currentState.playlists.playlistData;
+        const settings = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "uris": [
+                    trackToAdd.trackURI
+                ]
+            })
+        };
+        await fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/tracks`, settings);
+        
+        if (playlists[playlistID]) {
+            dispatch(addTrackToPlaylistSuccess(trackToAdd, playlistID));
+        }
+    }
+}
+
+export function createPlaylist(newPlaylistName) {
+    return async function(dispatch, getState) {
+        
+        const currentState = getState();
+        const token = currentState.accessToken;
+        const userID = currentState.userInfo.userID;
+
+        const createPlaylistResponse = await createPlaylistRequest(newPlaylistName, userID, token);
+        window.createPlaylistResponse = createPlaylistResponse;
+
+        const playlistObject = {
+            playlistName: createPlaylistResponse.name,
+            playlistID: createPlaylistResponse.id,
+            ownerID: createPlaylistResponse.owner.id,
+            playlistImage: ''
+        }
+
+        dispatch(createPlaylistSuccess(playlistObject));
+    } 
+}
+
+function createPlaylistRequest(newPlaylistName, userID, token) {
+    return new Promise(
+        (resolve, reject) => {
+            const settings = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify({
+                    "name": newPlaylistName
+                })
+            };
+            fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, settings)
+            .then(response => response.json())
+            .then(response => resolve(response))
+        }
+    )
+}
+
+function createPlaylistSuccess(playlist) {
+    return {
+        type: ActionTypes.CREATE_PLAYLIST_SUCCESS,
+        payload: playlist
+    }   
+}
+
+
+
+
+
+async function putPlaylistName(ownerID, playlistID, newName, token) {
+    return new Promise(
+        async (resolve, reject) => {
+            const settings = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                method: 'PUT',
+                body: JSON.stringify({
+                    "name": newName
+                })
+            };
+            const newNameResponse = await fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}`, settings);
+            resolve(newNameResponse);
+        }
+    )
+}
+
+
+async function postImage(ownerID, playlistID, image, token) {
+    return new Promise(
+        async (resolve, reject) => {
+            const formattedImageURI = image.replace(/^data:image\/(jpeg|jpg|png);base64,/, '');
+            const settings = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'image/jpeg'
+                },
+                method: 'PUT',
+                body: formattedImageURI 
+            };
+            const imageResponse = await fetch(`https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/images`, settings);
+            resolve(imageResponse);
+        }
+    );
+}
+
+
+
 
 //
 // Other actions called by thunk (not exported)
@@ -57,6 +224,46 @@ function receivePlaylist(playlistObject, id) {
     }
 }
 
+function updatePlaylistImageSuccess(imageURL, playlistID) {
+    return {
+        type: ActionTypes.UPDATE_PLAYLIST_IMAGE_SUCCESS,
+        payload: {
+            imageURL: imageURL,
+            key: playlistID
+        }
+    }
+}
+
+function updatePlaylistNameSuccess(newName, playlistID) {
+    return {
+        type: ActionTypes.UPDATE_PLAYLIST_NAME_SUCCESS,
+        payload: {
+            newName: newName,
+            key: playlistID
+        }
+    }
+}
+
+function deleteTrackFromPlaylistSuccess(playlistID, index) {
+    return {
+        type: ActionTypes.DELETE_TRACK_FROM_PLAYLIST_SUCCESS,
+        payload: {
+            key: playlistID,
+            index: index
+        }
+    }
+}
+
+
+function addTrackToPlaylistSuccess(track, playlistID) {
+    return {
+        type: ActionTypes.ADD_TRACK_TO_PLAYLIST_SUCCESS,
+        payload: {
+            key: playlistID,
+            track: track
+        }
+    }
+}
 
 //
 // Helper functions 
@@ -111,7 +318,8 @@ function formatTrack(data, playlistID) {
             albumImage: (track.track.album.images.length) ? track.track.album.images[0].url : '',
             isPlaying: false,
             isCurrentlySelected: false,
-            identifier: playlistID
+            identifier: playlistID,
+            trackURI: track.track.uri
         };
     });
 }

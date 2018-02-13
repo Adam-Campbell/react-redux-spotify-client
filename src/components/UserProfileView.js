@@ -7,6 +7,7 @@ import InlineTrackCollection from './InlineTrackCollection';
 import ArtistCollection from './ArtistCollection';
 import PlaylistCollection from './PlaylistCollection';
 import Loader from './Loader';
+import CreateNewPlaylistCard from './CreateNewPlaylistCard';
 
 class UserProfileView extends Component {
 
@@ -44,7 +45,9 @@ class UserProfileView extends Component {
                         playlistArray={this.props.userInfo.playlists || []}
                         title="Your Playlists"
                         accessToken={this.props.accessToken}
-                    />
+                    >
+                        <CreateNewPlaylistCard />
+                    </PlaylistCollection>
                 </div>
                 
             )
@@ -56,7 +59,6 @@ class UserProfileView extends Component {
 const mapStateToProps = state => {
     return {
         userInfo: state.userInfo,
-        //isFetchingUser: state.isFetchingUser,
         accessToken: state.accessToken,
         currentlySelectedCollection: state.currentlySelectedCollection
     };
