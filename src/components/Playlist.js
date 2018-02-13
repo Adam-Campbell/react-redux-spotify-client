@@ -33,6 +33,9 @@ class Playlist extends Component {
                     currentlySelectedCollection={this.props.currentlySelectedCollection}
                     playPauseTrack={this.props.playPauseTrack}
                     currentPage={this.state.currentPage}
+                    ownerID={this.props.ownerID}
+                    userID={this.props.userID}
+                    accessToken={this.props.accessToken}
                 />
             </section>
             <Paginator 

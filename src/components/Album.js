@@ -20,14 +20,9 @@ const Album = props => {
                         props.albumTracks.map(track => {
                             return (
                                 <TrackWithNumber 
-                                trackName={track.trackName}
-                                trackID={track.trackID}
+                                
                                 key={track.trackID}
-                                duration={track.duration}
-                                trackNumber={track.trackNumber}
-                                albumImage={track.albumImage}
-                                previewURL={track.previewURL}
-                                identifier={track.identifier}
+                                track={track}
                                 currentlySelectedCollection={props.currentlySelectedCollection}
                                 playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
                                 /> 

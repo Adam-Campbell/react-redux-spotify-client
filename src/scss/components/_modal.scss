@@ -1,0 +1,24 @@
+.modal {
+    &__overlay {
+        position: fixed; 
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(17,17,17,0.9);
+        z-index: 2000;
+    }
+    &__dialog-box {
+        background-color: $color--brand-green;
+        width: 80%;
+        max-width: 700px;
+        padding: 16px;
+        border-radius: 4px;
+    }
+    &__input {
+        color: $color--brand-grey-darkened;
+    }
+}

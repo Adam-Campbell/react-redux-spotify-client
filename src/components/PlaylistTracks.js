@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TrackWithImage from './TrackWithImage';
+import RemoveTrackButton from './RemoveTrackButton'
 
 const PlaylistTracks = props => {
     const upperBound = props.currentPage * 50;
@@ -9,20 +10,26 @@ const PlaylistTracks = props => {
         <div className="album__tracks-container">
             <ul className="track-collection__list">
                 {
-                    props.playlistTracks.slice(lowerBound, upperBound).map(track => {
+                    props.playlistTracks.slice(lowerBound, upperBound).map((track, index) => {
                         return (
                             <TrackWithImage 
-                            trackName={track.trackName}
-                            trackID={track.trackID}
-                            key={track.trackID}
-                            duration={track.duration}
-                            trackNumber={track.trackNumber}
-                            albumImage={track.albumImage}
-                            previewURL={track.previewURL}
-                            identifier={track.identifier}
-                            currentlySelectedCollection={props.currentlySelectedCollection}
-                            playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
-                            /> 
+                                key={index}
+                                track={track}
+                                currentlySelectedCollection={props.currentlySelectedCollection}
+                                playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
+                            >
+                                {
+                                    <RemoveTrackButton 
+                                        index={lowerBound + index}
+                                        trackURI={track.trackURI}
+                                        trackName={track.trackName}
+                                        playlistID={props.playlistID}
+                                        ownerID={props.ownerID}
+                                        userID={props.userID}
+                                        accessToken={props.accessToken}
+                                    />
+                                } 
+                            </TrackWithImage>
                         );
                     })
                 }

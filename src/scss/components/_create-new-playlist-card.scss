@@ -1,0 +1,32 @@
+.create-new-playlist-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 24px 8px;
+    border-radius: 4px;
+    background-color: $color--brand-green;
+    text-align: center;
+    transition: background-color ease-out 0.25s;
+    &__text {
+        font-family: $font-stack--secondary;
+        font-weight: $font-weight--regular;
+        font-size: em(16px);
+        margin-bottom: 0;
+    }
+    & .fa-plus {
+        font-size: em(48px);
+        transition: transform ease-out 0.25s;
+        -webkit-backface-visibility: hidden;
+        
+    }
+    &:hover {
+        background-color: $color--brand-green-darkened;
+        & .fa-plus {
+            transform: scale(1.2);
+        }
+    }
+}

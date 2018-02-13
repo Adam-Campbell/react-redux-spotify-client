@@ -83,6 +83,7 @@ function formatUsersTopTracks(data) {
         return {
             trackID: track.id,
             trackName: track.name,
+            trackURI: track.uri,
             duration: convertMsToMinSec(track.duration_ms),
             previewURL: track.preview_url,
             artistName: track.artists[0].name,
@@ -123,6 +124,7 @@ function formatUsersRecentTracks(data) {
         return {
             trackID: curr.track.id,
             trackName: curr.track.name,
+            trackURI: curr.track.uri,
             duration: convertMsToMinSec(curr.track.duration_ms),
             previewURL: curr.track.preview_url,
             artistName: curr.track.artists[0].name,

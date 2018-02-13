@@ -10,6 +10,7 @@ import orphanAlbums from './orphanAlbumsReducer';
 import playlists from './playlistsReducer';
 import currentlySelectedCollection from './currentlySelectedCollectionReducer';
 import market from './marketReducer';
+import addTrackModalInfo from './addTrackModalReducer';
 
 
 export default combineReducers({
@@ -21,5 +22,6 @@ export default combineReducers({
     orphanAlbums,
     playlists,
     currentlySelectedCollection,
-    market
+    market,
+    addTrackModalInfo
 });

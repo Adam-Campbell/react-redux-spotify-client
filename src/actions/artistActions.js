@@ -79,6 +79,7 @@ function createTopTracksArray(data) {
         return {
             trackName: track.name,
             trackID: track.id,
+            trackURI: track.uri,
             artistName: track.artists[0].name,
             artistID: track.artists[0].id,
             albumName: track.album.name,
@@ -86,7 +87,7 @@ function createTopTracksArray(data) {
             previewURL: track.preview_url,
             albumImage: track.album.images[1].url,
             duration: convertMsToMinSec(track.duration_ms),
-            identifier: track.artists[0].id
+            identifier: track.artists[0].id,
         }
     }).slice(0,5)
 }

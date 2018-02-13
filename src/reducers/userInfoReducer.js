@@ -29,6 +29,45 @@ export default function userInfo(state=defaultState, action) {
                 isFetching: false
             };
 
+        case ActionTypes.UPDATE_PLAYLIST_IMAGE_SUCCESS:
+            return {
+                ...state,
+                playlists: state.playlists.map(playlist => {
+                    if (playlist.playlistID === action.payload.key) {
+                        return {
+                            ...playlist,
+                            playlistImage: action.payload.imageURL
+                        };
+                    } else {
+                        return playlist;
+                    }
+                })
+            };
+
+        case ActionTypes.UPDATE_PLAYLIST_NAME_SUCCESS:
+            return {
+                ...state,
+                playlists: state.playlists.map(playlist => {
+                    if (playlist.playlistID === action.payload.key) {
+                        return {
+                            ...playlist, 
+                            playlistName: action.payload.newName
+                        };
+                    } else {
+                        return playlist;
+                    }
+                })
+            }
+
+        case ActionTypes.CREATE_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlists: [
+                    action.payload,
+                    ...state.playlists
+                ]
+            }
+
         default:
             return state;
 

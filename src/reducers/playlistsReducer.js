@@ -26,6 +26,60 @@ export default function playlists(state=defaultState, action) {
                 isFetching: false
             }
 
+        case ActionTypes.UPDATE_PLAYLIST_IMAGE_SUCCESS:
+            return {
+                ...state,
+                playlistData: {
+                    ...state.playlistData,
+                    [action.payload.key]: {
+                        ...state.playlistData[action.payload.key],
+                        playlistImage: action.payload.imageURL
+                    }
+                }
+            }
+
+        case ActionTypes.UPDATE_PLAYLIST_NAME_SUCCESS: 
+            return {
+                ...state,
+                playlistData: {
+                    ...state.playlistData,
+                    [action.payload.key]: {
+                        ...state.playlistData[action.payload.key],
+                        playlistName: action.payload.newName
+                    }
+                }
+            }
+
+        case ActionTypes.DELETE_TRACK_FROM_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlistData: {
+                    ...state.playlistData,
+                    [action.payload.key]: {
+                        ...state.playlistData[action.payload.key],
+                        playlistTracks: [
+                            ...state.playlistData[action.payload.key].playlistTracks.slice(0, action.payload.index),
+                            ...state.playlistData[action.payload.key].playlistTracks.slice(action.payload.index + 1)
+                        ]
+                    }
+                }
+            }
+
+        case ActionTypes.ADD_TRACK_TO_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlistData: {
+                    ...state.playlistData,
+                    [action.payload.key]: {
+                        ...state.playlistData[action.payload.key],
+                        playlistTracks: [
+                            ...state.playlistData[action.payload.key].playlistTracks,
+                            action.payload.track
+                        ]
+                    }
+                }
+            }
+
         default:
             return state;
 

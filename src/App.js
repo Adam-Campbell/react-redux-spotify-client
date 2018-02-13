@@ -15,6 +15,8 @@ import ArtistGroupView from './components/ArtistGroupView';
 import OrphanAlbumView from './components/OrphanAlbumView';
 import CategoryView from './components/CategoryView';
 import PlaylistView from './components/PlaylistView';
+import Portal from './components/Portal';
+import AddTrackModal from './components/AddTrackModal';
 
 
 
@@ -92,6 +94,7 @@ class App extends Component {
         
         if (this.checkForAccessToken()) {
             return(
+                <div>
                 <BrowserRouter>
                     <div>
                         <Navigation accessToken={this.props.accessToken}/>
@@ -120,10 +123,10 @@ class App extends Component {
                                     render={({match}) => <CategoryView category={match.params.category} />}
                                 />
                                 <Route 
-                                    path="/playlist/:userID/:playlistID"
+                                    path="/playlist/:ownerID/:playlistID"
                                     render={({match}) => <PlaylistView 
                                                             playlistID={match.params.playlistID}
-                                                            userID={match.params.userID} 
+                                                            ownerID={match.params.ownerID} 
                                                         />
                                             }
                                 />
@@ -133,7 +136,12 @@ class App extends Component {
                         <PlayerControls />
                         
                     </div>
+            
                 </BrowserRouter>
+                <Portal>
+                    <AddTrackModal />
+                </Portal>
+                </div>
             );
         } else {
             return <SignIn />
