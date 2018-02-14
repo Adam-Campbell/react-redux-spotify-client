@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
 
 const UserPlaylistName = props => {
     if (props.isEditingName) {
         return (
-            <div>
+            <div className="album__text-input-container">
                 <input 
                     className="album__text-input"
                     value={props.localName} 
@@ -23,10 +25,11 @@ const UserPlaylistName = props => {
     else {
         return (
             <h1 
-                className="heading heading--regular" 
+                className="heading heading--regular heading--editable" 
                 onClick={props.editName}
             >
                 {props.playlistName}
+                <FontAwesomeIcon icon={faPencilAlt}/>
             </h1>
         );
     }

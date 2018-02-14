@@ -46,10 +46,16 @@
         max-width: 100%;
         @media(min-width: 768px) {
             padding-left: 16px;
+            flex-grow: 1;
         }
         @media(min-width: 1000px) {
             padding-left: 0;
+            width: 100%;
         }
+    }
+    &__text-input-container {
+        display: flex;
+        align-items: center;
     }
     &__text-input {
         font-family: $font-stack--secondary;
@@ -64,6 +70,7 @@
         margin-bottom: 8px;
         height: 32px;
         vertical-align: middle;
+        flex-grow: 1;
         &:focus {
             outline: none;
         }
