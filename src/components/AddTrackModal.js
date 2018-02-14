@@ -2,35 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
+import AddTrackModalListItem from './AddTrackModalListItem'; 
 
 class AddTrackModal extends Component {
     
     render() {
-        if (this.props.isShowing) {
+        if (this.props.currentModal === 'AddTrackModal') {
             return (
                 <div className="modal__overlay">
                     <div className="modal__dialog-box">
-                        <h1>Select a playlist to add the track to</h1>
+                        <h1 className="modal__title">Select a playlist to add the track to</h1>
 
-                        <ul>
+                        <ul className="modal__list">
                             {
                                 this.props.playlists.map((playlist, index) => {
                                     if (playlist.ownerID === this.props.userID) {
-                                        return (
-                                            <li
+                                       return (
+                                            <AddTrackModalListItem 
                                                 key={index}
-                                                onClick={
-                                                    () => this.props.addTrackToPlaylist(
-                                                                            this.props.userID, 
-                                                                            playlist.playlistID, 
-                                                                            this.props.trackToAdd, 
-                                                                            this.props.accessToken
-                                                                        )
-                                                }
-                                            >
-                                                <p>{playlist.playlistName}</p>  
-                                            </li>
-                                        )
+                                                addTrackToPlaylist={this.props.addTrackToPlaylist}
+                                                playlistName={playlist.playlistName}
+                                                playlistID={playlist.playlistID}
+                                                playlistImage={playlist.playlistImage}
+                                                userID={this.props.userID}
+                                                trackToAdd={this.props.trackToAdd}
+                                                accessToken={this.props.accessToken}
+                                            />
+                                       ); 
                                 } else {
                                     return null;
                                 }
@@ -39,7 +37,8 @@ class AddTrackModal extends Component {
                         </ul>
 
                         <button
-                            onClick={this.props.addTrackModalClose}
+                            className="modal__button"
+                            onClick={this.props.closeModal}
                         >
                             Cancel
                         </button>
@@ -54,8 +53,8 @@ class AddTrackModal extends Component {
 
 const mapStateToProps = state => {
     return {
-        isShowing: state.addTrackModalInfo.isShowing,
-        trackToAdd: state.addTrackModalInfo.trackToAdd,
+        currentModal: state.modalInfo.currentModal,
+        trackToAdd: state.modalInfo.modalData,
         accessToken: state.accessToken,
         userID: state.userInfo.userID,
         playlists: state.userInfo.playlists
@@ -73,6 +72,11 @@ const mapDispatchToProps = dispatch => {
             dispatch(
                 ActionCreators.addTrackToPlaylist(ownerID, playlistID, trackToAdd, token)
             );
+        },
+        closeModal() {
+            dispatch(
+                ActionCreators.closeModal()
+            );
         }
     }
 }
@@ -80,3 +84,23 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTrackModal); 
+
+
+
+
+
+// return (
+//     <li
+//         key={index}
+//         onClick={
+//             () => this.props.addTrackToPlaylist(
+//                                     this.props.userID, 
+//                                     playlist.playlistID, 
+//                                     this.props.trackToAdd, 
+//                                     this.props.accessToken
+//                                 )
+//         }
+//     >
+//         <p className="modal__text">{playlist.playlistName}</p>  
+//     </li>
+// )

@@ -8,4 +8,4 @@ export * from './orphanAlbumActions';
 export * from './categoryActions';
 export * from './playlistActions';
 export * from './playerActions';
-export * from './addTrackModalActions';
+export * from './modalActions';

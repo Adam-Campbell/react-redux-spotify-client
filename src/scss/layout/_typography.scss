@@ -15,4 +15,16 @@
     &--small {
         font-size: em(24px);
     }
+    &--editable {
+        position: relative;
+        cursor: pointer;
+        padding-right: 1rem;
+        & .fa-pencil-alt {
+            font-size: 1rem;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
 }

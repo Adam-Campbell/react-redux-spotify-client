@@ -17,6 +17,8 @@ import CategoryView from './components/CategoryView';
 import PlaylistView from './components/PlaylistView';
 import Portal from './components/Portal';
 import AddTrackModal from './components/AddTrackModal';
+import CreateNewPlaylistModal from './components/CreateNewPlaylistModal';
+import ImageUploadModal from './components/ImageUploadModal';
 
 
 
@@ -140,6 +142,8 @@ class App extends Component {
                 </BrowserRouter>
                 <Portal>
                     <AddTrackModal />
+                    <CreateNewPlaylistModal />
+                    <ImageUploadModal />
                 </Portal>
                 </div>
             );

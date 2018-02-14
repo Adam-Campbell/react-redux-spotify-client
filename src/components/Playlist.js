@@ -25,7 +25,7 @@ class Playlist extends Component {
                     <img src={this.props.playlistImage} alt="" className="album__image"></img>
                     <div className="album__info">
                         <h1 className="heading heading--regular">{this.props.playlistName}</h1>
-                        <p className="album__paragraph">{this.props.ownerName}</p>
+                        <p className="album__paragraph">A playlist by {this.props.ownerName}</p>
                     </div>
                 </div>
                 <PlaylistTracks 

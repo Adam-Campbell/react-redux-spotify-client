@@ -82,7 +82,7 @@ class UserPlaylist extends Component {
                         <img src={this.props.playlistImage} alt="" className="album__image"></img>
                         <button 
                             className="album__image-upload-button"
-                            onClick={this.toggleImageUploadModal}
+                            onClick={() => this.props.imageUploadModalOpen({playlistID: this.props.playlistID})}
                         >
                             Upload Image
                         </button>
@@ -96,7 +96,7 @@ class UserPlaylist extends Component {
                             localName={this.state.localName}
                             playlistName={this.props.playlistName}
                         />
-                        <p className="album__paragraph">{this.props.ownerName}</p>
+                        <p className="album__paragraph">A playlist by {this.props.ownerName}</p>
                     </div>
                 </div>
                 <PlaylistTracks 
@@ -116,15 +116,7 @@ class UserPlaylist extends Component {
                 currentPage={this.state.currentPage}
                 setPage={this.setPage}
             />
-            <Portal>
-                <ImageUploadModal 
-                    isShowingImageUploadModal={this.state.isShowingImageUploadModal}
-                    toggleImageUploadModal={this.toggleImageUploadModal}
-                    playlistID={this.props.playlistID}
-                    ownerID={this.props.ownerID}
-                    accessToken={this.props.accessToken}
-                />
-            </Portal>
+           
             </div>
 
         );
@@ -144,6 +136,11 @@ const mapDispatchToProps = dispatch => {
         updatePlaylistName(ownerID, playlistID, newName, token) {
             dispatch(
                 ActionCreators.updatePlaylistName(ownerID, playlistID, newName, token)
+            );
+        },
+        imageUploadModalOpen(playlistID) {
+            dispatch(
+                ActionCreators.imageUploadModalOpen(playlistID)
             );
         }
     }
