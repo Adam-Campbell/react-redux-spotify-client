@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper } from './helpers';
-
+import { convertMsToMinSec, fetchWrapper, genericFetchWrapper } from './helpers';
+import { errorModalOpen } from './modalActions';
 
 //
 // Exported thunk action
@@ -13,10 +13,13 @@ export function fetchOrphanAlbum(token, id) {
         const currentState =  getState();
         const market = currentState.market;
 
-        const albumInfo = await fetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);
-        const album = formatOrphanAlbum(albumInfo);        
-
-        dispatch(receiveOrphanAlbum(album, id));
+        try {
+            const albumInfo = await genericFetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);
+            const album = formatOrphanAlbum(albumInfo);        
+            dispatch(receiveOrphanAlbum(album, id));
+        } catch(e) {
+            dispatch(errorModalOpen(e));
+        }
     }
 }
 

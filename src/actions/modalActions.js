@@ -20,6 +20,13 @@ export function imageUploadModalOpen(playlistID) {
     }
 }
 
+export function errorModalOpen(errorInfo) {
+    return {
+        type: ActionTypes.OPEN_ERROR_MODAL,
+        payload: errorInfo
+    }
+}
+
 export function closeModal() {
     return {
         type: ActionTypes.CLOSE_MODAL

@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapper } from './helpers';
-
+import { genericFetchWrapper } from './helpers';
+import { errorModalOpen } from './modalActions';
 
 
 //
@@ -13,22 +13,25 @@ export function fetchHighlights(token) {
         const currentState =  getState();
         const market = currentState.market;
         dispatch(requestHighlights());
-        
-        const newReleases = fetchWrapper(`https://api.spotify.com/v1/browse/new-releases?country=${market}&limit=50`, token);
-        const featuredPlaylists = fetchWrapper(`https://api.spotify.com/v1/browse/featured-playlists?country=${market}&limit=50`, token);
-        const categories = fetchWrapper("https://api.spotify.com/v1/browse/categories", token);
+        try {
+            const newReleases = genericFetchWrapper(`https://api.spotify.com/v1/browse/new-releases?country=${market}&limit=50`, token);
+            const featuredPlaylists = genericFetchWrapper(`https://api.spotify.com/v1/browse/featured-playlists?country=${market}&limit=50`, token);
+            const categories = genericFetchWrapper("https://api.spotify.com/v1/browse/categories", token);
 
-        const newReleasesComplete = await newReleases;
-        const featuredPlaylistsComplete = await featuredPlaylists;
-        const categoriesComplete = await categories;
+            const newReleasesComplete = await newReleases;
+            const featuredPlaylistsComplete = await featuredPlaylists;
+            const categoriesComplete = await categories;
 
-        const highlightsObject = {
-            newReleases: createNewReleasesArray(newReleasesComplete.albums.items),
-            featuredPlaylists: createFeaturedPlaylistsArray(featuredPlaylistsComplete.playlists.items),
-            categories: createCategoriesArray(categoriesComplete.categories.items)
-        };
+            const highlightsObject = {
+                newReleases: createNewReleasesArray(newReleasesComplete.albums.items),
+                featuredPlaylists: createFeaturedPlaylistsArray(featuredPlaylistsComplete.playlists.items),
+                categories: createCategoriesArray(categoriesComplete.categories.items)
+            };
 
-        dispatch(receiveHighlights(highlightsObject));
+            dispatch(receiveHighlights(highlightsObject));
+        } catch(e) {
+            dispatch(errorModalOpen(e));
+        }
     }
 }
 

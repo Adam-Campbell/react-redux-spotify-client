@@ -23,6 +23,7 @@ $cod-grey: #111;
 $mine-shaft: #222;
 $midnight-grey: #060606;
 $white: #fff;
+$mojo: #C13939;
 // functional color variable names linked to the descriptive ones
 $color--white: $white;
 $color--brand-green: $mountain-meadow;
@@ -30,6 +31,7 @@ $color--brand-green-darkened: darken($color--brand-green, 10%);
 $color--brand-grey: $cod-grey;
 $color--brand-grey-lightened: $mine-shaft;
 $color--brand-grey-darkened: $midnight-grey;
+$color--warning: $mojo;
 
 // breakpoints
 $breakpoint--mobile: 570px;

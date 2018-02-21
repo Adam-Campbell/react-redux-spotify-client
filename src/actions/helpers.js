@@ -29,3 +29,68 @@ export async function fetchWrapper(url, token) {
             .then(response => resolve(response))
     })
 }
+
+
+export async function genericFetchWrapper(url, token) {
+    const settingsObject = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    const response = await fetch(url, settingsObject);
+    if (response.ok) {
+        const responseJSON = await response.json();
+        return responseJSON;
+    } else {
+        const errorJSON = await response.json();
+        const { error } = errorJSON;
+        return Promise.reject(error);
+    }
+}
+
+
+export async function newFetchWrapper(url, settingsObject) {
+    const response = await fetch(url, settingsObject);
+    if (response.ok) {
+        const responseJSON = await response.json();
+        return responseJSON;
+    } else { 
+        const errorJSON = await response.json();
+        const { error } = errorJSON;
+        return Promise.reject( error );
+    }
+}
+
+export async function noResponseFetchWrapper(url, settingsObject) {
+    const response = await fetch(url, settingsObject);
+    if (response.ok) {
+        return response;
+    } else { 
+        const errorJSON = await response.json();
+        const { error } = errorJSON;
+        return Promise.reject( error );
+    }
+}
+
+
+// EXAMPLES OF HOW TO USE THIS FUNCTION
+
+// With await and a try/catch block:
+
+// try {
+//     const createPlaylistResponse = await newFetchWrapper(url, settings);
+//     const playlistObject = createPlaylistObject(createPlaylistResponse);
+//     dispatch(createPlaylistSuccess(playlistObject));
+// } catch(e) {
+//     console.log(e);   
+// }
+
+
+// With Promise.all:
+
+// Promise.all([newFetchWrapper(url, settings)])
+// .then(response => {
+//     const playlistObject = createPlaylistObject(response[0]);
+//     dispatch( createPlaylistSuccess(playlistObject) );
+// })
+// .catch(e => console.log(e))

@@ -85,3 +85,19 @@ export default function playlists(state=defaultState, action) {
 
     }
 }
+
+
+// case ActionTypes.ADD_TRACK_TO_PLAYLIST_SUCCESS:
+//     return {
+//         ...state,
+//         playlistData: {
+//             ...state.playlistData,
+//             [action.payload.key]: {
+//                 ...state.playlistData[action.payload.key],
+//                 playlistTracks: [
+//                     ...state.playlistData[action.payload.key].playlistTracks,
+//                     action.payload.track
+//                 ]
+//             }
+//         }
+//     }
