@@ -29,6 +29,14 @@ export default function modalInfo(state=defaultState, action) {
                 }
             };
 
+        case ActionTypes.OPEN_ERROR_MODAL:
+            return {
+                currentModal: 'ErrorModal',
+                modalData: {
+                    ...action.payload
+                }
+            };
+
         case ActionTypes.CLOSE_MODAL:
             return defaultState;
 

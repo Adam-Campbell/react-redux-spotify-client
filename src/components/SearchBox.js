@@ -27,8 +27,10 @@ class SearchBox extends Component {
                         e => {
                             e.preventDefault();
                             e.persist();
-                            this.props.updateSearch(e.target.value); 
-                            this.debouncedSearch(e.target.value, this.props.accessToken);  
+                            this.props.updateSearch(e.target.value);
+                            if (e.target.value.length) {
+                                this.debouncedSearch(e.target.value, this.props.accessToken);  
+                            }
                         }
                     }
                 >

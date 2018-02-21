@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapper } from './helpers';
-
+import { genericFetchWrapper } from './helpers';
+import { errorModalOpen } from './modalActions';
 
 //
 // Exported thunk action
@@ -9,10 +9,13 @@ import { fetchWrapper } from './helpers';
 export function fetchCategory(token, id) {
     return async function(dispatch) {
         dispatch(requestCategory());
-        const categoryInfo = await fetchWrapper(`https://api.spotify.com/v1/browse/categories/${id}/playlists`, token);
-        const category = formatCategory(categoryInfo.playlists.items);  
-
-        dispatch(receiveCategory(category, id));
+        try {
+            const categoryInfo = await genericFetchWrapper(`https://api.spotify.com/v1/browse/categories/${id}/playlists`, token);
+            const category = formatCategory(categoryInfo.playlists.items);  
+            dispatch(receiveCategory(category, id));
+        } catch(e) {
+            dispatch(errorModalOpen(e));
+        }
     }
 }
 

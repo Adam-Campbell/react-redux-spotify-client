@@ -1,5 +1,6 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapper } from './helpers';
+import { genericFetchWrapper } from './helpers';
+import { errorModalOpen } from './modalActions';
 
 //
 // Exported thunk action
@@ -13,15 +14,24 @@ export function fetchSearchResults(query, token) {
         const currentState =  getState();
         const market = currentState.market;
 
-        const searchResults = await fetchWrapper(`https://api.spotify.com/v1/search?q=${query}&type=artist,album,playlist&market=${market}`, token);  
-        
-        const searchResultsObject = {
-            artists: formatArtistSearchResults(searchResults.artists.items),
-            albums: formatAlbumSearchResults(searchResults.albums.items),
-            playlists: formatPlaylistSearchResults(searchResults.playlists.items)
-        }
+        try {
+            const searchResults = await genericFetchWrapper(`https://api.spotify.com/v1/search?q=${query}&type=artist,album,playlist&market=${market}`, token);  
+            
+            const searchResultsObject = {
+                artists: formatArtistSearchResults(searchResults.artists.items),
+                albums: formatAlbumSearchResults(searchResults.albums.items),
+                playlists: formatPlaylistSearchResults(searchResults.playlists.items)
+            }
 
-        dispatch(receiveSearchResults(searchResultsObject));
+            dispatch(receiveSearchResults(searchResultsObject));
+        } catch(e) {
+            dispatch(errorModalOpen(e));
+            // This throws an error if you try to search without a search query. 
+            // So either I need custom error handling in here that ignores that specific
+            // type of error, or I need to alter the component so that it only dispatches
+            // the action when there is a search query present - this is probably the better
+            // solution.
+        }
     }
 }
 

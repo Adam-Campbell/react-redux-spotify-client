@@ -1,5 +1,6 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper } from './helpers';
+import { convertMsToMinSec, genericFetchWrapper } from './helpers';
+import { errorModalOpen } from './modalActions';
 
 
 //
@@ -10,38 +11,35 @@ export function fetchUserProfile(token) {
     return async function(dispatch) {
         // dispatch initial event
         dispatch(requestUser());
-
-        // initiate the API calls for all the data we will need - in parellel
-        const userInfo = fetchWrapper('https://api.spotify.com/v1/me', token);
-        const usersTopTracks = fetchWrapper('https://api.spotify.com/v1/me/top/tracks', token);
-        const usersTopArtists = fetchWrapper('https://api.spotify.com/v1/me/top/artists', token);
-        const usersSavedPlaylists = fetchWrapper('https://api.spotify.com/v1/me/playlists', token);
-        const usersRecentTracks = fetchWrapper('https://api.spotify.com/v1/me/player/recently-played', token);
+        try {
+            // initiate the API calls for all the data we will need - in parellel
+            const userInfo = genericFetchWrapper('https://api.spotify.com/v1/me', token);
+            const usersTopTracks = genericFetchWrapper('https://api.spotify.com/v1/me/top/tracks', token);
+            const usersTopArtists = genericFetchWrapper('https://api.spotify.com/v1/me/top/artists', token);
+            const usersSavedPlaylists = genericFetchWrapper('https://api.spotify.com/v1/me/playlists', token);
+            const usersRecentTracks = genericFetchWrapper('https://api.spotify.com/v1/me/player/recently-played', token);
+            
+            //ensure we await all of the API calls before resuming
+            const userInfoComplete = await userInfo;
+            const usersTopTracksComplete = await usersTopTracks;
+            const usersTopArtistsComplete = await usersTopArtists;
+            const usersSavedPlaylistsComplete = await usersSavedPlaylists;
+            const usersRecentTracksComplete = await usersRecentTracks;
         
-        // ensure we await all of the API calls before resuming
-        const userInfoComplete = await userInfo;
-        const usersTopTracksComplete = await usersTopTracks;
-        const usersTopArtistsComplete = await usersTopArtists;
-        const usersSavedPlaylistsComplete = await usersSavedPlaylists;
-        const usersRecentTracksComplete = await usersRecentTracks;
-
-        // take the info we got back and turn it into an object in the shape that we want
-        // our state to be in. 
-        const userObject = {
-            userName: userInfoComplete.display_name,
-            userID: userInfoComplete.id,
-            userImage: (userInfoComplete.images.length) ? userInfoComplete.images[0].url : '',
-            topTracks: formatUsersTopTracks(usersTopTracksComplete),
-            topArtists: formatUsersTopArtists(usersTopArtistsComplete),
-            playlists: formatUsersSavedPlaylists(usersSavedPlaylistsComplete),
-            recentTracks: formatUsersRecentTracks(usersRecentTracksComplete)
-        };
-
-        // then dispatch that object to the store for state to be updated
-        dispatch(receiveUser(userObject));
-        dispatch(setMarket(userInfoComplete.country));
-
-
+            const userObject = {
+                userName: userInfoComplete.display_name,
+                userID: userInfoComplete.id,
+                userImage: (userInfoComplete.images.length) ? userInfoComplete.images[0].url : '',
+                topTracks: formatUsersTopTracks(usersTopTracksComplete),
+                topArtists: formatUsersTopArtists(usersTopArtistsComplete),
+                playlists: formatUsersSavedPlaylists(usersSavedPlaylistsComplete),
+                recentTracks: formatUsersRecentTracks(usersRecentTracksComplete)
+            };
+            dispatch(receiveUser(userObject));
+            dispatch(setMarket(userInfoComplete.country));
+        } catch(e) { 
+            dispatch(errorModalOpen(e));
+        }
     }
 }
 

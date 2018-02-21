@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper } from './helpers';
-
+import { convertMsToMinSec, genericFetchWrapper } from './helpers';
+import { errorModalOpen } from './modalActions';
 
 //
 // Exported thunk action
@@ -11,31 +11,34 @@ export function fetchArtist(id, token) {
         const currentState =  getState();
         const market = currentState.market;
         dispatch(requestArtist())
+        try {
+            const artistInfo = genericFetchWrapper(`https://api.spotify.com/v1/artists/${id}`, token);
+            const topTracks = genericFetchWrapper(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=${market}`, token);
+            const relatedArtists = genericFetchWrapper(`https://api.spotify.com/v1/artists/${id}/related-artists`, token);
+            const albums = genericFetchWrapper(`https://api.spotify.com/v1/artists/${id}/albums?album_type=album,single&limit=50&market=${market}`, token);
 
-        const artistInfo = fetchWrapper(`https://api.spotify.com/v1/artists/${id}`, token);
-        const topTracks = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=${market}`, token);
-        const relatedArtists = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/related-artists`, token);
-        const albums = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/albums?album_type=album,single&limit=50&market=${market}`, token);
+            const artistInfoComplete = await artistInfo;
+            const topTracksComplete = await topTracks;
+            const relatedArtistsComplete = await relatedArtists;
+            const albumsComplete = await albums;
 
-        const artistInfoComplete = await artistInfo;
-        const topTracksComplete = await topTracks;
-        const relatedArtistsComplete = await relatedArtists;
-        const albumsComplete = await albums;
+            const artistObject = {
+                artistName: artistInfoComplete.name,
+                artistID: artistInfoComplete.id,
+                genres: artistInfoComplete.genres,
+                followers: artistInfoComplete.followers,
+                artistImage: (artistInfoComplete.images.length) ? 
+                                artistInfoComplete.images[0].url :
+                                '',
+                topTracks: createTopTracksArray(topTracksComplete.tracks),
+                relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
+                albums: createAlbumsArray(albumsComplete.items)
+            };
 
-        const artistObject = {
-            artistName: artistInfoComplete.name,
-            artistID: artistInfoComplete.id,
-            genres: artistInfoComplete.genres,
-            followers: artistInfoComplete.followers,
-            artistImage: (artistInfoComplete.images.length) ? 
-                            artistInfoComplete.images[0].url :
-                            '',
-            topTracks: createTopTracksArray(topTracksComplete.tracks),
-            relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
-            albums: createAlbumsArray(albumsComplete.items)
-        };
-
-        dispatch(receiveArtist(artistObject, id))
+            dispatch(receiveArtist(artistObject, id));
+        } catch(e) {
+            dispatch(errorModalOpen(e));
+        }
         
     }
 }

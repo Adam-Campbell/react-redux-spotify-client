@@ -19,6 +19,9 @@
         border-radius: 4px;
         max-height: 90vh;
         overflow-y: auto;
+        &--warning {
+            background-color: $color--warning;
+        }
     }
     &__text-input {
         display: block;
