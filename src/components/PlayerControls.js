@@ -205,46 +205,19 @@ class PlayerControls extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        artistInfo: state.artistInfo,
-        currentlySelectedCollection: state.currentlySelectedCollection
-    }
-}
+const mapStateToProps = state => ({
+    artistInfo: state.artistInfo,
+    currentlySelectedCollection: state.currentlySelectedCollection
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        playPauseFromPlayer(trackID) {
-            dispatch(
-                ActionCreators.playPauseFromPlayer(trackID)
-            );
-        },
-        skipToNextTrack() {
-            dispatch(
-                ActionCreators.skipToNextTrack()
-            );
-        },
-        skipToPreviousTrack() {
-            dispatch(
-                ActionCreators.skipToPreviousTrack()
-            );
-        },
-        shuffleCurrentCollection() {
-            dispatch(
-                ActionCreators.shuffleCurrentCollection()
-            );
-        },
-        unshuffleCurrentCollection() {
-            dispatch(
-                ActionCreators.unshuffleCurrentCollection()
-            );
-        },
-        toggleRepeat() {
-            dispatch(
-                ActionCreators.toggleRepeat()
-            );
-        }
+export default connect(
+    mapStateToProps, 
+    {
+        playPauseFromPlayer: ActionCreators.playPauseFromPlayer,
+        skipToNextTrack: ActionCreators.skipToNextTrack,
+        skipToPreviousTrack: ActionCreators.skipToPreviousTrack,
+        shuffleCurrentCollection: ActionCreators.shuffleCurrentCollection,
+        unshuffleCurrentCollection: ActionCreators.unshuffleCurrentCollection,
+        toggleRepeat: ActionCreators.toggleRepeat
     }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerControls);
+)(PlayerControls);

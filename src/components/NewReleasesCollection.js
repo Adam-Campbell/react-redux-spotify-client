@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NewReleasesCollectionItem from './NewReleasesCollectionItem';
+import Card from './Card';
 import Paginator from './Paginator';
 
 
@@ -26,20 +26,17 @@ class NewReleasesCollection extends Component {
             <section className="card-collection">
                 <h1 className="heading heading--regular">{this.props.title}</h1>
                 <div className="card-collection__container">
-                    {
-                        this.props.newReleasesArray.slice(lowerBound, upperBound).map(release => {
-                            return (
-                                <NewReleasesCollectionItem 
-                                    albumName={release.albumName}
-                                    albumID={release.albumID}
-                                    key={release.albumID}
-                                    albumImage={release.albumImage}
-                                    artistName={release.artistName}
-                                    artistID={release.artistID}
-                                />
-                            )
-                        })
-                    }
+                    {this.props.newReleasesArray.slice(lowerBound, upperBound).map((release, index) => (
+                        <Card
+                            cardTitle={release.albumName}
+                            cardImage={release.albumImage}
+                            cardDestination={`/album/${release.albumID}`}
+                            isRounded={false}
+                            key={index}
+                        >
+                            <p className="card__text--small">{release.artistName}</p>
+                        </Card>
+                    ))}
                 </div>
                 <Paginator 
                     totalItems={this.props.newReleasesArray.length}
@@ -51,8 +48,6 @@ class NewReleasesCollection extends Component {
         );
     }
 }
-
-
 
 NewReleasesCollection.propTypes = {
     newReleasesArray: PropTypes.array,

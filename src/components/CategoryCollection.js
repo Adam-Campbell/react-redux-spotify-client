@@ -1,29 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CategoryCollectionItem from './CategoryCollectionItem';
+import Card from './Card';
+import Collection from './Collection';
 
-const CategoryCollection = props => {
-    
-    return (
-        <section className="card-collection">
-            <h1 className="heading heading--regular">{props.title}</h1>
-            <div className="card-collection__container">
-                {
-                    props.categoryArray.map(category => {
-                        return (
-                            <CategoryCollectionItem 
-                                categoryIcon={category.categoryIcon}
-                                categoryName={category.categoryName}
-                                categoryID={category.categoryID}
-                                key={category.categoryID}
-                            />
-                        )
-                    })
-                }
-            </div>
-        </section>
-    )
-}
+const CategoryCollection = props => (
+    <Collection 
+        title={props.title}
+        itemArray={props.categoryArray.map((category, index) => (
+            <Card 
+                cardImage={category.categoryIcon}
+                cardTitle={category.categoryName}
+                cardDestination={`/category/${category.categoryID}`}
+                isRounded={false}
+                key={category.categoryID}
+            />
+        ))}
+    />
+);
 
 CategoryCollection.propTypes = {
     categoryArray: PropTypes.array,

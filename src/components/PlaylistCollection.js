@@ -1,41 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaylistCollectionItem from './PlaylistCollectionItem';
+import Card from './Card';
+import Collection from './Collection';
 
-const PlaylistCollection = props => {
-
-    let playlistArr;
-    if (props.playlistArray.length) {
-        playlistArr = props.playlistArray.map(playlist => {
-            return (
-                <PlaylistCollectionItem 
-                    playlistImage={playlist.playlistImage}
-                    playlistName={playlist.playlistName}
-                    playlistID={playlist.playlistID}
-                    ownerID={playlist.ownerID}
-                    key={playlist.playlistID}
-                />
-            )
-        });
-    } else {
-        playlistArr = <p>Sorry, there are no playlists to show here.</p>
-    }
-
-    return (
-        <section className="card-collection">
-            <h1 className="heading heading--regular">{props.title}</h1>
-            <div className="card-collection__container">
-                {playlistArr}
-                {props.children}
-            </div>
-        </section>
-    )
-}
+const PlaylistCollection = props => (
+    <Collection 
+        title={props.title}
+        itemArray={props.playlistArray.map((playlist, index) => (
+            <Card 
+                cardImage={playlist.playlistImage}
+                cardTitle={playlist.playlistName}
+                isRounded={false}
+                cardDestination={`/playlist/${playlist.ownerID}/${playlist.playlistID}`}
+                key={index}
+            />
+        ))}
+    >
+        {props.children}
+    </Collection>
+);
 
 PlaylistCollection.propTypes = {
     playlistArray: PropTypes.array,
     title: PropTypes.string,
     accessToken: PropTypes.string
-}
+};
 
 export default PlaylistCollection;

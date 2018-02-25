@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import ImageUploadModal from './ImageUploadModal';
 
 class Portal extends Component {
     constructor(props) {
@@ -26,19 +25,4 @@ class Portal extends Component {
     }
 }
 
-
-export default Portal
-
-
-
-
-
-// render() {
-//     return ReactDOM.createPortal(
-//         <ImageUploadModal 
-//             isShowingImageUploadModal={this.props.isShowingImageUploadModal}
-//             toggleImageUploadModal={this.props.toggleImageUploadModal}
-//         />,
-//         this.container
-//     );
-// }
+export default Portal;

@@ -18,7 +18,12 @@ class ImageUploadInput extends Component {
     saveImageToStore() {
         let result = this.reader.result;
         this.convertToJPEG(result)
-        .then(result => this.props.updatePlaylistImage(this.props.ownerID, this.props.playlistID, result, this.props.accessToken));   
+        .then(result => {
+            this.props.updatePlaylistImage(
+                this.props.ownerID, this.props.playlistID, result, this.props.accessToken
+            );
+            this.props.closeModal();
+        });   
     }
 
     checkForFile() {
@@ -58,7 +63,6 @@ class ImageUploadInput extends Component {
                     id="fileInput"
                     className="modal__file-input"
                     onChange={this.checkForFile}
-                    onFocus={() => console.log('Focus event was triggered!')}
                 >
                 </input>
                 <label 
@@ -74,21 +78,10 @@ class ImageUploadInput extends Component {
 
 }
 
-const mapStateToProps = state => {
-    return {
-
+export default connect(
+    null, 
+    {
+        updatePlaylistImage: ActionCreators.updatePlaylistImage,
+        closeModal: ActionCreators.closeModal
     }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        updatePlaylistImage(ownerID, playlistID, image, accessToken) {
-            dispatch(
-                ActionCreators.updatePlaylistImage(ownerID, playlistID, image, accessToken)
-            );
-        }
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImageUploadInput);
+)(ImageUploadInput);

@@ -42,27 +42,15 @@ class SearchBox extends Component {
 }
 
 
-const mapStateToProps = state => {
-    return {
-        accessToken: state.accessToken,
-        currentSearch: state.searchResults.currentSearch
+const mapStateToProps = state => ({
+    accessToken: state.accessToken.token,
+    currentSearch: state.searchResults.currentSearch
+});
+
+export default connect(
+    mapStateToProps, 
+    {
+        updateSearch: ActionCreators.updateSearch,
+        fetchSearchResults: ActionCreators.fetchSearchResults
     }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        updateSearch(search) {
-            dispatch(
-                ActionCreators.updateSearch(search)
-            );
-        },
-        fetchSearchResults(query, token) {
-            dispatch(
-                ActionCreators.fetchSearchResults(query, token)
-            );
-        }
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBox);
+)(SearchBox);

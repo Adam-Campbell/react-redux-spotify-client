@@ -9,30 +9,24 @@ const PlaylistTracks = props => {
     return (
         <div className="album__tracks-container">
             <ul className="track-collection__list">
-                {
-                    props.playlistTracks.slice(lowerBound, upperBound).map((track, index) => {
-                        return (
-                            <TrackWithImage 
-                                key={index}
-                                track={track}
-                                currentlySelectedCollection={props.currentlySelectedCollection}
-                                playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
-                            >
-                                {
-                                    <RemoveTrackButton 
-                                        index={lowerBound + index}
-                                        trackURI={track.trackURI}
-                                        trackName={track.trackName}
-                                        playlistID={props.playlistID}
-                                        ownerID={props.ownerID}
-                                        userID={props.userID}
-                                        accessToken={props.accessToken}
-                                    />
-                                } 
-                            </TrackWithImage>
-                        );
-                    })
-                }
+                {props.playlistTracks.slice(lowerBound, upperBound).map((track, index) => (
+                    <TrackWithImage 
+                        key={index}
+                        track={track}
+                        currentlySelectedCollection={props.currentlySelectedCollection}
+                        playPauseTrack={() => props.playPauseTrack(track.trackID, track.identifier)}
+                    >
+                        <RemoveTrackButton 
+                            index={lowerBound + index}
+                            trackURI={track.trackURI}
+                            trackName={track.trackName}
+                            playlistID={props.playlistID}
+                            ownerID={props.ownerID}
+                            userID={props.userID}
+                            accessToken={props.accessToken}
+                        />
+                    </TrackWithImage>
+                ))}
             </ul>
         </div>  
     );

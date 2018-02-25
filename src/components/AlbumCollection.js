@@ -1,34 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AlbumCollectionItem from './AlbumCollectionItem';
+import Card from './Card'
+import Collection from './Collection';
 
-const AlbumCollection = props => {
-
-    let albumArr;
-    if (props.albumArray.length) {
-        albumArr = props.albumArray.map(album => {
-            return (
-                <AlbumCollectionItem 
-                    albumImage={album.albumImage}
-                    albumName={album.albumName}
-                    albumID={album.albumID}
-                    key={album.albumID}
-                />
-            );
-        })
-    } else {
-        albumArr = <p>Sorry, there are no albums to show here.</p>
-    }
-
-    return (
-        <section className="card-collection">
-            <h1 className="heading heading--regular">{props.title}</h1>
-            <div className="card-collection__container">
-                {albumArr}
-            </div>
-        </section>
-    )
-}
+const AlbumCollection = props => (
+    <Collection 
+        title={props.title}
+        itemArray={
+            props.albumArray.map((album, index) => {
+                return (
+                    <Card 
+                        cardImage={album.albumImage}
+                        cardTitle={album.albumName}
+                        cardDestination={`/album/${album.albumID}`}
+                        isRounded={false}
+                        key={index}
+                    />
+                ); 
+            })
+        }
+    />
+);
 
 AlbumCollection.propTypes = {
     albumArray: PropTypes.array,
@@ -36,40 +28,3 @@ AlbumCollection.propTypes = {
 }
 
 export default AlbumCollection;
-
-
-
-
-
-
-
-
-// const AlbumCollection = props => {
-
-//     let albumArr;
-//     if (props.albumArray.length) {
-//         albumArr = props.albumArray.map(album => {
-            
-//         })
-//     }
-
-//     return (
-//         <section className="card-collection">
-//             <h1 className="heading heading--regular">{props.title}</h1>
-//             <div className="card-collection__container">
-//                 {
-//                     props.albumArray.map(album => {
-//                         return (
-//                             <AlbumCollectionItem 
-//                                 albumImage={album.albumImage}
-//                                 albumName={album.albumName}
-//                                 albumID={album.albumID}
-//                                 key={album.albumID}
-//                             />
-//                         )
-//                     })
-//                 }
-//             </div>
-//         </section>
-//     )
-// }

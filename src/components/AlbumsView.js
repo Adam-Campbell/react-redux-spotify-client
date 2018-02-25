@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import AlbumCollection from './AlbumCollection';
-
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import FadeInContainer from './FadeInContainer';
 
 const AlbumsView = props => {
 
@@ -10,14 +9,7 @@ const AlbumsView = props => {
     const singles = props.artist.albums.filter(album => album.albumType === 'single');
 
     return (
-        <ReactCSSTransitionGroup
-            component="div"
-            transitionName="fade"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={500}
-            transitionAppear={true}
-            transitionAppearTimeout={500}
-        >
+        <FadeInContainer>
             <AlbumCollection 
                 albumArray={albums}
                 title="Albums"
@@ -27,14 +19,12 @@ const AlbumsView = props => {
                 albumArray={singles}
                 title="Singles"  
             />
-        </ReactCSSTransitionGroup>
+        </FadeInContainer>
     );
 }
 
 AlbumsView.propTypes = {
     artist: PropTypes.object,
-    //accessToken: PropTypes.string,
-    //playPauseTrack: PropTypes.func
 }
 
 export default AlbumsView;

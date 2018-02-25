@@ -8,6 +8,7 @@ import ArtistCollection from './ArtistCollection';
 import PlaylistCollection from './PlaylistCollection';
 import Loader from './Loader';
 import CreateNewPlaylistCard from './CreateNewPlaylistCard';
+import FadeInContainer from './FadeInContainer';
 
 class UserProfileView extends Component {
 
@@ -19,69 +20,52 @@ class UserProfileView extends Component {
 
     render() {
         if (this.props.userInfo.isFetching) {
-            return (
-                <Loader />
-            );
-        } else {
-            return (
-                <div>
-                    <UserHeader 
-                        userName={this.props.userInfo.userName}
-                        userImage={this.props.userInfo.userImage}
-                    />
-                    <InlineTrackCollection 
-                        trackArray={this.props.userInfo.recentTracks || []}
-                        title="Recently Played Tracks"
-                        playPauseTrack={this.props.playPauseUserRecentTrack}
-                        currentlySelectedCollection={this.props.currentlySelectedCollection}
-                    />
-                    <ArtistCollection 
-                        artistArray={this.props.userInfo.topArtists || []}
-                        title="Your Top Artists"
-                        fetchArtist={this.props.fetchArtist}
-                        accessToken={this.props.accessToken}
-                    />
-                    <PlaylistCollection 
-                        playlistArray={this.props.userInfo.playlists || []}
-                        title="Your Playlists"
-                        accessToken={this.props.accessToken}
-                    >
-                        <CreateNewPlaylistCard />
-                    </PlaylistCollection>
-                </div>
-                
-            )
+            return <Loader />;
         }
+        return (
+            <FadeInContainer>
+                <UserHeader 
+                    userName={this.props.userInfo.userName}
+                    userImage={this.props.userInfo.userImage}
+                />
+                <InlineTrackCollection 
+                    trackArray={this.props.userInfo.recentTracks}
+                    title="Recently Played Tracks"
+                    playPauseTrack={this.props.playPauseUserRecentTrack}
+                    currentlySelectedCollection={this.props.currentlySelectedCollection}
+                />
+                <ArtistCollection 
+                    artistArray={this.props.userInfo.topArtists}
+                    title="Your Top Artists"
+                />
+                <PlaylistCollection 
+                    playlistArray={this.props.userInfo.playlists}
+                    title="Your Playlists"
+                >
+                    <CreateNewPlaylistCard />
+                </PlaylistCollection>
+            </FadeInContainer>   
+        );
     }
 }
 
 
-const mapStateToProps = state => {
-    return {
-        userInfo: state.userInfo,
-        accessToken: state.accessToken,
-        currentlySelectedCollection: state.currentlySelectedCollection
-    };
-}
+const mapStateToProps = state => ({
+    userInfo: state.userInfo,
+    accessToken: state.accessToken.token,
+    currentlySelectedCollection: state.currentlySelectedCollection
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchUserProfile(token) {
-            dispatch(
-                ActionCreators.fetchUserProfile(token)
-            );
-        },
-        fetchArtist(id, token) {
-            dispatch(
-                ActionCreators.fetchArtist(id, token)
-            );
-        },
-        playPauseUserRecentTrack(trackID, identifier) {
-            dispatch(
-                ActionCreators.playPauseUserRecentTrack(trackID, identifier)
-            );
-        }
+export default connect(
+    mapStateToProps, 
+    {
+        fetchUserProfile: ActionCreators.fetchUserProfile,
+        playPauseUserRecentTrack: ActionCreators.playPauseUserRecentTrack
     }
-}
+)(UserProfileView);
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);
+
+
+
+
+
