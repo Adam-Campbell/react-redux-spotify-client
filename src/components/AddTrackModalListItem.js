@@ -1,27 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AddTrackModalListItem = props => {
-    return (
-        <li 
-            className="modal__list-item"
-            onClick={
-                () => props.addTrackToPlaylist(
-                                            props.userID,
-                                            props.playlistID,
-                                            props.trackToAdd,
-                                            props.accessToken
-                                        )
-            }
-        >
-            <div 
-                className="modal__image-holder"
-                style={ { backgroundImage: `url("${props.playlistImage}")` } }
-            ></div>
-            <p className="modal__text">{props.playlistName}</p>
-        </li>
-    );
-}
+const AddTrackModalListItem = props => (
+    <li 
+        className="modal__list-item"
+        onClick={() => props.addTrackToPlaylist(
+            props.userID, props.playlistID, props.trackToAdd, props.accessToken
+        )}
+    >
+        <div 
+            className="modal__image-holder"
+            style={ { backgroundImage: `url("${props.playlistImage}")` } }
+        ></div>
+        <p className="modal__text">{props.playlistName}</p>
+    </li>
+);
+
 
 AddTrackModalListItem.propTypes = {
     addTrackToPlaylist: PropTypes.func,

@@ -1,9 +1,16 @@
 import * as ActionTypes from '../actiontypes';
 
-export default function accessToken(state='', action) {
+const defaultState = {
+    token: '',
+    timestamp: null
+};
+
+export default function accessToken(state=defaultState, action) {
     switch(action.type) {
         case ActionTypes.STORE_TOKEN:
-            return action.payload
+            return {
+                ...action.payload
+            }
 
         default:
             return state;

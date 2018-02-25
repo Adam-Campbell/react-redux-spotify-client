@@ -1,6 +1,5 @@
 import * as ActionTypes from '../actiontypes';
 import { combineReducers } from 'redux';
-
 import accessToken from './accessTokenReducer';
 import artistInfo from './artistInfoReducer';
 import searchResults from './searchResultsReducer';

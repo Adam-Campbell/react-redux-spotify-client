@@ -5,6 +5,7 @@ import * as ActionCreators from '../actions';
 import SearchBox from './SearchBox';
 import SearchFilter from './SearchFilter';
 import SearchResults from './SearchResults';
+import FadeInContainer from './FadeInContainer';
 
 class SearchView extends Component {
 
@@ -34,7 +35,7 @@ class SearchView extends Component {
     render() {
 
         return (
-            <div> 
+            <FadeInContainer> 
                 <SearchBox />
 
                 <SearchFilter 
@@ -45,30 +46,21 @@ class SearchView extends Component {
                 />
                 
                 <SearchResults 
-                    showing={this.state.showing}
-                    searchResults={this.props.searchResults}
+                    showing={this.state.showing} 
+                    searchResults={this.props.searchResults} 
                 />
                 
-            </div>
+            </FadeInContainer>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        searchResults: state.searchResults.results,
-        accessToken: state.accessToken
-    }
-}
+const mapStateToProps = state => ({
+    searchResults: state.searchResults.results,
+    accessToken: state.accessToken.token
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchArtist(id, token) {
-            dispatch(
-                ActionCreators.fetchArtist(id, token)
-            );
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchView);
+export default connect(
+    mapStateToProps, 
+    {fetchArtist: ActionCreators.fetchArtist}
+)(SearchView);

@@ -1,9 +1,10 @@
 .artist-header {
     position: relative;
+    display: flex;
+    align-items: center;
     width:100%;
     min-height: 320px;
     @media(min-width: 768px) {
-        display: flex;
         align-items: flex-start;
         padding: 20px;
         overflow: hidden;

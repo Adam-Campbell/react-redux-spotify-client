@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import PlaylistCollection from './PlaylistCollection';
+import Loader from './Loader';
 
 class CategoryView extends Component {
 
@@ -25,43 +26,29 @@ class CategoryView extends Component {
 
     render() {
         const correctCategory = this.getTheCorrectCategory();
-        if (correctCategory.categoryPlaylists.length) {
-
-            return (
-                <div className="container">
-                   <PlaylistCollection 
-                        title={correctCategory.categoryName}
-                        accessToken={this.props.accessToken}
-                        playlistArray={correctCategory.categoryPlaylists}
-                   />
-                </div>
-            );
-        } else {
-            return (
-                <p>Still getting the playlists!</p>
-            )
+        if (!correctCategory.categoryPlaylists.length) {
+            return <Loader />;
         }
-        
+        return (
+            <div className="container">
+                <PlaylistCollection 
+                    title={correctCategory.categoryName}
+                    accessToken={this.props.accessToken}
+                    playlistArray={correctCategory.categoryPlaylists}
+                />
+            </div>
+        );  
     }
 }
 
 
-const mapStateToProps = state => {
-    return {
-        highlights: state.highlights,
-        isFetchingHighlights: state.isFetchingHighlights,
-        accessToken: state.accessToken
-    }
-}
+const mapStateToProps = state => ({
+    highlights: state.highlights,
+    isFetchingHighlights: state.isFetchingHighlights,
+    accessToken: state.accessToken.token
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchCategory(token, id) {
-            dispatch(
-                ActionCreators.fetchCategory(token, id)
-            );
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryView);
+export default connect(
+    mapStateToProps, 
+    {fetchCategory: ActionCreators.fetchCategory}
+)(CategoryView);

@@ -13,23 +13,12 @@ const RemoveTrackButton = props => {
                 onClick={e => {
                         e.stopPropagation();
                         props.deleteTrackFromPlaylist(props.ownerID, props.playlistID, props.trackURI, props.index, props.accessToken);
-                        console.log(
-                            `
-                            index: ${props.index},
-                            trackURI: ${props.trackURI},
-                            trackName: ${props.trackName},
-                            playlistID: ${props.playlistID},
-                            ownerID: ${props.ownerID},
-                            userID: ${props.userID}
-                            `
-                        );
                     }
                 }
             />
         );
-    } else {
-        return null;
     }
+    return null;
 };
 
 RemoveTrackButton.propTypes = {
@@ -41,21 +30,11 @@ RemoveTrackButton.propTypes = {
     accessToken: PropTypes.string,
 }
 
-const mapStateToProps = state => {
-    return {
-        accessToken: state.accessToken
-    }
-};
+const mapStateToProps = state => ({
+    accessToken: state.accessToken.token
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-        deleteTrackFromPlaylist(ownerID, playlistID, trackURI, index, token) {
-            dispatch(
-                ActionCreators.deleteTrackFromPlaylist(ownerID, playlistID, trackURI, index, token)
-            );
-        }
-    }
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveTrackButton); 
+export default connect(
+    mapStateToProps, 
+    {deleteTrackFromPlaylist: ActionCreators.deleteTrackFromPlaylist}
+)(RemoveTrackButton); 

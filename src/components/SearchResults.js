@@ -6,32 +6,16 @@ import PlaylistCollection from './PlaylistCollection';
 
 const SearchResults = props => {
     if (props.showing === 'artists') {
-        return (
-            <ArtistCollection 
-                artistArray={props.searchResults.artists}
-                title='Artists'
-            />
-        );
+        return <ArtistCollection artistArray={props.searchResults.artists} title='Artists' />;
     } else if (props.showing === 'albums') {
-        return (
-            <AlbumCollection 
-                albumArray={props.searchResults.albums}
-                title="Albums"
-            />
-        );
-    } else {
-        return (
-            <PlaylistCollection 
-                playlistArray={props.searchResults.playlists}
-                title="Playlists"
-            />
-        );
+        return <AlbumCollection albumArray={props.searchResults.albums} title="Albums" />;
     }
-}
+    return <PlaylistCollection playlistArray={props.searchResults.playlists} title="Playlists" />;
+};
 
 SearchResults.propTypes = {
     showing: PropTypes.string,
     searchResults: PropTypes.object
-}
+};
 
 export default SearchResults;

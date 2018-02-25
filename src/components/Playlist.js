@@ -20,30 +20,30 @@ class Playlist extends Component {
     render() {
         return (
             <div>
-            <section className="album">
-                <div className="album__header">
-                    <img src={this.props.playlistImage} alt="" className="album__image"></img>
-                    <div className="album__info">
-                        <h1 className="heading heading--regular">{this.props.playlistName}</h1>
-                        <p className="album__paragraph">A playlist by {this.props.ownerName}</p>
+                <section className="album">
+                    <div className="album__header">
+                        <img src={this.props.playlistImage} alt="" className="album__image"></img>
+                        <div className="album__info">
+                            <h1 className="heading heading--regular">{this.props.playlistName}</h1>
+                            <p className="album__paragraph">A playlist by {this.props.ownerName}</p>
+                        </div>
                     </div>
-                </div>
-                <PlaylistTracks 
-                    playlistTracks={this.props.playlistTracks}
-                    currentlySelectedCollection={this.props.currentlySelectedCollection}
-                    playPauseTrack={this.props.playPauseTrack}
+                    <PlaylistTracks 
+                        playlistTracks={this.props.playlistTracks}
+                        currentlySelectedCollection={this.props.currentlySelectedCollection}
+                        playPauseTrack={this.props.playPauseTrack}
+                        currentPage={this.state.currentPage}
+                        ownerID={this.props.ownerID}
+                        userID={this.props.userID}
+                        accessToken={this.props.accessToken}
+                    />
+                </section>
+                <Paginator 
+                    totalItems={this.props.playlistTracks.length}
+                    itemsPerPage={50}
                     currentPage={this.state.currentPage}
-                    ownerID={this.props.ownerID}
-                    userID={this.props.userID}
-                    accessToken={this.props.accessToken}
+                    setPage={this.setPage}
                 />
-            </section>
-            <Paginator 
-                totalItems={this.props.playlistTracks.length}
-                itemsPerPage={50}
-                currentPage={this.state.currentPage}
-                setPage={this.setPage}
-            />
             </div>
         );
     }

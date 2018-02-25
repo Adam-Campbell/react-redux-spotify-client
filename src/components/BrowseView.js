@@ -7,6 +7,9 @@ import PaginatedPlaylistCollection from './PaginatedPlaylistCollection';
 import CategoryCollection from './CategoryCollection';
 import NewReleasesCollection from './NewReleasesCollection';
 import Loader from './Loader';
+import FadeInContainer from './FadeInContainer';
+
+
 
 class BrowseView extends Component {
 
@@ -17,65 +20,41 @@ class BrowseView extends Component {
     }
 
     render() {
+
         if (this.props.highlights.isFetching) {
-            return (
-                <Loader />
-            );
-        } else {
-            return (
-                <div>
-                    <NewReleasesCollection 
-                        newReleasesArray={
-                                            (this.props.highlights.newReleases) ?
-                                            this.props.highlights.newReleases :
-                                            []
-                                        }
-                        title="New Releases"
-                        accessToken={this.props.accessToken}
-                    />
-
-                    <PaginatedPlaylistCollection 
-                        playlistArray={
-                                        (this.props.highlights.featuredPlaylists) ? 
-                                        this.props.highlights.featuredPlaylists : 
-                                        []
-                                    }
-                        title="Featured Playlists"
-                        accessToken={this.props.accessToken}
-                    />
-                    <CategoryCollection 
-                        categoryArray={
-                                        (this.props.highlights.categories) ?
-                                        this.props.highlights.categories :
-                                        []
-                                    } 
-                        title="Categories"
-                        accessToken={this.props.accessToken}          
-                    />
-                </div>
-            )
+            return <Loader />;  
         }
+        return (
+            <FadeInContainer>
+                <NewReleasesCollection 
+                    newReleasesArray={this.props.highlights.newReleases}
+                    title="New Releases"
+                    accessToken={this.props.accessToken}
+                />
+
+                <PaginatedPlaylistCollection 
+                    playlistArray={this.props.highlights.featuredPlaylists}
+                    title="Featured Playlists"
+                    accessToken={this.props.accessToken}
+                />
+
+                <CategoryCollection 
+                    categoryArray={this.props.highlights.categories} 
+                    title="Categories"
+                    accessToken={this.props.accessToken}          
+                />
+            </FadeInContainer>
+        );
     }
 
 }
 
+const mapStateToProps = state => ({
+    highlights: state.highlights,
+    accessToken: state.accessToken.token,
+});
 
-
-const mapStateToProps = state => {
-    return {
-        highlights: state.highlights,
-        accessToken: state.accessToken,
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchHighlights(token) {
-            dispatch(
-                ActionCreators.fetchHighlights(token)
-            );
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BrowseView);
+export default connect(
+    mapStateToProps,
+    {fetchHighlights: ActionCreators.fetchHighlights}
+)(BrowseView);

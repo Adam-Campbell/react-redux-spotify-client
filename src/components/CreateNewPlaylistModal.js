@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
-
-
+import FadeInContainer from './FadeInContainer';
 
 class CreateNewPlaylistModal extends Component {
     
@@ -22,58 +21,49 @@ class CreateNewPlaylistModal extends Component {
     render() {
         if (this.props.currentModal === 'CreateNewPlaylistModal') {
             return (
-                <div className="modal__overlay">
-                    <div className="modal__dialog-box">
-                    <h1 className="modal__title">Create A Playlist</h1>
-                        <input 
-                            type="text"
-                            className="modal__text-input"
-                            value={this.state.localPlaylistName}
-                            placeholder="Name your new playlist"
-                            onChange={(e) => this.updateLocalPlaylistName(e.target.value)}
-                        >
-                        </input>
+                <FadeInContainer>
+                    <div className="modal__overlay">
+                        <div className="modal__dialog-box">
+                        <h1 className="modal__title">Create A Playlist</h1>
+                            <input 
+                                type="text"
+                                className="modal__text-input"
+                                value={this.state.localPlaylistName}
+                                placeholder="Name your new playlist"
+                                onChange={(e) => this.updateLocalPlaylistName(e.target.value)}
+                            >
+                            </input>
 
-                        <button
-                            className="modal__button"
-                            onClick={() => this.props.createPlaylist(this.state.localPlaylistName)}
-                        >
-                            Create Playlist
-                        </button>
+                            <button
+                                className="modal__button"
+                                onClick={() => {
+                                    this.props.createPlaylist(this.state.localPlaylistName);
+                                    this.props.closeModal();
+                                }}
+                            >Create Playlist</button>
 
-                        <button
-                            className="modal__button modal__button--margin-left"
-                            onClick={this.props.closeModal}
-                        >Cancel</button>
+                            <button
+                                className="modal__button modal__button--margin-left"
+                                onClick={this.props.closeModal}
+                            >Cancel</button>
+
+                        </div>
                     </div>
-                </div>
+                </FadeInContainer>
             );
-        } else {
-            return null;
         }
+        return null;
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        currentModal: state.modalInfo.currentModal
+const mapStateToProps = state => ({
+    currentModal: state.modalInfo.currentModal
+});
+
+export default connect(
+    mapStateToProps, 
+    {
+        createPlaylist: ActionCreators.createPlaylist,
+        closeModal: ActionCreators.closeModal
     }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        createPlaylist(newPlaylistName) {
-            dispatch(
-                ActionCreators.createPlaylist(newPlaylistName)
-            );
-        },
-        closeModal() {
-            dispatch(
-                ActionCreators.closeModal()
-            );
-        }
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNewPlaylistModal); 
+)(CreateNewPlaylistModal); 

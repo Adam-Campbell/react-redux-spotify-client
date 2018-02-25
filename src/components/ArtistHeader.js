@@ -3,37 +3,29 @@ import PropTypes from 'prop-types';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faMusic from '@fortawesome/fontawesome-free-solid/faMusic';
 
-const ArtistHeader = props => {
-    
-    return (
-        <header className="artist-header">
-            <div 
-                className="artist-header__background-image-holder"
-                style={
-                    { backgroundImage: `url("${props.artistImage}")` }
-                }
-            >
+const ArtistHeader = props => (
+    <header className="artist-header">
+        <div 
+            className="artist-header__background-image-holder"
+            style={ {backgroundImage: `url("${props.artistImage}")`} }
+        >
+        </div>
+        <div className="artist-header__gradient-holder"></div>    
+        <img className="artist-header__image" src={props.artistImage}></img>
+        <div className="artist-header__content-holder">
+            <h1 className="heading heading--large">{props.artistName}</h1>
+            <div className="artist-header__genre-block-holder">
+                {props.genres.map((genre, index) => (
+                    <div className="genre-block" key={index}>
+                        <FontAwesomeIcon icon={faMusic} />
+                        <p className="genre-block__text">{genre}</p>
+                    </div>
+                ))}
             </div>
-            <div className="artist-header__gradient-holder"></div>    
-            <img className="artist-header__image" src={props.artistImage}></img>
-            <div className="artist-header__content-holder">
-                <h1 className="heading heading--large">{props.artistName}</h1>
-                <div className="artist-header__genre-block-holder">
-                    {
-                        props.genres.map((genre, index) => {
-                            return (
-                                <div className="genre-block" key={index}>
-                                    <FontAwesomeIcon icon={faMusic} />
-                                    <p className="genre-block__text">{genre}</p>
-                                </div>
-                            );
-                        })
-                    }
-                </div>
-            </div>
-        </header>
-    );
-}
+        </div>
+    </header>
+);
+
 
 
 ArtistHeader.propTypes = {

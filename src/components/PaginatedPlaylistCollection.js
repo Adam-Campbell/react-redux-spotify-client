@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PlaylistCollectionItem from './PlaylistCollectionItem';
+import Card from './Card';
 import Paginator from './Paginator';
 
 class PaginatedPlaylistCollection extends Component {
@@ -25,19 +25,15 @@ class PaginatedPlaylistCollection extends Component {
             <section className="card-collection">
                 <h1 className="heading heading--regular">{this.props.title}</h1>
                 <div className="card-collection__container">
-                    {
-                        this.props.playlistArray.slice(lowerBound, upperBound).map(playlist => {
-                            return (
-                                <PlaylistCollectionItem 
-                                    playlistImage={playlist.playlistImage}
-                                    playlistName={playlist.playlistName}
-                                    playlistID={playlist.playlistID}
-                                    ownerID={playlist.ownerID}
-                                    key={playlist.playlistID}
-                                />
-                            );
-                        })
-                    }
+                    {this.props.playlistArray.slice(lowerBound, upperBound).map((playlist, index) => (
+                        <Card 
+                            cardImage={playlist.playlistImage}
+                            cardTitle={playlist.playlistName}
+                            isRounded={false}
+                            cardDestination={`/playlist/${playlist.ownerID}/${playlist.playlistID}`}
+                            key={index}
+                        />
+                    ))}
                 </div>
                 <Paginator 
                     totalItems={this.props.playlistArray.length}

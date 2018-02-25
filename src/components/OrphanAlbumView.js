@@ -4,11 +4,9 @@ import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import Album from './Album';
 import Loader from './Loader';
-
-
+import FadeInContainer from './FadeInContainer';
 
 class OrphanAlbumView extends Component {
-
 
     componentDidMount() {
         if (!this.props.orphanAlbums.albumData.hasOwnProperty(this.props.albumID)) {
@@ -21,52 +19,38 @@ class OrphanAlbumView extends Component {
         if (this.props.orphanAlbums.albumData.hasOwnProperty(albumID)) {
             const album = this.props.orphanAlbums.albumData[albumID];
             return (
-                <Album 
-                    albumName={album.albumName}
-                    albumID={album.albumID}
-                    artistName={album.artistName}
-                    artistID={album.artistID}
-                    releaseDate={album.releaseDate}
-                    albumImage={album.albumImage}
-                    albumTracks={album.albumTracks}
-                    playPauseTrack={this.props.playPauseOrphanAlbumTrack}
-                    currentlySelectedCollection={this.props.currentlySelectedCollection}
-                />
+                <FadeInContainer>
+                    <Album 
+                        albumName={album.albumName}
+                        albumID={album.albumID}
+                        artistName={album.artistName}
+                        artistID={album.artistID}
+                        releaseDate={album.releaseDate}
+                        albumImage={album.albumImage}
+                        albumTracks={album.albumTracks}
+                        playPauseTrack={this.props.playPauseOrphanAlbumTrack}
+                        currentlySelectedCollection={this.props.currentlySelectedCollection}
+                    />
+                </FadeInContainer>
             );
         } else if (this.props.orphanAlbums.isFetching) {
-            return (
-                <Loader />
-            )
+            return <Loader />;  
         }
-        else {
-            return null;
-        }
+        return null;
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        orphanAlbums: state.orphanAlbums,
-        accessToken: state.accessToken,
-        currentlySelectedCollection: state.currentlySelectedCollection
+const mapStateToProps = state => ({
+    orphanAlbums: state.orphanAlbums,
+    accessToken: state.accessToken.token,
+    currentlySelectedCollection: state.currentlySelectedCollection
+});
+
+export default connect(
+    mapStateToProps, 
+    {
+        fetchOrphanAlbum: ActionCreators.fetchOrphanAlbum,
+        playPauseOrphanAlbumTrack: ActionCreators.playPauseOrphanAlbumTrack
     }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchOrphanAlbum(token, id) {
-            dispatch(
-                ActionCreators.fetchOrphanAlbum(token, id)
-            );
-        },
-        playPauseOrphanAlbumTrack(trackID, identifier) {
-            dispatch(
-                ActionCreators.playPauseOrphanAlbumTrack(trackID, identifier)
-            );
-        }
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrphanAlbumView);
+)(OrphanAlbumView);
 
