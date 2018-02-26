@@ -38,7 +38,7 @@ const AddTrackModal = props => {
                         </ul>
 
                         <button
-                            className="modal__button"
+                            className="button button--light"
                             onClick={props.closeModal}
                         >Cancel</button>
 

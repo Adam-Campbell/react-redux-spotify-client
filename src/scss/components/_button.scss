@@ -4,8 +4,10 @@
     font-weight: $font-weight--bold;
     color: $color--white;
     background-color: $color--brand-green;
-    padding: 8px 24px;
+    padding: 8px 16px;
     border-radius: 4px;
+    border: none;
+    display: inline-block;
     box-shadow: 0 4px 0 0 $color--brand-green-darkened;
     cursor: pointer;
     transition: background-color ease-in-out 0.25s;
@@ -14,5 +16,26 @@
     }
     &__container {
         text-align: center;
+    }
+    &--push-down {
+        margin-top: 16px;
+    }
+    &--push-right {
+        margin-left: 8px;
+    }
+    &--slim {
+        padding-left: 12px;
+        padding-right: 12px;
+        margin-left: 4px;
+        margin-right: 4px;
+        margin-top: 12px;
+    }
+    &--light {
+        background-color: $color--white;
+        box-shadow: 0 4px 0 0 $color--off-white;
+        color: $color--brand-grey-darkened;
+        &:hover {
+            background-color: $color--off-white;
+        }
     }
 }

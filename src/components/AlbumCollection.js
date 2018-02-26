@@ -19,6 +19,7 @@ const AlbumCollection = props => (
                 ); 
             })
         }
+        button={props.children}
     />
 );
 

@@ -8,7 +8,7 @@ import SearchView from './components/SearchView';
 import SignIn from './components/SignIn';
 import Navigation from './components/Navigation';
 import TopBar from './components/TopBar';
-import PlayerControls from './components/PlayerControls';
+import Player from './components/Player';
 import UserProfileView from './components/UserProfileView';
 import BrowseView from './components/BrowseView';
 import ArtistGroupView from './components/ArtistGroupView';
@@ -99,7 +99,7 @@ class App extends Component {
                             </Switch>
                             
                         </div>
-                        <PlayerControls />
+                        <Player />
                         
                     </div>
             

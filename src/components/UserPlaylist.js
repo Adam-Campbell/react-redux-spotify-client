@@ -56,7 +56,7 @@ class UserPlaylist extends Component {
                         <div className="album__image-section-container">
                             <img src={this.props.playlistImage} alt="" className="album__image"></img>
                             <button 
-                                className="album__image-upload-button"
+                                className="button button--push-down"
                                 onClick={() => this.props.imageUploadModalOpen({playlistID: this.props.playlistID})}
                             >Upload Image</button>
                         </div>

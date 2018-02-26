@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Button = props => (
     <div className="button__container">
         <Link
-            className="button"
+            className="button button--push-down"
             to={props.linkTo}
         >
             {props.anchorText}

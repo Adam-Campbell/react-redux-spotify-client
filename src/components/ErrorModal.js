@@ -16,7 +16,7 @@ const ErrorModal = props => {
                         <p className="modal__text">{props.errorInfo.status} error, {props.errorInfo.message}.</p>
                         <p className="modal__text">Please try again.</p>
                         <button
-                            className="modal__button"
+                            className="button button--light"
                             onClick={props.closeModal}
                         >Close</button>
 
