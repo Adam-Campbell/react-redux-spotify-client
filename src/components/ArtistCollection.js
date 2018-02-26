@@ -15,6 +15,7 @@ const ArtistCollection = props => (
                 key={index}
             />
         ))}
+        button={props.children}
     />
 );
 

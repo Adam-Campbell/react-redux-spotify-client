@@ -35,7 +35,7 @@ class CreateNewPlaylistModal extends Component {
                             </input>
 
                             <button
-                                className="modal__button"
+                                className="button button--light"
                                 onClick={() => {
                                     this.props.createPlaylist(this.state.localPlaylistName);
                                     this.props.closeModal();
@@ -43,7 +43,7 @@ class CreateNewPlaylistModal extends Component {
                             >Create Playlist</button>
 
                             <button
-                                className="modal__button modal__button--margin-left"
+                                className="button button--light button--push-right"
                                 onClick={this.props.closeModal}
                             >Cancel</button>
 

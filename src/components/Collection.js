@@ -13,7 +13,7 @@ const Collection = props => (
             }
             {props.children}
         </div>
-        
+        {props.button}
     </section>
 );
 
@@ -21,6 +21,7 @@ const Collection = props => (
 Collection.propTypes = {
     itemArray: PropTypes.array,
     title: PropTypes.string,
+    button: PropTypes.element
 };
 
 export default Collection;

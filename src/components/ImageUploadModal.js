@@ -19,7 +19,7 @@ const ImageUploadModal = props => {
                             accessToken={props.accessToken}
                         />
                         <button
-                            className="modal__button modal__button--margin-left"
+                            className="button button--light button--push-right"
                             onClick={props.closeModal}
                         >Cancel</button>
                     </div>
