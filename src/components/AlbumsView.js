@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AlbumCollection from './AlbumCollection';
 import FadeInContainer from './FadeInContainer';
+import withFadeIn from './withFadeIn';
+import withSlideIn from './withSlideIn';
 
 const AlbumsView = props => {
 
@@ -9,17 +11,19 @@ const AlbumsView = props => {
     const singles = props.artist.albums.filter(album => album.albumType === 'single');
 
     return (
-        <FadeInContainer>
-            <AlbumCollection 
-                albumArray={albums}
-                title="Albums"
-            />
+        
+            <div>
+                <AlbumCollection 
+                    albumArray={albums}
+                    title="Albums"
+                />
 
-            <AlbumCollection 
-                albumArray={singles}
-                title="Singles"  
-            />
-        </FadeInContainer>
+                <AlbumCollection 
+                    albumArray={singles}
+                    title="Singles"  
+                />
+            </div>
+        
     );
 }
 
@@ -27,4 +31,4 @@ AlbumsView.propTypes = {
     artist: PropTypes.object,
 }
 
-export default AlbumsView;
+export default withFadeIn(AlbumsView);

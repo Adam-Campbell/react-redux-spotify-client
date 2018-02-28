@@ -4,13 +4,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as ActionCreators from './actions';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
 import SearchView from './components/SearchView';
 import SignIn from './components/SignIn';
 import Navigation from './components/Navigation';
 import TopBar from './components/TopBar';
 import Player from './components/Player';
-import UserProfileView from './components/UserProfileView';
-import BrowseView from './components/BrowseView';
+import UserProfileViewContainer from './components/UserProfileViewContainer';
+import BrowseViewContainer from './components/BrowseViewContainer';
 import ArtistGroupView from './components/ArtistGroupView';
 import OrphanAlbumView from './components/OrphanAlbumView';
 import CategoryView from './components/CategoryView';
@@ -21,6 +22,8 @@ import CreateNewPlaylistModal from './components/CreateNewPlaylistModal';
 import ImageUploadModal from './components/ImageUploadModal';
 import ErrorModal from './components/ErrorModal';
 import { authURL } from './globalConstants';
+import FadeInContainer from './components/FadeInContainer';
+import ArtistViewContainer from './components/ArtistViewContainer';
 
 class App extends Component {
 
@@ -69,17 +72,22 @@ class App extends Component {
                             
                             <Switch>
                                 <Route exact path="/" render={() => <Redirect to="/me"/>} />
+                                
                                 <Route path="/search" component={SearchView}/>
+
                                 <Route 
                                     path="/artist/:artistID"
-                                    render={({match}) => <ArtistGroupView 
-                                                            artistID={match.params.artistID} 
-                                                            url={match.url}
-                                                        />
-                                            } 
+                                    render={({match}) => 
+                                            <ArtistViewContainer 
+                                                artistID={match.params.artistID} 
+                                                url={match.url}
+                                            />
+                                    }
                                 />
-                                <Route path="/me" component={UserProfileView} />
-                                <Route path="/browse" component={BrowseView} />
+                                <Route path="/me" component={UserProfileViewContainer} />
+
+                                <Route path="/browse" component={BrowseViewContainer} />
+
                                 <Route 
                                     path="/album/:albumID" 
                                     render={({match}) => <OrphanAlbumView albumID={match.params.albumID} />}

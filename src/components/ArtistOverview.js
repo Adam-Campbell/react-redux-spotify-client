@@ -7,43 +7,46 @@ import AlbumCollection from './AlbumCollection';
 import InlineTrackCollection from './InlineTrackCollection';
 import Button from './Button';
 import FadeInContainer from './FadeInContainer';
+import withFadeIn from './withFadeIn';
+import withSlideIn from './withSlideIn';
 
 
 const ArtistOverview = props => (
-    <FadeInContainer>
-        <InlineTrackCollection 
-            trackArray={props.artist.topTracks}
-            title="Popular Tracks"
-            playPauseTrack={props.playPauseTrack}
-            currentlySelectedCollection={props.currentlySelectedCollection}
-        />
-
-        <AlbumCollection 
-            albumArray={props.artist.albums.filter(album => album.albumType === "album").slice(0,6)}
-            title="Albums"
-            accessToken={props.accessToken}
-        >
-            <Button 
-                linkTo={`/artist/${props.artist.artistID}/albums`}
-                anchorText="View All Albums"
+    
+        <div>
+            <InlineTrackCollection 
+                trackArray={props.artist.topTracks}
+                title="Popular Tracks"
+                playPauseTrack={props.playPauseTrack}
+                currentlySelectedCollection={props.currentlySelectedCollection}
             />
-        </AlbumCollection>
+
+            <AlbumCollection 
+                albumArray={props.artist.albums.filter(album => album.albumType === "album").slice(0,6)}
+                title="Albums"
+                accessToken={props.accessToken}
+            >
+                <Button 
+                    linkTo={`/artist/${props.artist.artistID}/albums`}
+                    anchorText="View All Albums"
+                />
+            </AlbumCollection>
 
 
-        <ArtistCollection 
-            artistArray={props.artist.relatedArtists.slice(0,6)}
-            title='Related Artists'
-            accessToken={props.accessToken}
-            fetchArtist={props.fetchArtist}
-        >
-            <Button 
-                linkTo={`/artist/${props.artist.artistID}/related-artists`}
-                anchorText="View All Related Artists"
-            />
-        </ArtistCollection>
-        
-    </FadeInContainer>
+            <ArtistCollection 
+                artistArray={props.artist.relatedArtists.slice(0,6)}
+                title='Related Artists'
+                accessToken={props.accessToken}
+                fetchArtist={props.fetchArtist}
+            >
+                <Button 
+                    linkTo={`/artist/${props.artist.artistID}/related-artists`}
+                    anchorText="View All Related Artists"
+                />
+            </ArtistCollection>
+        </div>
+    
 );
 
 
-export default ArtistOverview;
+export default withFadeIn(ArtistOverview);

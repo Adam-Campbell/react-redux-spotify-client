@@ -34,23 +34,22 @@ class SearchView extends Component {
 
     render() {
 
-        return (
-            <FadeInContainer> 
-                <SearchBox />
+        return ( 
+                <div>
+                    <SearchBox />
 
-                <SearchFilter 
-                    showing={this.state.showing}
-                    switchToArtists={this.switchToArtists}
-                    switchToAlbums={this.switchToAlbums}
-                    switchToPlaylists={this.switchToPlaylists}
-                />
-                
-                <SearchResults 
-                    showing={this.state.showing} 
-                    searchResults={this.props.searchResults} 
-                />
-                
-            </FadeInContainer>
+                    <SearchFilter 
+                        showing={this.state.showing}
+                        switchToArtists={this.switchToArtists}
+                        switchToAlbums={this.switchToAlbums}
+                        switchToPlaylists={this.switchToPlaylists}
+                    />
+                    
+                    <SearchResults 
+                        showing={this.state.showing} 
+                        searchResults={this.props.searchResults} 
+                    />
+                </div>
         );
     }
 }

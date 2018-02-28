@@ -19,19 +19,17 @@ class OrphanAlbumView extends Component {
         if (this.props.orphanAlbums.albumData.hasOwnProperty(albumID)) {
             const album = this.props.orphanAlbums.albumData[albumID];
             return (
-                <FadeInContainer>
-                    <Album 
-                        albumName={album.albumName}
-                        albumID={album.albumID}
-                        artistName={album.artistName}
-                        artistID={album.artistID}
-                        releaseDate={album.releaseDate}
-                        albumImage={album.albumImage}
-                        albumTracks={album.albumTracks}
-                        playPauseTrack={this.props.playPauseOrphanAlbumTrack}
-                        currentlySelectedCollection={this.props.currentlySelectedCollection}
-                    />
-                </FadeInContainer>
+                <Album 
+                    albumName={album.albumName}
+                    albumID={album.albumID}
+                    artistName={album.artistName}
+                    artistID={album.artistID}
+                    releaseDate={album.releaseDate}
+                    albumImage={album.albumImage}
+                    albumTracks={album.albumTracks}
+                    playPauseTrack={this.props.playPauseOrphanAlbumTrack}
+                    currentlySelectedCollection={this.props.currentlySelectedCollection}
+                />
             );
         } else if (this.props.orphanAlbums.isFetching) {
             return <Loader />;  

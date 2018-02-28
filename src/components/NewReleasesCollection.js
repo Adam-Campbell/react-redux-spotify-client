@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Paginator from './Paginator';
+import SlideInContainer from './SlideInContainer';
 
 
 class NewReleasesCollection extends Component {

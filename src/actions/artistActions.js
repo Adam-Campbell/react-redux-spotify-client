@@ -30,7 +30,7 @@ export function fetchArtist(id, token) {
                 artistImage: (artistInfoComplete.images.length) ? 
                                 artistInfoComplete.images[0].url :
                                 '',
-                topTracks: createTopTracksArray(topTracksComplete.tracks),
+                topTracks: createTopTracksArray(topTracksComplete.tracks, artistInfoComplete.id),
                 relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
                 albums: createAlbumsArray(albumsComplete.items)
             };
@@ -77,7 +77,7 @@ function receiveArtist(artistObject, artistID) {
 // Helper functions 
 //
 
-function createTopTracksArray(data) {
+function createTopTracksArray(data, identifier) {
     return data.map(track => {
         return {
             trackName: track.name,
@@ -90,7 +90,7 @@ function createTopTracksArray(data) {
             previewURL: track.preview_url,
             albumImage: track.album.images[1].url,
             duration: convertMsToMinSec(track.duration_ms),
-            identifier: track.artists[0].id,
+            identifier: identifier,
         }
     }).slice(0,5)
 }
