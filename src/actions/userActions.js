@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, genericFetchWrapper } from './helpers';
 import { errorModalOpen } from './modalActions';
-
+import { dummyImageArray } from '../imageSizePicker';
 
 //
 // Exported thunk action
@@ -88,7 +88,7 @@ function formatUsersTopTracks(data) {
             artistID: track.artists[0].id,
             albumName: track.album.name,
             albumID: track.album.id,
-            albumImage: (track.album.images.length) ? track.album.images[0].url : '',
+            albumImage: track.album.images.length ? track.album.images : dummyImageArray,
             isCurrentlySelected: false,
             isPlaying: false,
         }
@@ -100,7 +100,7 @@ function formatUsersTopArtists(data) {
         return {
             artistName: artist.name,
             artistID: artist.id,
-            artistImage: (artist.images.length) ? artist.images[0].url : ''
+            artistImage: artist.images.length ? artist.images : dummyImageArray
         }
     }).slice(0, 10)
 }
@@ -109,7 +109,7 @@ function formatUsersSavedPlaylists(data) {
     return data.items.map(playlist => {
         return {
             playlistName: playlist.name,
-            playlistImage: (playlist.images.length) ? playlist.images[0].url : '',
+            playlistImage: playlist.images.length ? playlist.images : dummyImageArray,
             playlistID: playlist.id,
             ownerID: playlist.owner.id
         }
@@ -129,7 +129,7 @@ function formatUsersRecentTracks(data) {
             artistID: curr.track.artists[0].id,
             albumName: curr.track.album.name,
             albumID: curr.track.album.id,
-            albumImage: (curr.track.album.images.length) ? curr.track.album.images[0].url : '',
+            albumImage: curr.track.album.images.length ? curr.track.album.images : dummyImageArray,
             isCurrentlySelected: false,
             isPlaying: false,
             identifier: 'userRecentTracks'

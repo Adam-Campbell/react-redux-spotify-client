@@ -16,7 +16,7 @@ const UserProfileViewPresenter = props => (
         <InlineTrackCollection 
             trackArray={props.userInfo.recentTracks}
             title="Recently Played Tracks"
-            playPauseTrack={props.playPauseUserRecentTrack}
+            playPauseTrack={props.playPauseTrack}
             currentlySelectedCollection={props.currentlySelectedCollection}
         />
         <ArtistCollection 

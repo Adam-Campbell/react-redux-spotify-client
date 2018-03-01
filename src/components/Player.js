@@ -99,7 +99,7 @@ class Player extends Component {
                     />                
 
                     <PlayerTrackInfo 
-                        albumImage={selectedTrack.albumImage}
+                        albumImage={selectedTrack ? selectedTrack.albumImage[0].url : ''}
                         trackName={selectedTrack.trackName}
                         artistName={selectedTrack.artistName}
                     />

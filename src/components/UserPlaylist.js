@@ -7,6 +7,7 @@ import Paginator from './Paginator';
 import UserPlaylistName from './UserPlaylistName';
 import Portal from './Portal';
 import ImageUploadModal from './ImageUploadModal';
+import withFadeIn from './withFadeIn';
 
 class UserPlaylist extends Component {
 
@@ -105,4 +106,4 @@ export default connect(
         updatePlaylistName: ActionCreators.updatePlaylistName,
         imageUploadModalOpen: ActionCreators.imageUploadModalOpen
     }
-)(UserPlaylist); 
+)(withFadeIn(UserPlaylist)); 

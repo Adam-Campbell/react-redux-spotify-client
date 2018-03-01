@@ -72,9 +72,11 @@
         }
         & .heading {
             z-index: inherit;
+            max-width: 100%;
         }
     }
     &__genre-block-holder {
+        width: 100%;
         max-width: 500px;
         z-index: inherit;
     }

@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, genericFetchWrapper } from './helpers';
 import { errorModalOpen } from './modalActions';
+import { dummyImageArray } from '../imageSizePicker';
 
 //
 // Exported thunk action
@@ -27,9 +28,9 @@ export function fetchArtist(id, token) {
                 artistID: artistInfoComplete.id,
                 genres: artistInfoComplete.genres,
                 followers: artistInfoComplete.followers,
-                artistImage: (artistInfoComplete.images.length) ? 
-                                artistInfoComplete.images[0].url :
-                                '',
+                artistImage: artistInfoComplete.images.length ? 
+                                artistInfoComplete.images :
+                                dummyImageArray,
                 topTracks: createTopTracksArray(topTracksComplete.tracks, artistInfoComplete.id),
                 relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
                 albums: createAlbumsArray(albumsComplete.items)
@@ -88,7 +89,7 @@ function createTopTracksArray(data, identifier) {
             albumName: track.album.name,
             albumID: track.album.id,
             previewURL: track.preview_url,
-            albumImage: track.album.images[1].url,
+            albumImage: track.album.images.length ? track.album.images : dummyImageArray,
             duration: convertMsToMinSec(track.duration_ms),
             identifier: identifier,
         }
@@ -100,7 +101,7 @@ function createRelatedArtistsArray(data) {
         return {
             artistName: artist.name,
             artistID: artist.id,
-            artistImage: (artist.images.length) ? artist.images[0].url : ''
+            artistImage: artist.images.length ? artist.images : dummyImageArray
         }
     })
 }
@@ -111,7 +112,7 @@ function createAlbumsArray(data) {
             albumName: album.name,
             albumID: album.id,
             albumType: album.album_type,
-            albumImage: (album.images.length) ? album.images[0].url : '',
+            albumImage: album.images.length ? album.images : dummyImageArray,
             artistName: album.artists[0].name,
             artistID: album.artists[0].id
         }

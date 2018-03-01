@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Paginator from './Paginator';
+import { imageSizePicker } from '../imageSizePicker';
 
 class PaginatedPlaylistCollection extends Component {
 
@@ -27,7 +28,7 @@ class PaginatedPlaylistCollection extends Component {
                 <div className="card-collection__container">
                     {this.props.playlistArray.slice(lowerBound, upperBound).map((playlist, index) => (
                         <Card 
-                            cardImage={playlist.playlistImage}
+                            cardImage={imageSizePicker(playlist.playlistImage, 250, 250)}
                             cardTitle={playlist.playlistName}
                             isRounded={false}
                             cardDestination={`/playlist/${playlist.ownerID}/${playlist.playlistID}`}

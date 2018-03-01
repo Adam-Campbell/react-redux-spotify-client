@@ -4,6 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlayCircle from '@fortawesome/fontawesome-free-solid/faPlayCircle';
 import faPauseCircle from '@fortawesome/fontawesome-free-solid/faPauseCircle';
 import AddTrackButton from './AddTrackButton';
+import { imageSizePicker } from '../imageSizePicker';
 
 
 const Track = props => {
@@ -31,7 +32,7 @@ const Track = props => {
             }
         >
 
-            {props.showImage && <img className="track__image" src={props.track.albumImage} alt=""></img>}
+            {props.showImage && <img className="track__image" src={imageSizePicker(props.track.albumImage, 50, 50)} alt=""></img>}
 
             <FontAwesomeIcon icon={(isPlaying) ? faPauseCircle : faPlayCircle} />
 

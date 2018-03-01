@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TrackWithNumber from './TrackWithNumber';
 import { Link } from 'react-router-dom';
+import withFadeIn from './withFadeIn';
 
 const Album = props => (
     <section className="album">
@@ -39,4 +40,4 @@ Album.propTypes = {
     currentlySelectedCollection: PropTypes.object
 }
 
-export default Album;
+export default withFadeIn(Album);

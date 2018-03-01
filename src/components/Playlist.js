@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PlaylistTracks from './PlaylistTracks';
 import Paginator from './Paginator';
+import withFadeIn from './withFadeIn';
 
 
 class Playlist extends Component {
@@ -61,4 +62,4 @@ Playlist.propTypes = {
     currentlySelectedCollection: PropTypes.object
 }
 
-export default Playlist;
+export default withFadeIn(Playlist);

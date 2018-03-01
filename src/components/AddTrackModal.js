@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import AddTrackModalListItem from './AddTrackModalListItem'; 
 import FadeInContainer from './FadeInContainer';
+import { imageSizePicker } from '../imageSizePicker';
 
 
 const AddTrackModal = props => {
@@ -24,7 +25,7 @@ const AddTrackModal = props => {
                                                 addTrackToPlaylist={props.addTrackToPlaylist}
                                                 playlistName={playlist.playlistName}
                                                 playlistID={playlist.playlistID}
-                                                playlistImage={playlist.playlistImage}
+                                                playlistImage={imageSizePicker(playlist.playlistImage, 80, 80)}
                                                 userID={props.userID}
                                                 trackToAdd={props.trackToAdd}
                                                 accessToken={props.accessToken}

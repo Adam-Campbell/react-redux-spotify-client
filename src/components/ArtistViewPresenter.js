@@ -14,7 +14,7 @@ const ArtistViewPresenter = props => {
     return (
         <div>
             <ArtistHeader 
-                artistImage={props.artist.artistImage}
+                artistImage={props.artist.artistImage[0].url}
                 artistName={props.artist.artistName}
                 genres={props.artist.genres}
             />

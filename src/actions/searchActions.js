@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { genericFetchWrapper } from './helpers';
 import { errorModalOpen } from './modalActions';
+import { dummyImageArray } from '../imageSizePicker';
 
 //
 // Exported thunk action
@@ -65,21 +66,12 @@ function receiveSearchResults(results) {
 // Helper functions 
 //
 
-function searchResultObjectCreator(data) {
-    return {
-        artistName: data.name, 
-        artistID: data.id,
-        artistImage: (data.images.length) ? data.images[0].url : ''
-    };
-}
-
-
 function formatArtistSearchResults(data) {
     return data.map(artist => {
         return {
             artistName: artist.name,
             artistID: artist.id,
-            artistImage: artist.images.length ? artist.images[0].url : ''
+            artistImage: artist.images.length ? artist.images : dummyImageArray
         };
     });
 }
@@ -91,7 +83,7 @@ function formatAlbumSearchResults(data) {
             artistID: album.artists[0].id,
             albumName: album.name,
             albumID: album.id,
-            albumImage: album.images.length ? album.images[0].url : ''
+            albumImage: album.images.length ? album.images : dummyImageArray
         }
     })
 }
@@ -103,7 +95,7 @@ function formatPlaylistSearchResults(data) {
             ownerID: playlist.owner.id,
             playlistName: playlist.name,
             playlistID: playlist.id,
-            playlistImage: playlist.images.length ? playlist.images[0].url : ''
+            playlistImage: playlist.images.length ? playlist.images : dummyImageArray
         };
     });
 }

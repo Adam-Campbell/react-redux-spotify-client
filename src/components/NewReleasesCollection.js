@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Card from './Card';
 import Paginator from './Paginator';
 import SlideInContainer from './SlideInContainer';
+import { imageSizePicker } from '../imageSizePicker';
 
 
 class NewReleasesCollection extends Component {
@@ -30,7 +31,7 @@ class NewReleasesCollection extends Component {
                     {this.props.newReleasesArray.slice(lowerBound, upperBound).map((release, index) => (
                         <Card
                             cardTitle={release.albumName}
-                            cardImage={release.albumImage}
+                            cardImage={imageSizePicker(release.albumImage, 250, 250)}
                             cardDestination={`/album/${release.albumID}`}
                             isRounded={false}
                             key={index}
