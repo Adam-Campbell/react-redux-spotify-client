@@ -23,28 +23,30 @@ class UserProfileView extends Component {
             return <Loader />;
         }
         return (
-            <FadeInContainer>
-                <UserHeader 
-                    userName={this.props.userInfo.userName}
-                    userImage={this.props.userInfo.userImage}
-                />
-                <InlineTrackCollection 
-                    trackArray={this.props.userInfo.recentTracks}
-                    title="Recently Played Tracks"
-                    playPauseTrack={this.props.playPauseUserRecentTrack}
-                    currentlySelectedCollection={this.props.currentlySelectedCollection}
-                />
-                <ArtistCollection 
-                    artistArray={this.props.userInfo.topArtists}
-                    title="Your Top Artists"
-                />
-                <PlaylistCollection 
-                    playlistArray={this.props.userInfo.playlists}
-                    title="Your Playlists"
-                >
-                    <CreateNewPlaylistCard />
-                </PlaylistCollection>
-            </FadeInContainer>   
+            
+                <div>
+                    <UserHeader 
+                        userName={this.props.userInfo.userName}
+                        userImage={this.props.userInfo.userImage}
+                    />
+                    <InlineTrackCollection 
+                        trackArray={this.props.userInfo.recentTracks}
+                        title="Recently Played Tracks"
+                        playPauseTrack={this.props.playPauseUserRecentTrack}
+                        currentlySelectedCollection={this.props.currentlySelectedCollection}
+                    />
+                    <ArtistCollection 
+                        artistArray={this.props.userInfo.topArtists}
+                        title="Your Top Artists"
+                    />
+                    <PlaylistCollection 
+                        playlistArray={this.props.userInfo.playlists}
+                        title="Your Playlists"
+                    >
+                        <CreateNewPlaylistCard />
+                    </PlaylistCollection>
+                </div>
+          
         );
     }
 }

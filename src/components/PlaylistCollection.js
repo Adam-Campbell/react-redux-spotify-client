@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Collection from './Collection';
+import { imageSizePicker } from '../imageSizePicker';
 
 const PlaylistCollection = props => (
     <Collection 
         title={props.title}
         itemArray={props.playlistArray.map((playlist, index) => (
             <Card 
-                cardImage={playlist.playlistImage}
+                cardImage={imageSizePicker(playlist.playlistImage, 250, 250)}
                 cardTitle={playlist.playlistName}
                 isRounded={false}
                 cardDestination={`/playlist/${playlist.ownerID}/${playlist.playlistID}`}

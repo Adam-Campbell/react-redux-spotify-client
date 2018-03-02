@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card'
 import Collection from './Collection';
+import { imageSizePicker } from '../imageSizePicker';
 
 const AlbumCollection = props => (
     <Collection 
@@ -10,7 +11,7 @@ const AlbumCollection = props => (
             props.albumArray.map((album, index) => {
                 return (
                     <Card 
-                        cardImage={album.albumImage}
+                        cardImage={imageSizePicker(album.albumImage, 250, 250)}
                         cardTitle={album.albumName}
                         cardDestination={`/album/${album.albumID}`}
                         isRounded={false}

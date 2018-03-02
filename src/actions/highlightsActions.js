@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { genericFetchWrapper } from './helpers';
 import { errorModalOpen } from './modalActions';
-
+import { dummyImageArray } from '../imageSizePicker';
 
 //
 // Exported thunk action
@@ -63,7 +63,7 @@ function createNewReleasesArray(data) {
         return {
             albumName: album.name,
             albumID: album.id,
-            albumImage: (album.images.length) ? album.images[0].url : '',
+            albumImage: album.images.length ? album.images : dummyImageArray,
             artistName: album.artists[0].name,
             artistID: album.artists[0].id
         };
@@ -76,7 +76,7 @@ function createFeaturedPlaylistsArray(data) {
             playlistName: playlist.name,
             playlistID: playlist.id,
             ownerID: playlist.owner.id,
-            playlistImage: (playlist.images.length) ? playlist.images[0].url : ''
+            playlistImage: playlist.images.length ? playlist.images : dummyImageArray
         };
     })
 }
@@ -86,7 +86,7 @@ function createCategoriesArray(data) {
         return {
             categoryName: category.name,
             categoryID: category.id,
-            categoryIcon: (category.icons.length) ? category.icons[0].url : '',
+            categoryIcon: category.icons.length ? category.icons : dummyImageArray,
             categoryPlaylists: []
         };
     })

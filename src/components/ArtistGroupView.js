@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import ArtistHeader from './ArtistHeader';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
 import { withRouter } from 'react-router';
 import ArtistOverview from './ArtistOverview';
 import AlbumsView from './AlbumsView';
@@ -37,48 +38,49 @@ class ArtistGroupView extends Component {
         if (this.props.artists.artistData.hasOwnProperty(artistID)) { 
             const artist = this.props.artists.artistData[artistID];
             return (
-                <FadeInContainer>
-                    <ArtistHeader 
-                        artistImage={artist.artistImage}
-                        artistName={artist.artistName}
-                        genres={artist.genres}
-                    />
-
-                    <InlineNav 
-                        currentArtist={artistID}
-                    />
-                    <Switch>
-
-                        <Route 
-                            path={`${url}/albums`}
-                            render={() => <AlbumsView artist={artist} />}
+                
+                    <div>
+                        <ArtistHeader 
+                            artistImage={artist.artistImage}
+                            artistName={artist.artistName}
+                            genres={artist.genres}
                         />
 
-                        <Route 
-                            path={`${url}/related-artists`}
-                            render={() => <RelatedArtistsView artist={artist} />}
+                        <InlineNav 
+                            currentArtist={artistID}
                         />
+                        <Switch>
 
-                        <Route 
-                            path={`${url}/overview`} 
-                            render={() => <ArtistOverview 
-                                    artist={artist}
-                                    accessToken={this.props.accessToken}
-                                    fetchArtist={this.props.fetchArtist}
-                                    playPauseTrack={this.props.playPauseArtistTopTrack}
-                                    currentlySelectedCollection={this.props.currentlySelectedCollection}
-                                />
-                            } 
-                        />
+                            <Route 
+                                path={`${url}/albums`}
+                                render={() => <AlbumsView artist={artist} />}
+                            />
 
-                        <Route 
-                            path={'/'}
-                            render={() => <Redirect to={`${url}/overview`}/>}
-                        />
-                        
-                    </Switch>
-                        
-                </FadeInContainer>
+                            <Route 
+                                path={`${url}/related-artists`}
+                                render={() => <RelatedArtistsView artist={artist} />}
+                            />
+
+                            <Route 
+                                path={`${url}/overview`} 
+                                render={() => <ArtistOverview 
+                                        artist={artist}
+                                        accessToken={this.props.accessToken}
+                                        fetchArtist={this.props.fetchArtist}
+                                        playPauseTrack={this.props.playPauseArtistTopTrack}
+                                        currentlySelectedCollection={this.props.currentlySelectedCollection}
+                                    />
+                                } 
+                            />
+
+                            <Route 
+                                path={'/'}
+                                render={() => <Redirect to={`${url}/overview`}/>}
+                            />
+                            
+                        </Switch>
+                    </div> 
+                
             );
         } else if (this.props.artists.isFetching) {
             return <Loader />
@@ -88,7 +90,7 @@ class ArtistGroupView extends Component {
 
 }
 
-
+//path={`${url}/overview`} 
 const mapStateToProps = state => ({
     artists: state.artistInfo,
     accessToken: state.accessToken.token,
@@ -104,3 +106,12 @@ export default withRouter(connect(
         playPauseArtistTopTrack: ActionCreators.playPauseArtistTopTrack
     }
 )(ArtistGroupView));
+
+// export default connect(
+//     mapStateToProps, 
+//     {
+//         fetchArtist: ActionCreators.fetchArtist,
+//         switchCurrentArtist: ActionCreators.switchCurrentArtist,
+//         playPauseArtistTopTrack: ActionCreators.playPauseArtistTopTrack
+//     }
+// )(ArtistGroupView);

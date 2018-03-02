@@ -25,7 +25,7 @@ class BrowseView extends Component {
             return <Loader />;  
         }
         return (
-            <FadeInContainer>
+            <React.Fragment>
                 <NewReleasesCollection 
                     newReleasesArray={this.props.highlights.newReleases}
                     title="New Releases"
@@ -43,7 +43,7 @@ class BrowseView extends Component {
                     title="Categories"
                     accessToken={this.props.accessToken}          
                 />
-            </FadeInContainer>
+            </React.Fragment> 
         );
     }
 

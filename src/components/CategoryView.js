@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import PlaylistCollection from './PlaylistCollection';
 import Loader from './Loader';
+import withFadeIn from './withFadeIn';
+
+const PlaylistCollectionWithFadeIn = withFadeIn(PlaylistCollection);
 
 class CategoryView extends Component {
 
@@ -30,13 +33,11 @@ class CategoryView extends Component {
             return <Loader />;
         }
         return (
-            <div className="container">
-                <PlaylistCollection 
-                    title={correctCategory.categoryName}
-                    accessToken={this.props.accessToken}
-                    playlistArray={correctCategory.categoryPlaylists}
-                />
-            </div>
+            <PlaylistCollectionWithFadeIn 
+                title={correctCategory.categoryName}
+                accessToken={this.props.accessToken}
+                playlistArray={correctCategory.categoryPlaylists}
+            />
         );  
     }
 }

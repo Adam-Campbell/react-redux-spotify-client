@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { genericFetchWrapper } from './helpers';
 import { errorModalOpen } from './modalActions';
+import { dummyImageArray } from '../imageSizePicker';
 
 //
 // Exported thunk action
@@ -50,7 +51,7 @@ function formatCategory(arr) {
         return {
             playlistID: playlist.id,
             playlistName: playlist.name,
-            playlistImage: (playlist.images.length) ? playlist.images[0].url : '',
+            playlistImage: playlist.images.length ? playlist.images : dummyImageArray,
             ownerID: playlist.owner.id
         }
     })

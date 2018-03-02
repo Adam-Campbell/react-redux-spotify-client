@@ -8,14 +8,17 @@ import * as ActionCreators from '../actions';
 const RemoveTrackButton = props => {
     if (props.ownerID === props.userID) {
         return (
-            <FontAwesomeIcon
-                icon={faTimes}
+            <div 
+                className="tooltip-group-container"
                 onClick={e => {
                         e.stopPropagation();
                         props.deleteTrackFromPlaylist(props.ownerID, props.playlistID, props.trackURI, props.index, props.accessToken);
                     }
                 }
-            />
+            >
+                <span className="tooltip tooltip--wide">Remove From Playlist</span>
+                <FontAwesomeIcon icon={faTimes} />
+            </div>
         );
     }
     return null;

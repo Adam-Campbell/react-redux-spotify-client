@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, fetchWrapper, genericFetchWrapper } from './helpers';
 import { errorModalOpen } from './modalActions';
+import { dummyImageArray } from '../imageSizePicker';
 
 //
 // Exported thunk action
@@ -60,7 +61,7 @@ function formatOrphanAlbum(album) {
         albumID: albumID,
         albumName: albumName,
         releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
-        albumImage: (album.images.length) ? album.images[0].url : '',
+        albumImage: album.images.length ? album.images : dummyImageArray,
         albumTracks: album.tracks.items.map(track => {
             return {
                 trackName: track.name,
@@ -73,7 +74,7 @@ function formatOrphanAlbum(album) {
                 previewURL: track.preview_url,
                 duration: convertMsToMinSec(track.duration_ms),
                 trackNumber: track.track_number,
-                albumImage: (album.images.length) ? album.images[0].url : '',
+                albumImage: album.images.length ? album.images : dummyImageArray,
                 isPlaying: false,
                 isCurrentlySelected: false,
                 isTopTrack: false,

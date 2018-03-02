@@ -4,6 +4,7 @@ import ArtistCollection from './ArtistCollection';
 import AlbumCollection from './AlbumCollection';
 import PlaylistCollection from './PlaylistCollection';
 
+
 const SearchResults = props => {
     if (props.showing === 'artists') {
         return <ArtistCollection artistArray={props.searchResults.artists} title='Artists' />;

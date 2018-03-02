@@ -6,7 +6,7 @@
     position: relative;
     top: 0;
     left: 0;
-    transition: all ease-out 0.4s;
+    transition: all ease-out 0.3s;
     @media(min-width: 768px) {
         padding-bottom: 100px;
     }
@@ -16,3 +16,5 @@
     transform: translateX(250px);
     overflow-x: hidden;
 }
+
+

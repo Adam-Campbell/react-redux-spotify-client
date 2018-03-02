@@ -7,7 +7,7 @@ const PlaylistTracks = props => {
     const upperBound = props.currentPage * 50;
     const lowerBound = upperBound - 50;
     return (
-        <div className="album__tracks-container">
+        <div className="showcase__tracks-container">
             <ul className="track-collection__list">
                 {props.playlistTracks.slice(lowerBound, upperBound).map((track, index) => (
                     <TrackWithImage 

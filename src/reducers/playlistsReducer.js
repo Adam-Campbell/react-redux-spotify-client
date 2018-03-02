@@ -33,7 +33,13 @@ export default function playlists(state=defaultState, action) {
                     ...state.playlistData,
                     [action.payload.key]: {
                         ...state.playlistData[action.payload.key],
-                        playlistImage: action.payload.imageURL
+                        playlistImage: [
+                            {
+                                height: null,
+                                width: null,
+                                url: action.payload.imageURL
+                            }
+                        ]
                     }
                 }
             }
