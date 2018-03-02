@@ -5,15 +5,15 @@ import faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
 
 const UserPlaylistName = props => (
     props.isEditingName ? (
-        <div className="album__text-input-container">
+        <div className="showcase__text-input-container">
             <input 
-                className="album__text-input"
+                className="showcase__text-input"
                 value={props.localName} 
                 onChange={e => props.updateLocalName(e)}
             >
             </input>
             <button
-                className="album__submit-button"
+                className="showcase__submit-button"
                 onClick={e => props.saveName(e)}
             >Save</button>
         </div>

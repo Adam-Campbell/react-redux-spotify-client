@@ -8,7 +8,7 @@ import PlaylistCollection from './PlaylistCollection';
 import CreateNewPlaylistCard from './CreateNewPlaylistCard';
 
 const UserProfileViewPresenter = props => (
-    <div>
+    <div className="fade-into-view">
         <UserHeader 
             userName={props.userInfo.userName}
             userImage={props.userInfo.userImage}
@@ -32,4 +32,4 @@ const UserProfileViewPresenter = props => (
     </div>
 );
 
-export default withFadeIn(UserProfileViewPresenter);
+export default UserProfileViewPresenter;

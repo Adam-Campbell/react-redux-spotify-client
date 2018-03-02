@@ -9,7 +9,7 @@ const InlineNav = props => (
                 <NavLink to={`/artist/${props.currentArtist}/overview`} className="inline-nav__link inline-nav__link-active">Overview</NavLink>
             </li>
             <li className="inline-nav__list-item">
-                <NavLink to={`/artist/${props.currentArtist}/albums`} className="inline-nav__link">Albums</NavLink>
+                <NavLink to={`/artist/${props.currentArtist}/music`} className="inline-nav__link">Music</NavLink>
             </li>
             <li className="inline-nav__list-item">
                 <NavLink to={`/artist/${props.currentArtist}/related-artists`} className="inline-nav__link">Related Artists</NavLink>

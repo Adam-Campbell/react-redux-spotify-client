@@ -8,9 +8,17 @@ import AppPresenter from './AppPresenter';
 
 class AppContainer extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.checkForAccessToken = this.checkForAccessToken.bind(this);
+        this.toggleNav = this.toggleNav.bind(this);
+        this.state = {
+            isShowingNav: false
+        }
+    }
+
+    toggleNav() {
+        this.setState({isShowingNav: !this.state.isShowingNav});
     }
 
     // Convert accessToken to JSON and save to local storage.
@@ -48,7 +56,7 @@ class AppContainer extends Component {
         // If this check returns true then we have the accessToken and can begin the app. If it
         // returns false then we need to go to Spotify to get a token instead.
         if (this.checkForAccessToken()) {
-            return <AppPresenter  />
+            return <AppPresenter toggleNav={this.toggleNav} isShowingNav={this.state.isShowingNav} />
         } else {
             window.location = authURL;
             return null;

@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 import withFadeIn from './withFadeIn';
 
 const Album = props => (
-    <section className="album">
-        <div className="album__header">
-            <img src={props.albumImage} alt={`The album cover for ${props.albumName} by ${props.artistName}`} className="album__image"></img>
-            <div className="album__info">
+    <section className="showcase fade-into-view">
+        <div className="showcase__header">
+            <img src={props.albumImage} alt={`The album cover for ${props.albumName} by ${props.artistName}`} className="showcase__image"></img>
+            <div className="showcase__info">
                 <h1 className="heading heading--regular">{props.albumName}</h1>
-                <Link to={`/artist/${props.artistID}/overview`} className="album__link">{props.artistName}</Link>
-                <p className="album__paragraph">{props.releaseDate}</p>
+                <Link to={`/artist/${props.artistID}/overview`} className="showcase__link">{props.artistName}</Link>
+                <p className="showcase__paragraph">{props.releaseDate}</p>
             </div>
         </div>
-        <div className="album__tracks-container">
+        <div className="showcase__tracks-container">
             <ul className="track-collection__list">
                 {props.albumTracks.map((track, index) => (
                     <TrackWithNumber 
@@ -40,4 +40,4 @@ Album.propTypes = {
     currentlySelectedCollection: PropTypes.object
 }
 
-export default withFadeIn(Album);
+export default Album;

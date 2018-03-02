@@ -6,7 +6,7 @@ import SearchResults from './SearchResults';
 import withFadeIn from './withFadeIn';
 
 const SearchViewPresenter = props => (
-    <div>
+    <div className="fade-into-view">
         <SearchBox />
 
         <SearchFilter 
@@ -31,4 +31,4 @@ SearchViewPresenter.propTypes = {
     searchResults: PropTypes.object
 };
 
-export default withFadeIn(SearchViewPresenter);
+export default SearchViewPresenter;

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as ActionCreators from '../actions';
 import ArtistCollection from './ArtistCollection';
 import AlbumCollection from './AlbumCollection';
 import InlineTrackCollection from './InlineTrackCollection';
@@ -11,9 +9,9 @@ import withFadeIn from './withFadeIn';
 import withSlideIn from './withSlideIn';
 
 
-const ArtistOverview = props => (
+const ArtistOverviewSubView = props => (
     
-        <div>
+        <div className="fade-into-view">
             <InlineTrackCollection 
                 trackArray={props.artist.topTracks}
                 title="Popular Tracks"
@@ -27,8 +25,8 @@ const ArtistOverview = props => (
                 accessToken={props.accessToken}
             >
                 <Button 
-                    linkTo={`/artist/${props.artist.artistID}/albums`}
-                    anchorText="View All Albums"
+                    linkTo={`/artist/${props.artist.artistID}/music`}
+                    anchorText="View All Music"
                 />
             </AlbumCollection>
 
@@ -49,4 +47,11 @@ const ArtistOverview = props => (
 );
 
 
-export default withFadeIn(ArtistOverview);
+ArtistOverviewSubView.propTypes = {
+    artist: PropTypes.object,
+    playPauseTrack: PropTypes.func,
+    currentlySelectedCollection: PropTypes.object
+};
+
+
+export default ArtistOverviewSubView;

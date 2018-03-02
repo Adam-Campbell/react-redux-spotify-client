@@ -21,11 +21,11 @@ import ErrorModal from './components/ErrorModal';
 
 
 const AppPresenter = props => (
-    <div>
+    <div className={props.isShowingNav ? "nav-open" : undefined}>
         <BrowserRouter>
             <div>
-                <Navigation />
-                <TopBar />
+                <Navigation toggleNav={props.toggleNav}/>
+                <TopBar toggleNav={props.toggleNav}/>
                 <div className="main-container">
                     
                     <Switch>

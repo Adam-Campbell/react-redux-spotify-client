@@ -5,11 +5,12 @@ const PlayerAudioElement = props => (
     <audio 
         id="audioElem" 
         src={props.previewURL}
+        ref={props.audioElementRef}
         onEnded={
             () => {
                 if (props.isRepeating) {
-                    props.audioElement.currentTime = 0;
-                    props.audioElement.play();
+                    props.audio.currentTime = 0;
+                    props.audio.play();
                 } else {
                     props.skipToNextTrack();
                 }  

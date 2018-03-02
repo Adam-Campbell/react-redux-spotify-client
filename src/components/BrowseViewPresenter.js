@@ -6,7 +6,7 @@ import CategoryCollection from './CategoryCollection';
 import NewReleasesCollection from './NewReleasesCollection';
 
 const BrowseViewPresenter = props => (
-    <React.Fragment>
+    <div className="fade-into-view">
         <NewReleasesCollection 
             newReleasesArray={props.newReleases}
             title="New Releases"
@@ -21,7 +21,7 @@ const BrowseViewPresenter = props => (
             categoryArray={props.categories} 
             title="Categories"         
         />
-    </React.Fragment>
+    </div>
 );
 
 BrowseViewPresenter.propTypes = {
@@ -30,4 +30,4 @@ BrowseViewPresenter.propTypes = {
     categories: PropTypes.array
 };
 
-export default withFadeIn(BrowseViewPresenter);
+export default BrowseViewPresenter;

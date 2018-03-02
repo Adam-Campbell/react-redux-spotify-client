@@ -12,38 +12,13 @@ import PlayerAudioElement from './PlayerAudioElement';
 
 class Player extends Component {
 
-    // When the user interacts with the scrub bar this function works out which point in the song
-    // the users 'scrub' action maps to, and moves the song to that point. It doesn't update the 
-    // scrub bar itself, because this is updated via a setInterval initialized in componentDidMount.
-    scrubTrack(e) {
-        const audio = document.getElementById('audioElem');
-        const { width, left } = document.querySelector('.progress-bar--outer').getBoundingClientRect();
-        const scrubTo = e.clientX - left; 
-        const percent = (scrubTo * 100) / width;
-        audio.currentTime = (audio.duration / 100) * percent;
-    }
 
-    // This function sets the volume of the track when the user interacts with the volume bar. It is
-    // responsible for the updating of both the track volume as well as the volume bar itself.
-    changeVolume(e) {
-        const audio = document.getElementById('audioElem');
-        const volumeControl = document.querySelector('.volume-control--inner');
-        const { height, top } = document.querySelector('.volume-control--outer').getBoundingClientRect();
-        const posFromBottom = height - (e.clientY - top);
-        const percent = (posFromBottom * 100) / height;
-        const decimal = percent / 100;
-        volumeControl.style.height = `${percent}%`;
-        audio.volume = decimal;
-    }
-
-    // This function initializes the setInterval that ensures that the progress bar stays in sync
-    // with the track progress.
-    componentDidMount() {
-        const au = document.getElementById('audioElem');
-        const progBarInner = document.querySelector('.progress-bar--inner');
-        setInterval(() => {
-            progBarInner.style.width =`${(au.currentTime * 100) / au.duration}%`;
-        }, 50);
+    constructor(props) {
+        super(props);
+        this.toggleFullScreen = this.toggleFullScreen.bind(this);
+        this.state = {
+            isFullScreen: false
+        };
     }
 
     // This function works out which of the tracks from the currentlySelectedCollection is 
@@ -53,11 +28,10 @@ class Player extends Component {
     componentDidUpdate() {
         const collection = this.props.currentlySelectedCollection.collection;
         const selectedTrack = collection[collection.findIndex(track => track.isCurrentlySelected)] || false;
-        const au = document.getElementById('audioElem');
         if (selectedTrack.isPlaying) {
-            au.play();
+            this.audio.play();
         } else {
-            au.pause();
+            this.audio.pause();
         }
     }
 
@@ -71,26 +45,23 @@ class Player extends Component {
     componentWillReceiveProps(nextProps) {
         const oldKey = this.props.currentlySelectedCollection.collectionKey;
         const newKey = nextProps.currentlySelectedCollection.collectionKey;
-        const au = document.getElementById('audioElem');
-        if (oldKey !== newKey && au.src) {
-            au.currentTime = 0;
+        if (oldKey !== newKey && this.audio.src) {
+            this.audio.currentTime = 0;
         }
     }
 
     // This function is simply responsible for toggling the player between being full screen
     // and being minimized.
     toggleFullScreen() {
-        const player = document.querySelector('.player-controls');
-        player.classList.toggle('full-screen-player');
+        this.setState({isFullScreen: !this.state.isFullScreen});
     }
-
+    
     render() {
-        const au = document.getElementById('audioElem');
         const collection = this.props.currentlySelectedCollection.collection;
         const selectedTrack = collection[collection.findIndex(track => track.isCurrentlySelected)] || false;
         
         return (
-            <section className={(collection.length) ? "player-controls show-player" : "player-controls"}>
+            <section className={`player-controls ${collection.length ? 'show-player' : ''} ${this.state.isFullScreen ? 'full-screen-player' : ''}`}>
                 <div className="player-controls__inner-wrapper">
 
                     <FontAwesomeIcon 
@@ -113,19 +84,19 @@ class Player extends Component {
                         skipToPreviousTrack={this.props.skipToPreviousTrack}
                         skipToNextTrack={this.props.skipToNextTrack}
                         playPause={() => this.props.playPauseFromPlayer(selectedTrack.trackID)}
-                        scrubTrack={this.scrubTrack}
                         toggleRepeat={this.props.toggleRepeat}
-                        audioElement={au}
+                        audio={this.audio}
                     />
 
                     <PlayerVolumeControls 
-                        changeVolume={this.changeVolume}
+                        audio={this.audio}
                     />
 
                     <PlayerAudioElement 
+                        audioElementRef={el => this.audio = el}
                         previewURL={selectedTrack.previewURL}
                         isRepeating={this.props.currentlySelectedCollection.isRepeating}
-                        audioElement={au}
+                        audio={this.audio}
                         skipToNextTrack={this.props.skipToNextTrack}
                     />
 

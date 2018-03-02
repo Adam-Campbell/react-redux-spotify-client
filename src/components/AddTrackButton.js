@@ -6,14 +6,20 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 
 const AddTrackButton = props => (
-    <FontAwesomeIcon
-        icon={faPlus}
+    <div 
+        className="tooltip-group-container tooltip-group-container--push-left"
         onClick={(e) => {
                 e.stopPropagation();
                 props.addTrackModalOpen(props.track);
             }
         }
-    />
+    >
+        <span className="tooltip">Add To Playlist</span>
+        <FontAwesomeIcon
+            icon={faPlus}
+            
+        />
+    </div>
 );
 
 AddTrackButton.propTypes = {
