@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Collection from './Collection';
-import { imageSizePicker } from '../imageSizePicker';
+import { imageSizePicker } from '../helpers';
 
 const CategoryCollection = props => (
     <Collection 

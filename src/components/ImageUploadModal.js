@@ -3,28 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import ImageUploadInput from './ImageUploadInput';
-import FadeInContainer from './FadeInContainer';
 
 const ImageUploadModal = props => {
     if (props.currentModal === 'ImageUploadModal') {
         return (
-            <FadeInContainer>
-                <div className="modal__overlay">
-                    <div className="modal__dialog-box">
-                        <h1 className="modal__title">Image Upload</h1>
-                        <p className="modal__text">Please use the button below to upload a new image for this playlist.</p>
-                        <ImageUploadInput 
-                            playlistID={props.playlistID}
-                            ownerID={props.ownerID}
-                            accessToken={props.accessToken}
-                        />
-                        <button
-                            className="button button--light button--push-right"
-                            onClick={props.closeModal}
-                        >Cancel</button>
-                    </div>
+            <div className="modal__overlay">
+                <div className="modal__dialog-box">
+                    <h1 className="modal__title">Image Upload</h1>
+                    <p className="modal__text">Please use the button below to upload a new image for this playlist.</p>
+                    <ImageUploadInput 
+                        playlistID={props.playlistID}
+                        ownerID={props.ownerID}
+                        accessToken={props.accessToken}
+                    />
+                    <button
+                        className="button button--light button--push-right"
+                        onClick={props.closeModal}
+                    >Cancel</button>
                 </div>
-            </FadeInContainer>
+            </div>
         );
     }
     return null;

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ArtistCollection from './ArtistCollection';
-import FadeInContainer from './FadeInContainer';
-import withFadeIn from './withFadeIn';
-import withSlideIn from './withSlideIn';
+import ArtistCollection from '../components/ArtistCollection';
 
 const ArtistRelatedArtistsSubView = props => (
     <div className="fade-into-view">

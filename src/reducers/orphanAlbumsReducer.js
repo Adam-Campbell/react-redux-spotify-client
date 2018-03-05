@@ -5,10 +5,8 @@ const defaultState = {
     isFetching: false
 }
 
-
-export default function orphanAlbums(state=defaultState, action) {
+const orphanAlbums = (state=defaultState, action) => {
     switch (action.type) {
-
         case ActionTypes.FETCH_ORPHAN_ALBUM_REQUEST:
             return {
                 ...state,
@@ -31,3 +29,5 @@ export default function orphanAlbums(state=defaultState, action) {
 
     }
 }
+
+export default orphanAlbums;

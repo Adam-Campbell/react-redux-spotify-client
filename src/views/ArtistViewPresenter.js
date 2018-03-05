@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import ArtistHeader from './ArtistHeader';
-import InlineNav from './InlineNav';
+import ArtistHeader from '../components/ArtistHeader';
+import InlineNav from '../components/InlineNav';
 import ArtistMusicSubView from './ArtistMusicSubView';
 import ArtistRelatedArtistsSubView from './ArtistRelatedArtistsSubView';
 import ArtistOverviewSubView from './ArtistOverviewSubView';
-import withFadeIn from './withFadeIn';
 
 const ArtistViewPresenter = props => {
-
 
     return (
         <div className="fade-into-view">

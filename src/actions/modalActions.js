@@ -1,34 +1,24 @@
 import * as ActionTypes from '../actiontypes';
 
-export function addTrackModalOpen(track) {
-    return {
-        type: ActionTypes.OPEN_ADD_TRACK_MODAL,
-        payload: track
-    }
-}
+export const addTrackModalOpen = track => ({
+    type: ActionTypes.OPEN_ADD_TRACK_MODAL,
+    payload: track
+});
 
-export function createNewPlaylistModalOpen() {
-    return {
-        type: ActionTypes.OPEN_CREATE_NEW_PLAYLIST_MODAL
-    }
-}
+export const createNewPlaylistModalOpen = () => ({
+    type: ActionTypes.OPEN_CREATE_NEW_PLAYLIST_MODAL
+});
 
-export function imageUploadModalOpen(playlistID) {
-    return {
-        type: ActionTypes.OPEN_IMAGE_UPLOAD_MODAL,
-        payload: playlistID
-    }
-}
+export const imageUploadModalOpen = playlistID => ({
+    type: ActionTypes.OPEN_IMAGE_UPLOAD_MODAL,
+    payload: playlistID
+});
 
-export function errorModalOpen(errorInfo) {
-    return {
-        type: ActionTypes.OPEN_ERROR_MODAL,
-        payload: errorInfo
-    }
-}
+export const errorModalOpen = errorInfo => ({
+    type: ActionTypes.OPEN_ERROR_MODAL,
+    payload: errorInfo
+});
 
-export function closeModal() {
-    return {
-        type: ActionTypes.CLOSE_MODAL
-    }
-}
+export const closeModal = () => ({
+    type: ActionTypes.CLOSE_MODAL
+});

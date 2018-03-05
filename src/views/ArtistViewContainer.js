@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
-import Loader from './Loader';
+import Loader from '../components/Loader';
 import ArtistViewPresenter from './ArtistViewPresenter';
 import { withRouter } from 'react-router';
 

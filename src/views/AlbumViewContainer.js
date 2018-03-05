@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
+import Loader from '../components/Loader';
 import AlbumViewPresenter from './AlbumViewPresenter';
-import Loader from './Loader';
-import FadeInContainer from './FadeInContainer';
+import { imageSizePicker } from '../helpers';
 
 class OrphanAlbumView extends Component {
 
@@ -19,13 +18,13 @@ class OrphanAlbumView extends Component {
         if (this.props.orphanAlbums.albumData.hasOwnProperty(albumID)) {
             const album = this.props.orphanAlbums.albumData[albumID];
             return (
-                <Album 
+                <AlbumViewPresenter 
                     albumName={album.albumName}
                     albumID={album.albumID}
                     artistName={album.artistName}
                     artistID={album.artistID}
                     releaseDate={album.releaseDate}
-                    albumImage={album.albumImage}
+                    albumImage={imageSizePicker(album.albumImage, 320, 320)}
                     albumTracks={album.albumTracks}
                     playPauseTrack={this.props.playPauseOrphanAlbumTrack}
                     currentlySelectedCollection={this.props.currentlySelectedCollection}
@@ -51,4 +50,3 @@ export default connect(
         playPauseOrphanAlbumTrack: ActionCreators.playPauseOrphanAlbumTrack
     }
 )(OrphanAlbumView);
-

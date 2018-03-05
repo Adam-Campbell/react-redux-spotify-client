@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
-import PlaylistFormatPicker from './PlaylistFormatPicker';
-import Loader from './Loader';
-import FadeInContainer from './FadeInContainer';
+import Loader from '../components/Loader';
+import PlaylistViewPresenter from './PlaylistViewPresenter';
 
-class PlaylistView extends Component {
+
+
+class PlaylistViewContainer extends Component {
 
     componentDidMount() {
         if (!this.props.playlists.playlistData.hasOwnProperty(this.props.playlistID)) {
@@ -19,15 +19,13 @@ class PlaylistView extends Component {
         if (this.props.playlists.playlistData.hasOwnProperty(playlistID)) {
             const playlist = this.props.playlists.playlistData[playlistID];
             return (
-                <FadeInContainer>
-                    <PlaylistFormatPicker 
-                        playlist={playlist}
-                        playPauseTrack={this.props.playPausePlaylistTrack}
-                        currentlySelectedCollection={this.props.currentlySelectedCollection}
-                        accessToken={this.props.accessToken}
-                        userID={this.props.userID}
-                    />
-                </FadeInContainer>
+                <PlaylistViewPresenter 
+                    playlist={playlist}
+                    playPauseTrack={this.props.playPausePlaylistTrack}
+                    currentlySelectedCollection={this.props.currentlySelectedCollection}
+                    accessToken={this.props.accessToken}
+                    userID={this.props.userID}
+                />
             );
         } else if (this.props.playlists.isFetching) {
             return <Loader />;
@@ -49,4 +47,4 @@ export default connect(
         fetchPlaylist: ActionCreators.fetchPlaylist,
         playPausePlaylistTrack: ActionCreators.playPausePlaylistTrack
     }
-)(PlaylistView);
+)(PlaylistViewContainer);

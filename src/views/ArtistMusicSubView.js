@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AlbumCollection from './AlbumCollection';
-import FadeInContainer from './FadeInContainer';
-import withFadeIn from './withFadeIn';
-import withSlideIn from './withSlideIn';
+import AlbumCollection from '../components/AlbumCollection';
 
 const ArtistMusicSubView = props => {
 

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CarouselControls = props => {
-    
-    //const numberOfPages = Math.ceil(props.totalItems / props.itemsPerPage);
     const pageArray = Array.from({length: props.totalPages}, (val, index) => index + 1);
     if (props.totalPages > 1) {
         return (

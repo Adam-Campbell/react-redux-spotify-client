@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withCarousel from './withCarousel';
 import Card from './Card';
-import { imageSizePicker } from '../imageSizePicker';
+import { imageSizePicker } from '../helpers';
 
-const FeaturedPlaylistsCollectionWithCarousel = props => (
+const FeaturedPlaylistsCollectionCard = props => (
     <Card 
         cardImage={imageSizePicker(props.item.playlistImage, 250, 250)}
         cardTitle={props.item.playlistName}
@@ -13,8 +13,8 @@ const FeaturedPlaylistsCollectionWithCarousel = props => (
     />
 );
 
-FeaturedPlaylistsCollectionWithCarousel.propTypes = {
+FeaturedPlaylistsCollectionCard.propTypes = {
     item: PropTypes.object
 };
 
-export default withCarousel(FeaturedPlaylistsCollectionWithCarousel);
+export default withCarousel(FeaturedPlaylistsCollectionCard);

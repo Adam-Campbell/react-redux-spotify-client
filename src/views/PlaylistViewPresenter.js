@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Playlist from './Playlist';
-import UserPlaylist from './UserPlaylist';
-import { imageSizePicker } from '../imageSizePicker';
+import Playlist from '../components/Playlist';
+import UserPlaylist from '../components/UserPlaylist';
+import { imageSizePicker } from '../helpers';
 
 const PlaylistViewPresenter = props => (
     props.playlist.ownerID === props.userID ? (

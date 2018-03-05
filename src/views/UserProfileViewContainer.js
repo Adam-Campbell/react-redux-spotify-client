@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import UserProfileViewPresenter from './UserProfileViewPresenter';
-import Loader from './Loader';
+import Loader from '../components/Loader';
 
 class UserProfileViewContainer extends Component {
 

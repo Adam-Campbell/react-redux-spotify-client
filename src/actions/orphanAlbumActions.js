@@ -1,60 +1,16 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper, genericFetchWrapper } from './helpers';
+import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
-import { dummyImageArray } from '../imageSizePicker';
 
 //
-// Exported thunk action
+// Helper / formatting functions 
 //
 
-export function fetchOrphanAlbum(token, id) {
-    return async function(dispatch, getState) {
-        dispatch(requestOrphanAlbum());
-
-        const currentState =  getState();
-        const market = currentState.market;
-
-        try {
-            const albumInfo = await genericFetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);
-            const album = formatOrphanAlbum(albumInfo);        
-            dispatch(receiveOrphanAlbum(album, id));
-        } catch(e) {
-            dispatch(errorModalOpen(e));
-        }
-    }
-}
-
-
-//
-// Other actions called by thunk (not exported)
-//
-
-function requestOrphanAlbum() {
-    return {
-        type: ActionTypes.FETCH_ORPHAN_ALBUM_REQUEST
-    }
-}
-
-function receiveOrphanAlbum(albumObject, key) {
-    return {
-        type: ActionTypes.FETCH_ORPHAN_ALBUM_SUCCESS,
-        payload: {
-            album: albumObject,
-            key: key
-        }
-    }
-}
-
-
-//
-// Helper functions 
-//
-
-function formatOrphanAlbum(album) {
-    let artistName = album.artists[0].name;
-    let artistID = album.artists[0].id;
-    let albumName = album.name;
-    let albumID = album.id;
+const formatOrphanAlbum = album => {
+    const artistName = album.artists[0].name;
+    const artistID = album.artists[0].id;
+    const albumName = album.name;
+    const albumID = album.id;
     return {
         artistID: artistID,
         artistName: artistName,
@@ -62,8 +18,7 @@ function formatOrphanAlbum(album) {
         albumName: albumName,
         releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
         albumImage: album.images.length ? album.images : dummyImageArray,
-        albumTracks: album.tracks.items.map(track => {
-            return {
+        albumTracks: album.tracks.items.map(track => ({
                 trackName: track.name,
                 trackID: track.id,
                 trackURI: track.uri,
@@ -75,15 +30,162 @@ function formatOrphanAlbum(album) {
                 duration: convertMsToMinSec(track.duration_ms),
                 trackNumber: track.track_number,
                 albumImage: album.images.length ? album.images : dummyImageArray,
-                isPlaying: false,
-                isCurrentlySelected: false,
-                isTopTrack: false,
                 identifier: albumID
-            }
-        })
+        }))
     }
-}
+};
 
 
+//
+// Actions
+//
+
+const requestOrphanAlbum = () => ({
+    type: ActionTypes.FETCH_ORPHAN_ALBUM_REQUEST
+});
+
+const receiveOrphanAlbum = (albumObject, key) => ({
+    type: ActionTypes.FETCH_ORPHAN_ALBUM_SUCCESS,
+    payload: {
+        album: albumObject,
+        key: key
+    }
+});
+
+export const fetchOrphanAlbum = (token, id) => async (dispatch, getState)  => {
+    dispatch(requestOrphanAlbum());
+
+    const currentState =  getState();
+    const market = currentState.market;
+
+    try {
+        const albumInfo = await fetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);
+        const album = formatOrphanAlbum(albumInfo);        
+        dispatch(receiveOrphanAlbum(album, id));
+    } catch(e) {
+        dispatch(errorModalOpen(e));
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //
+// // Exported thunk action
+// //
+
+// export function fetchOrphanAlbum(token, id) {
+//     return async function(dispatch, getState) {
+//         dispatch(requestOrphanAlbum());
+
+//         const currentState =  getState();
+//         const market = currentState.market;
+
+//         try {
+//             const albumInfo = await genericFetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);
+//             const album = formatOrphanAlbum(albumInfo);        
+//             dispatch(receiveOrphanAlbum(album, id));
+//         } catch(e) {
+//             dispatch(errorModalOpen(e));
+//         }
+//     }
+// }
+
+
+// //
+// // Other actions called by thunk (not exported)
+// //
+
+// function requestOrphanAlbum() {
+//     return {
+//         type: ActionTypes.FETCH_ORPHAN_ALBUM_REQUEST
+//     }
+// }
+
+// function receiveOrphanAlbum(albumObject, key) {
+//     return {
+//         type: ActionTypes.FETCH_ORPHAN_ALBUM_SUCCESS,
+//         payload: {
+//             album: albumObject,
+//             key: key
+//         }
+//     }
+// }
+
+
+// //
+// // Helper functions 
+// //
+
+// function formatOrphanAlbum(album) {
+//     let artistName = album.artists[0].name;
+//     let artistID = album.artists[0].id;
+//     let albumName = album.name;
+//     let albumID = album.id;
+//     return {
+//         artistID: artistID,
+//         artistName: artistName,
+//         albumID: albumID,
+//         albumName: albumName,
+//         releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
+//         albumImage: album.images.length ? album.images : dummyImageArray,
+//         albumTracks: album.tracks.items.map(track => {
+//             return {
+//                 trackName: track.name,
+//                 trackID: track.id,
+//                 trackURI: track.uri,
+//                 artistName: artistName,
+//                 artistID: artistID,
+//                 albumName: albumName,
+//                 albumID: albumID,
+//                 previewURL: track.preview_url,
+//                 duration: convertMsToMinSec(track.duration_ms),
+//                 trackNumber: track.track_number,
+//                 albumImage: album.images.length ? album.images : dummyImageArray,
+//                 isPlaying: false,
+//                 isCurrentlySelected: false,
+//                 isTopTrack: false,
+//                 identifier: albumID
+//             }
+//         })
+//     }
+// }
 
 

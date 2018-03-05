@@ -13,9 +13,8 @@ const defaultState = {
 };
 
 
-export default function userInfo(state=defaultState, action) {
+const userInfo = (state=defaultState, action) => {
     switch (action.type) {
-
         case ActionTypes.FETCH_USER_REQUEST:
             return {
                 ...state,
@@ -73,3 +72,5 @@ export default function userInfo(state=defaultState, action) {
 
     }
 }
+
+export default userInfo;

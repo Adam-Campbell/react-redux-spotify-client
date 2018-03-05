@@ -29,39 +29,6 @@ const Navigation = props => (
     </div>
 );
 
-// class Navigation extends Component {
-
-//     hideNav() {
-//         document.getElementById('root').classList.remove('nav-open');
-//     }
-
-//     render() {
-//         return (
-//             <div className="nav-container">
-//                 <nav className="nav">
-//                     <ul className="nav__list">
-//                         <li className="nav__list-item">
-//                             <NavLink to="/search" className="nav__link" onClick={this.props.toggleNav}>Search</NavLink>
-//                         </li>
-//                         <li className="nav__list-item">
-//                             <NavLink to="/browse" className="nav__link" onClick={this.props.toggleNav}>Browse</NavLink>
-//                         </li>
-//                         <li className="nav__list-item">
-//                             <NavLink to="/me" className="nav__link" onClick={this.props.toggleNav}>Me</NavLink>
-//                         </li>
-//                         <SubNavigation 
-//                             artistInfo={this.props.artistInfo}
-//                             toggleNav={this.props.toggleNav} 
-//                         />
-                        
-//                     </ul>
-//                 </nav>
-//             </div>
-//         );
-//     }
-// }
-
-
 
 const mapStateToProps = state => ({
     artistInfo: state.artistInfo,
