@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ArtistCollection from './ArtistCollection';
-import AlbumCollection from './AlbumCollection';
-import InlineTrackCollection from './InlineTrackCollection';
-import Button from './Button';
-import FadeInContainer from './FadeInContainer';
-import withFadeIn from './withFadeIn';
-import withSlideIn from './withSlideIn';
-
+import ArtistCollection from '../components/ArtistCollection';
+import AlbumCollection from '../components/AlbumCollection';
+import InlineTrackCollection from '../components/InlineTrackCollection';
+import Button from '../components/Button';
 
 const ArtistOverviewSubView = props => (
     

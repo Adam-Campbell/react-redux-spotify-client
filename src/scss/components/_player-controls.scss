@@ -144,15 +144,19 @@
 
 
 .volume-control--outer {
-    width: 6px;
-    height: 70px;
-    border-radius: 6px;
-    background-color: #fafafa;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer
+    display: none;
+    @media(min-width: 768px) {
+        display: block;
+        width: 6px;
+        height: 70px;
+        border-radius: 6px;
+        background-color: #fafafa;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
 }
 
 .volume-control--inner {

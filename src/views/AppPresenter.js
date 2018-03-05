@@ -1,23 +1,23 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import Navigation from './components/Navigation';
-import TopBar from './components/TopBar';
-import Player from './components/Player';
+import Navigation from '../components/Navigation';
+import TopBar from '../components/TopBar';
+import Player from '../components/Player';
 
-import ArtistViewContainer from './components/ArtistViewContainer';
-import AlbumViewContainer from './components/AlbumViewContainer';
-import PlaylistViewContainer from './components/PlaylistViewContainer';
-import CategoryViewContainer from './components/CategoryViewContainer';
-import SearchViewContainer from './components/SearchViewContainer';
-import UserProfileViewContainer from './components/UserProfileViewContainer';
-import BrowseViewContainer from './components/BrowseViewContainer';
+import ArtistViewContainer from './ArtistViewContainer';
+import AlbumViewContainer from './AlbumViewContainer';
+import PlaylistViewContainer from './PlaylistViewContainer';
+import CategoryViewContainer from './CategoryViewContainer';
+import SearchViewContainer from './SearchViewContainer';
+import UserProfileViewContainer from './UserProfileViewContainer';
+import BrowseViewContainer from './BrowseViewContainer';
 
-import Portal from './components/Portal';
-import AddTrackModal from './components/AddTrackModal';
-import CreateNewPlaylistModal from './components/CreateNewPlaylistModal';
-import ImageUploadModal from './components/ImageUploadModal';
-import ErrorModal from './components/ErrorModal';
+import Portal from '../components/Portal';
+import AddTrackModal from '../components/AddTrackModal';
+import CreateNewPlaylistModal from '../components/CreateNewPlaylistModal';
+import ImageUploadModal from '../components/ImageUploadModal';
+import ErrorModal from '../components/ErrorModal';
 
 
 const AppPresenter = props => (

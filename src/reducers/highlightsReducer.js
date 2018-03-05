@@ -8,9 +8,8 @@ const defaultState = {
     isFetching: false
 };
 
-export default function highlights(state=defaultState, action) {
+const highlights = (state=defaultState, action) => {
     switch (action.type) {
-
         case ActionTypes.FETCH_HIGHLIGHTS_REQUEST:
             return {
                 ...state,
@@ -47,3 +46,5 @@ export default function highlights(state=defaultState, action) {
 
     }
 }
+
+export default highlights;

@@ -4,7 +4,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlayCircle from '@fortawesome/fontawesome-free-solid/faPlayCircle';
 import faPauseCircle from '@fortawesome/fontawesome-free-solid/faPauseCircle';
 import AddTrackButton from './AddTrackButton';
-import { imageSizePicker } from '../imageSizePicker';
+import { imageSizePicker } from '../helpers';
 
 
 const Track = props => {

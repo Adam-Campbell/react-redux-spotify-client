@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withFadeIn from './withFadeIn';
-import PaginatedPlaylistCollection from './PaginatedPlaylistCollection';
-import CategoryCollection from './CategoryCollection';
-import NewReleasesCollection from './NewReleasesCollection';
+import NewReleasesCollection from '../components/NewReleasesCollection';
+import FeaturedPlaylistsCollection from '../components/FeaturedPlaylistsCollection';
+import CategoryCollection from '../components/CategoryCollection';
+
+
 
 const BrowseViewPresenter = props => (
     <div className="fade-into-view">
+
         <NewReleasesCollection 
-            newReleasesArray={props.newReleases}
+            itemsArray={props.newReleases}
+            itemsPerSlide={10}
             title="New Releases"
         />
 
-        <PaginatedPlaylistCollection 
-            playlistArray={props.featuredPlaylists}
+        <FeaturedPlaylistsCollection 
+            itemsArray={props.featuredPlaylists}
+            itemsPerSlide={10}
             title="Featured Playlists"
         />
 

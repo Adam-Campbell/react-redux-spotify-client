@@ -5,7 +5,7 @@ const defaultState = {
     timestamp: null
 };
 
-export default function accessToken(state=defaultState, action) {
+const accessToken = (state=defaultState, action) => {
     switch(action.type) {
         case ActionTypes.STORE_TOKEN:
             return {
@@ -16,3 +16,5 @@ export default function accessToken(state=defaultState, action) {
             return state;
     }
 }
+
+export default accessToken;

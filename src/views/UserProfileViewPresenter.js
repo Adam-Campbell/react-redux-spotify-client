@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withFadeIn from './withFadeIn';
-import UserHeader from './UserHeader';
-import InlineTrackCollection from './InlineTrackCollection';
-import ArtistCollection from './ArtistCollection';
-import PlaylistCollection from './PlaylistCollection';
-import CreateNewPlaylistCard from './CreateNewPlaylistCard';
+import UserHeader from '../components/UserHeader';
+import InlineTrackCollection from '../components/InlineTrackCollection';
+import ArtistCollection from '../components/ArtistCollection';
+import PlaylistCollection from '../components/PlaylistCollection';
+import CreateNewPlaylistCard from '../components/CreateNewPlaylistCard';
 
 const UserProfileViewPresenter = props => (
     <div className="fade-into-view">

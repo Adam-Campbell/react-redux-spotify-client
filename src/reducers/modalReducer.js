@@ -5,7 +5,7 @@ const defaultState = {
     modalData: {}
 };
 
-export default function modalInfo(state=defaultState, action) {
+const modalInfo = (state=defaultState, action) => {
     switch(action.type) {
         case ActionTypes.OPEN_ADD_TRACK_MODAL:
             return {
@@ -44,3 +44,5 @@ export default function modalInfo(state=defaultState, action) {
             return state;
     }
 }
+
+export default modalInfo;

@@ -6,10 +6,8 @@ const defaultState = {
     currentArtist: ''
 };
 
-
-export default function artistInfo(state=defaultState, action) {
+const artistInfo = (state=defaultState, action) => {
     switch (action.type) {
-
         case ActionTypes.FETCH_ARTIST_REQUEST:
             return {
                 ...state,
@@ -38,3 +36,5 @@ export default function artistInfo(state=defaultState, action) {
             return state;
     }      
 }
+
+export default artistInfo;

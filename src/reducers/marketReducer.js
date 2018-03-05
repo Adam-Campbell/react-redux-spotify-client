@@ -2,9 +2,8 @@ import * as ActionTypes from '../actiontypes';
 
 const defaultState = '';
 
-export default function market(state=defaultState, action) {
+const market = (state=defaultState, action) => {
     switch(action.type) {
-
         case ActionTypes.SET_MARKET:
             return action.payload;
 
@@ -13,3 +12,5 @@ export default function market(state=defaultState, action) {
 
     }
 }
+
+export default market;

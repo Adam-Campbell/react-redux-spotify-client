@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as ActionCreators from './actions';
-import { authURL } from './globalConstants';
+import * as ActionCreators from '../actions';
+import { authURL } from '../globalConstants';
 import AppPresenter from './AppPresenter';
 
 

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
-import PlaylistCollection from './PlaylistCollection';
-import Loader from './Loader';
-import withFadeIn from './withFadeIn';
+import Loader from '../components/Loader';
+import CategoryViewPresenter from './CategoryViewPresenter';
 
-const PlaylistCollectionWithFadeIn = withFadeIn(PlaylistCollection);
 
-class CategoryView extends Component {
+class CategoryViewContainer extends Component {
 
     constructor() {
         super();
@@ -33,9 +31,8 @@ class CategoryView extends Component {
             return <Loader />;
         }
         return (
-            <PlaylistCollectionWithFadeIn 
+            <CategoryViewPresenter 
                 title={correctCategory.categoryName}
-                accessToken={this.props.accessToken}
                 playlistArray={correctCategory.categoryPlaylists}
             />
         );  
@@ -52,4 +49,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps, 
     {fetchCategory: ActionCreators.fetchCategory}
-)(CategoryView);
+)(CategoryViewContainer);

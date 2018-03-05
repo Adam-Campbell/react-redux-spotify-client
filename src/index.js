@@ -5,7 +5,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 //import App from './App';
-import AppContainer from './AppContainer';
+import AppContainer from './views/AppContainer';
 import store from './store';
 
 render(

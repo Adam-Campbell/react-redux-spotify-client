@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import BrowseViewPresenter from './BrowseViewPresenter';
-import Loader from './Loader';
+import Loader from '../components/Loader';
 
 class BrowseViewContainer extends Component {
 

@@ -3,49 +3,46 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as ActionCreators from '../actions';
 import AddTrackModalListItem from './AddTrackModalListItem'; 
-import FadeInContainer from './FadeInContainer';
-import { imageSizePicker } from '../imageSizePicker';
+import { imageSizePicker } from '../helpers';
 
 
 const AddTrackModal = props => {
     if (props.currentModal === 'AddTrackModal') {
         return (
-            <FadeInContainer>
-                <div className="modal__overlay">
-                    <div className="modal__dialog-box">
-                        <h1 className="modal__title">Select a playlist to add the track to</h1>
+            <div className="modal__overlay">
+                <div className="modal__dialog-box">
+                    <h1 className="modal__title">Select a playlist to add the track to</h1>
 
-                        <ul className="modal__list">
-                            {
-                                props.playlists.map((playlist, index) => {
-                                    if (playlist.ownerID === props.userID) {
-                                    return (
-                                            <AddTrackModalListItem 
-                                                key={index}
-                                                addTrackToPlaylist={props.addTrackToPlaylist}
-                                                playlistName={playlist.playlistName}
-                                                playlistID={playlist.playlistID}
-                                                playlistImage={imageSizePicker(playlist.playlistImage, 80, 80)}
-                                                userID={props.userID}
-                                                trackToAdd={props.trackToAdd}
-                                                accessToken={props.accessToken}
-                                            />
-                                    ); 
-                                    } else {
-                                        return null;
-                                    }
-                                })
-                            }
-                        </ul>
+                    <ul className="modal__list">
+                        {
+                            props.playlists.map((playlist, index) => {
+                                if (playlist.ownerID === props.userID) {
+                                return (
+                                        <AddTrackModalListItem 
+                                            key={index}
+                                            addTrackToPlaylist={props.addTrackToPlaylist}
+                                            playlistName={playlist.playlistName}
+                                            playlistID={playlist.playlistID}
+                                            playlistImage={imageSizePicker(playlist.playlistImage, 80, 80)}
+                                            userID={props.userID}
+                                            trackToAdd={props.trackToAdd}
+                                            accessToken={props.accessToken}
+                                        />
+                                ); 
+                                } else {
+                                    return null;
+                                }
+                            })
+                        }
+                    </ul>
 
-                        <button
-                            className="button button--light"
-                            onClick={props.closeModal}
-                        >Cancel</button>
+                    <button
+                        className="button button--light"
+                        onClick={props.closeModal}
+                    >Cancel</button>
 
-                    </div>
                 </div>
-            </FadeInContainer>
+            </div>
         );
     }
     return null;

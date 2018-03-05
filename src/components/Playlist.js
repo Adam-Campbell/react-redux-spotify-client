@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PlaylistTracks from './PlaylistTracks';
 import Paginator from './Paginator';
-import withFadeIn from './withFadeIn';
 import withPagination from './withPagination';
 
 const Playlist = props => (
@@ -33,55 +32,6 @@ const Playlist = props => (
         />
     </div>
 );
-
-
-
-
-
-// class Playlist extends Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.setPage = this.setPage.bind(this);
-//         this.state = {currentPage: 1};  
-//     }
-
-//     setPage(e, num) {
-//         e.preventDefault();
-//         this.setState({currentPage: parseInt(num)});
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <section className="showcase">
-//                     <div className="showcase__header">
-//                         <img src={this.props.playlistImage} alt="" className="showcase__image"></img>
-//                         <div className="showcase__info">
-//                             <h1 className="heading heading--regular">{this.props.playlistName}</h1>
-//                             <p className="showcase__paragraph">A playlist by {this.props.ownerName}</p>
-//                         </div>
-//                     </div>
-//                     <PlaylistTracks 
-//                         playlistTracks={this.props.playlistTracks}
-//                         currentlySelectedCollection={this.props.currentlySelectedCollection}
-//                         playPauseTrack={this.props.playPauseTrack}
-//                         currentPage={this.state.currentPage}
-//                         ownerID={this.props.ownerID}
-//                         userID={this.props.userID}
-//                         accessToken={this.props.accessToken}
-//                     />
-//                 </section>
-//                 <Paginator 
-//                     totalItems={this.props.playlistTracks.length}
-//                     itemsPerPage={50}
-//                     currentPage={this.state.currentPage}
-//                     setPage={this.setPage}
-//                 />
-//             </div>
-//         );
-//     }
-// }
 
 
 Playlist.propTypes = {

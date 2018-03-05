@@ -10,9 +10,8 @@ const defaultState = {
 }
 
 
-export default function searchResults(state=defaultState, action) {
+const searchResults = (state=defaultState, action) => {
     switch(action.type) {
-
         case ActionTypes.UPDATE_SEARCH:
             return {
                 ...state,
@@ -29,3 +28,5 @@ export default function searchResults(state=defaultState, action) {
             return state;
     }
 }
+
+export default searchResults;
