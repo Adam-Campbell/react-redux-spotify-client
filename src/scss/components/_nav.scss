@@ -10,22 +10,24 @@
     }
     &__list-item {
         padding: 0 8px;
+        margin-top: 8px;
     }
     &__link {
-        padding: 8px;
+        padding: 12px 8px;
         display: block;
         font-family: $font-stack--primary;
         font-weight: $font-weight--bold;
         font-size: em(16px);
         color: $color--white;
-        border-bottom: solid 2px $color--brand-grey-lightened;
         transition: background 0.25s ease-out;
     }
     &__sub-nav-label {
         font-family: $font-stack--primary;
         font-weight: $font-weight--bold;
         font-size: em(16px);
-        margin-top: 32px;
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: solid 2px $color--brand-grey;
         text-align: center;
     }
     &__sub-nav {
@@ -36,12 +38,12 @@
     }
     &__sub-nav-link {
         padding: 8px;
+        margin-top: 4px;
         display: block;
         font-family: $font-stack--primary;
         font-weight: $font-weight--bold;
         font-size: em(12px);
         color: $color--white;
-        border-bottom: solid 2px $color--brand-grey-lightened;
         transition: background 0.25s ease-out;
     }
 }
@@ -53,7 +55,7 @@
 
 .nav__link:hover,
 .nav__sub-nav-link:hover {
-    background-color: $color--brand-grey-lightened;
+    background-color: $color--brand-grey;
     border-radius: 4px;
 
 }

@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
+import { getOrSetMarket } from '../helpers';
 
 
 //
@@ -67,7 +68,7 @@ export const switchCurrentArtist = artistID => ({
 
 export const fetchArtist = (id, token) => async (dispatch, getState) => {
     const currentState =  getState();
-    const market = currentState.market;
+    const market = await getOrSetMarket(currentState.market, dispatch, token);
     dispatch(requestArtist())
     try {
         const artistInfo = fetchWrapper(`https://api.spotify.com/v1/artists/${id}`, token);

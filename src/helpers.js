@@ -1,3 +1,5 @@
+import { setMarket } from './actions/userActions';  
+
 //  Data structure that is used when Spotify didn't supply an image array.
 //  Imported from here to save from rewriting it every time. 
 
@@ -97,3 +99,25 @@ export const fetchWrapperNoResponseBody = async (url, settingsObject) => {
         return Promise.reject( error );
     }
 };
+
+
+
+export const getOrSetMarket = async (marketFromState, dispatch, token) => {
+    if (marketFromState) { 
+        return marketFromState;
+    }
+    const userInfo = await fetchWrapper('https://api.spotify.com/v1/me', token);
+    const market = userInfo.country;
+    dispatch(setMarket(market));
+    saveMarketToLocalStorage(market);
+    return market;
+} 
+
+export const saveMarketToLocalStorage = market => {
+    try {
+        const JSONMarket = JSON.stringify(market);
+        localStorage.setItem('market', JSONMarket);
+    } catch(err) {
+        console.log(err);
+    }
+}

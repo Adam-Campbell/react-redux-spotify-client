@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
-
+import { saveMarketToLocalStorage } from '../helpers'; 
 
 //
 // Helper / formatting functions 
@@ -58,7 +58,7 @@ const receiveUser = userObject => ({
 });
 
 
-const setMarket = market => ({
+export const setMarket = market => ({
     type: ActionTypes.SET_MARKET,
     payload: market
 });
@@ -86,6 +86,7 @@ export const fetchUserProfile = token => async dispatch => {
         };
         dispatch(receiveUser(userObject));
         dispatch(setMarket(userInfoComplete.country));
+        saveMarketToLocalStorage(userInfoComplete.country);
     } catch(e) { 
         dispatch(errorModalOpen(e));
     }

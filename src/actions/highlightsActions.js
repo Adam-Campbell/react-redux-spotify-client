@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
-
+import { getOrSetMarket } from '../helpers';
 
 //
 // Helper / formatting functions 
@@ -50,9 +50,11 @@ const receiveHighlights = highlightsObject => ({
     payload: highlightsObject
 });
 
+
 export const fetchHighlights = token => async (dispatch, getState) => {
     const currentState =  getState();
-    const market = currentState.market;
+    const market = await getOrSetMarket(currentState.market, dispatch, token);
+
     dispatch(requestHighlights());
     try {
         const newReleases = fetchWrapper(`https://api.spotify.com/v1/browse/new-releases?country=${market}&limit=50`, token);
