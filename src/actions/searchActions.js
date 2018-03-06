@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
-
+import { getOrSetMarket } from '../helpers';
 
 //
 // Helper / formatting functions 
@@ -58,7 +58,7 @@ export const fetchSearchResults = (query, token) => async (dispatch, getState) =
     dispatch(requestSearchResults());
 
     const currentState =  getState();
-    const market = currentState.market;
+    const market = await getOrSetMarket(currentState.market, dispatch, token);
 
     try {
         const searchResults = await fetchWrapper(`https://api.spotify.com/v1/search?q=${query}&type=artist,album,playlist&market=${market}`, token);  

@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
+import { getOrSetMarket } from '../helpers';
 
 //
 // Helper / formatting functions 
@@ -56,7 +57,7 @@ export const fetchOrphanAlbum = (token, id) => async (dispatch, getState)  => {
     dispatch(requestOrphanAlbum());
 
     const currentState =  getState();
-    const market = currentState.market;
+    const market = await getOrSetMarket(currentState.market, dispatch, token);
 
     try {
         const albumInfo = await fetchWrapper(`https://api.spotify.com/v1/albums/${id}?market=${market}`, token);

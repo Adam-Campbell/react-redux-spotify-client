@@ -1,7 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import * as ActionTypes from './actiontypes';
+import { setMarket } from './actions/userActions';
 import thunk from 'redux-thunk';
 import reducer from './reducers';
 import { authURL } from './globalConstants';
+import { fetchWrapper } from './helpers';
 
 //  Look for accessToken in localStorage.
 //  Return it if it's present and if it's still valid (worked out by timestamp) so that 
@@ -27,6 +30,20 @@ const loadTokenFromLocalStorage = () => {
     }
 };
 
+const loadMarketFromLocalStorage = () => {
+    try {
+        const JSONMarket = localStorage.getItem('market');
+        if (JSONMarket === null) { 
+            return undefined; 
+        }
+        const market = JSON.parse(JSONMarket);
+        return {
+            market: market
+        };
+    } catch(err) {
+        return undefined;
+    }
+};
 
 const authMiddleware = store => next => action => {
     if (action.type === 'STORE_TOKEN') {
@@ -45,11 +62,18 @@ const authMiddleware = store => next => action => {
     return next(action);
 };
 
+
 const localStorageToken = loadTokenFromLocalStorage();
+const localStorageMarket = loadMarketFromLocalStorage();
+
+const combinedInitialState = {
+    ...localStorageToken,
+    ...localStorageMarket
+};
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     reducer,
-    localStorageToken,
+    combinedInitialState,
     composeEnhancers(
         applyMiddleware(authMiddleware, thunk)
     )

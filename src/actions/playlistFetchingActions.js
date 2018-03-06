@@ -1,6 +1,7 @@
 import * as ActionTypes from '../actiontypes';
 import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
+import { getOrSetMarket } from '../helpers';
 
 
 //
@@ -79,7 +80,7 @@ export const fetchPlaylist = (token, playlistID, userID) => async (dispatch, get
 
     // get the market value from state to allow track relinking
     const currentState = getState();
-    const market = currentState.market;
+    const market = await getOrSetMarket(currentState.market, dispatch, token);
     try {
         // fetch playlistInfo
         const playlistInfo = await fetchWrapper(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}?market=${market}`, token);
