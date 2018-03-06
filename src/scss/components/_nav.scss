@@ -1,5 +1,10 @@
 .nav {
-    margin-top: 45px;
+    margin-top: 16px;
+    .svg-inline--fa,
+    .fas {
+        margin-right: 16px;
+        width: 24px;
+    }
     &__list {
 
     }
@@ -9,19 +14,22 @@
     &__link {
         padding: 8px;
         display: block;
-        font-family: $font-stack--secondary;
-        font-weight: $font-weight--light;
-        font-size: em(16px);
-        color: $color--white;
-        border-bottom: solid 1px $color--white;
-    }
-    &__sub-nav-label {
-        font-family: $font-stack--secondary;
+        font-family: $font-stack--primary;
         font-weight: $font-weight--bold;
         font-size: em(16px);
+        color: $color--white;
+        border-bottom: solid 2px $color--brand-grey-lightened;
+        transition: background 0.25s ease-out;
+    }
+    &__sub-nav-label {
+        font-family: $font-stack--primary;
+        font-weight: $font-weight--bold;
+        font-size: em(16px);
+        margin-top: 32px;
+        text-align: center;
     }
     &__sub-nav {
-        padding-left: 16px;
+        
     }
     &__sub-nav-list-item {
         padding: 0 8px;
@@ -29,11 +37,12 @@
     &__sub-nav-link {
         padding: 8px;
         display: block;
-        font-family: $font-stack--secondary;
-        font-weight: $font-weight--light;
-        font-size: em(16px);
+        font-family: $font-stack--primary;
+        font-weight: $font-weight--bold;
+        font-size: em(12px);
         color: $color--white;
-        border-bottom: solid 1px $color--white;
+        border-bottom: solid 2px $color--brand-grey-lightened;
+        transition: background 0.25s ease-out;
     }
 }
 
@@ -44,6 +53,7 @@
 
 .nav__link:hover,
 .nav__sub-nav-link:hover {
-    color: $color--brand-grey;
-    background-color: rgba(255,255,255,0.8);
+    background-color: $color--brand-grey-lightened;
+    border-radius: 4px;
+
 }
