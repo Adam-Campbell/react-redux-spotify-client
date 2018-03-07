@@ -18,7 +18,6 @@ const loadTokenFromLocalStorage = () => {
             return undefined; 
         }
         const accessToken = JSON.parse(JSONAccessToken);
-        console.log(accessToken.timestamp);
         if (Date.now() - accessToken.timestamp > 3000000) {
             return undefined;
         }
