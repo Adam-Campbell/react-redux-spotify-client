@@ -35,7 +35,13 @@ const userInfo = (state=defaultState, action) => {
                     if (playlist.playlistID === action.payload.key) {
                         return {
                             ...playlist,
-                            playlistImage: action.payload.imageURL
+                            playlistImage: [
+                                {
+                                    height: null,
+                                    width: null,
+                                    url: action.payload.imageURL
+                                }
+                            ]
                         };
                     } else {
                         return playlist;

@@ -75,12 +75,14 @@ export const fetchArtist = (id, token) => async (dispatch, getState) => {
         const topTracks = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=${market}`, token);
         const relatedArtists = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/related-artists`, token);
         const albums = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/albums?album_type=album,single&limit=50&market=${market}`, token);
+        const checkIfFollowing = fetchWrapper(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${id}`, token);
 
         const artistInfoComplete = await artistInfo;
         const topTracksComplete = await topTracks;
         const relatedArtistsComplete = await relatedArtists;
         const albumsComplete = await albums;
-
+        const isFollowing = await checkIfFollowing;
+        
         const artistObject = {
             artistName: artistInfoComplete.name,
             artistID: artistInfoComplete.id,

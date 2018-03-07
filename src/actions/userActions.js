@@ -75,7 +75,6 @@ export const fetchUserProfile = token => async dispatch => {
         const usersTopArtistsComplete = await usersTopArtists;
         const usersSavedPlaylistsComplete = await usersSavedPlaylists;
         const usersRecentTracksComplete = await usersRecentTracks;
-    
         const userObject = {
             userName: userInfoComplete.display_name,
             userID: userInfoComplete.id,

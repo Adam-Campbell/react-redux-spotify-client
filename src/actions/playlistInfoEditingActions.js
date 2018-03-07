@@ -24,6 +24,7 @@ const updatePlaylistNameSuccess = (newName, playlistID) => ({
 });
 
 export const updatePlaylistImage = (ownerID, playlistID, image, token) => async dispatch => {
+    //console.log(image.length);
     const formattedImageURI = image.replace(/^data:image\/(jpeg|jpg|png);base64,/, '');
     const url = `https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/images`;
     const settings = {
