@@ -13,6 +13,7 @@ const PlaylistCollection = props => (
                 cardTitle={playlist.playlistName}
                 isRounded={false}
                 cardDestination={`/playlist/${playlist.ownerID}/${playlist.playlistID}`}
+                isArtist={false}
                 key={index}
             />
         ))}

@@ -20,8 +20,8 @@ class CreateNewPlaylistModal extends Component {
     render() {
         if (this.props.currentModal === 'CreateNewPlaylistModal') {
             return (
-                <div className="modal__overlay">
-                    <div className="modal__dialog-box">
+                <div className="modal__overlay fade-in-quick">
+                    <div className="modal__dialog-box slide-up">
                     <h1 className="modal__title">Create A Playlist</h1>
                         <input 
                             type="text"

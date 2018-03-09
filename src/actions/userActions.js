@@ -1,5 +1,10 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
+import { 
+    convertMsToMinSec, 
+    fetchWrapper, 
+    placeholderMusicImageArray, 
+    placeholderArtistImageArray 
+} from '../helpers';
 import { errorModalOpen } from './modalActions';
 import { saveMarketToLocalStorage } from '../helpers'; 
 
@@ -11,15 +16,15 @@ const formatUsersTopArtists = data => (
     data.items.map(artist => ({
         artistName: artist.name,
         artistID: artist.id,
-        artistImage: artist.images.length ? artist.images : dummyImageArray   
+        artistImage: artist.images.length ? artist.images : placeholderArtistImageArray   
     }))
     .slice(0, 10)
 );
 
-const formatUsersSavedPlaylists = data => (
+export const formatUsersSavedPlaylists = data => (
     data.items.map(playlist => ({
         playlistName: playlist.name,
-        playlistImage: playlist.images.length ? playlist.images : dummyImageArray,
+        playlistImage: playlist.images.length ? playlist.images : placeholderMusicImageArray,
         playlistID: playlist.id,
         ownerID: playlist.owner.id
     }))
@@ -36,7 +41,7 @@ const formatUsersRecentTracks = data => (
         artistID: curr.track.artists[0].id,
         albumName: curr.track.album.name,
         albumID: curr.track.album.id,
-        albumImage: curr.track.album.images.length ? curr.track.album.images : dummyImageArray,
+        albumImage: curr.track.album.images.length ? curr.track.album.images : placeholderMusicImageArray,
         identifier: 'userRecentTracks'
     }))
     .filter((el, index, arr) => arr.findIndex(elem => elem.trackID === el.trackID) === index)
@@ -78,7 +83,8 @@ export const fetchUserProfile = token => async dispatch => {
         const userObject = {
             userName: userInfoComplete.display_name,
             userID: userInfoComplete.id,
-            userImage: (userInfoComplete.images.length) ? userInfoComplete.images[0].url : '',
+            userImage: (userInfoComplete.images.length) ? userInfoComplete.images[0].url : placeholderArtistImageArray,
+            followers: userInfoComplete.followers.total,
             topArtists: formatUsersTopArtists(usersTopArtistsComplete),
             playlists: formatUsersSavedPlaylists(usersSavedPlaylistsComplete),
             recentTracks: formatUsersRecentTracks(usersRecentTracksComplete)

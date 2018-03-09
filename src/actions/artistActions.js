@@ -1,5 +1,10 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
+import { 
+    convertMsToMinSec, 
+    fetchWrapper, 
+    placeholderArtistImageArray, 
+    placeholderMusicImageArray 
+} from '../helpers';
 import { errorModalOpen } from './modalActions';
 import { getOrSetMarket } from '../helpers';
 
@@ -18,7 +23,7 @@ const createTopTracksArray = (data, identifier) => (
         albumName: track.album.name,
         albumID: track.album.id,
         previewURL: track.preview_url,
-        albumImage: track.album.images.length ? track.album.images : dummyImageArray,
+        albumImage: track.album.images.length ? track.album.images : placeholderMusicImageArray,
         duration: convertMsToMinSec(track.duration_ms),
         identifier: identifier,
     })).slice(0,5)
@@ -28,7 +33,7 @@ const createRelatedArtistsArray = data => (
     data.map(artist => ({
         artistName: artist.name,
         artistID: artist.id,
-        artistImage: artist.images.length ? artist.images : dummyImageArray
+        artistImage: artist.images.length ? artist.images : placeholderArtistImageArray
     }))
 );
 
@@ -37,7 +42,7 @@ const createAlbumsArray = data => (
         albumName: album.name,
         albumID: album.id,
         albumType: album.album_type,
-        albumImage: album.images.length ? album.images : dummyImageArray,
+        albumImage: album.images.length ? album.images : placeholderMusicImageArray,
         artistName: album.artists[0].name,
         artistID: album.artists[0].id
     }))
@@ -82,13 +87,14 @@ export const fetchArtist = (id, token) => async (dispatch, getState) => {
         const relatedArtistsComplete = await relatedArtists;
         const albumsComplete = await albums;
         const isFollowing = await checkIfFollowing;
-        
+        //console.log(isFollowing);
         const artistObject = {
             artistName: artistInfoComplete.name,
             artistID: artistInfoComplete.id,
             genres: artistInfoComplete.genres,
-            followers: artistInfoComplete.followers,
-            artistImage: artistInfoComplete.images.length ? artistInfoComplete.images : dummyImageArray,
+            followers: artistInfoComplete.followers.total,
+            isFollowing: isFollowing[0], 
+            artistImage: artistInfoComplete.images.length ? artistInfoComplete.images : placeholderArtistImageArray,
             topTracks: createTopTracksArray(topTracksComplete.tracks, artistInfoComplete.id),
             relatedArtists: createRelatedArtistsArray(relatedArtistsComplete.artists),
             albums: createAlbumsArray(albumsComplete.items)

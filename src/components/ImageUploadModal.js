@@ -7,8 +7,8 @@ import ImageUploadInput from './ImageUploadInput';
 const ImageUploadModal = props => {
     if (props.currentModal === 'ImageUploadModal') {
         return (
-            <div className="modal__overlay">
-                <div className="modal__dialog-box">
+            <div className="modal__overlay fade-in-quick">
+                <div className="modal__dialog-box slide-up">
                     <h1 className="modal__title">Image Upload</h1>
                     <p className="modal__text">Please use the button below to upload a new image for this playlist.</p>
                     <ImageUploadInput 

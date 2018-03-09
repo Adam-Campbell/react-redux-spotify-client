@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapper, dummyImageArray } from '../helpers';
+import { fetchWrapper, placeholderMusicImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
 import { getOrSetMarket } from '../helpers';
 
@@ -11,7 +11,7 @@ const createNewReleasesArray = data => (
     data.map(album => ({
         albumName: album.name,
         albumID: album.id,
-        albumImage: album.images.length ? album.images : dummyImageArray,
+        albumImage: album.images.length ? album.images : placeholderMusicImageArray,
         artistName: album.artists[0].name,
         artistID: album.artists[0].id
     }))
@@ -22,7 +22,7 @@ const createFeaturedPlaylistsArray = data => (
         playlistName: playlist.name,
         playlistID: playlist.id,
         ownerID: playlist.owner.id,
-        playlistImage: playlist.images.length ? playlist.images : dummyImageArray  
+        playlistImage: playlist.images.length ? playlist.images : placeholderMusicImageArray  
     }))
 );
 
@@ -30,7 +30,7 @@ const createCategoriesArray = data => (
     data.map(category =>({
         categoryName: category.name,
         categoryID: category.id,
-        categoryIcon: category.icons.length ? category.icons : dummyImageArray,
+        categoryIcon: category.icons.length ? category.icons : placeholderMusicImageArray,
         categoryPlaylists: []
     }))
 );

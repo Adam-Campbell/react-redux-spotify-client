@@ -1,7 +1,8 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
+import { convertMsToMinSec, fetchWrapper, placeholderMusicImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
 import { getOrSetMarket } from '../helpers';
+import { formatUsersSavedPlaylists } from './userActions';
 
 
 //
@@ -11,9 +12,10 @@ import { getOrSetMarket } from '../helpers';
 const formatPlaylistInfo = data => ({
     playlistName: data.name,
     playlistID: data.id,
-    playlistImage: data.images.length ? data.images : dummyImageArray,
+    playlistImage: data.images.length ? data.images : placeholderMusicImageArray,
     ownerID: data.owner.id,
-    ownerName: data.owner.display_name
+    ownerName: data.owner.display_name,
+    followers: data.followers.total
 });
 
 const formatTrack = (data, playlistID) => (
@@ -26,7 +28,7 @@ const formatTrack = (data, playlistID) => (
         artistID: track.track.artists[0].id,
         albumName: track.track.album.name,
         albumID: track.track.album.id,
-        albumImage: track.track.album.images.length ? track.track.album.images : dummyImageArray,
+        albumImage: track.track.album.images.length ? track.track.album.images : placeholderMusicImageArray,
         isPlaying: false,
         isCurrentlySelected: false,
         identifier: playlistID,
@@ -75,15 +77,24 @@ const receivePlaylist = (playlistObject, id) => ({
     }
 });
 
+const fetchAndReturnCurrentUserID = async token => {
+    const currentUserInfo = await fetchWrapper('https://api.spotify.com/v1/me', token);
+    return currentUserInfo.id;
+}
+
+
 export const fetchPlaylist = (token, playlistID, userID) => async (dispatch, getState) => {
     dispatch(requestPlaylist());
 
     // get the market value from state to allow track relinking
     const currentState = getState();
     const market = await getOrSetMarket(currentState.market, dispatch, token);
+    const currentUserID = currentState.userInfo.userID || await fetchAndReturnCurrentUserID(token);
+
     try {
         // fetch playlistInfo
         const playlistInfo = await fetchWrapper(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}?market=${market}`, token);
+        const checkIfFollowing = await fetchWrapper(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/followers/contains?ids=${currentUserID}`, token);
         const total = playlistInfo.tracks.total;
         // save the first 100 tracks from the initial fetch
         const initialTracks = [...formatTrack(playlistInfo.tracks.items, playlistID)];
@@ -93,6 +104,7 @@ export const fetchPlaylist = (token, playlistID, userID) => async (dispatch, get
         // turn all the data collected into playlistObject
         const playlistObject = {
             ...formatPlaylistInfo(playlistInfo),
+            isFollowing: checkIfFollowing[0],
             playlistTracks: [
                 ...initialTracks, 
                 ...additionalTracks

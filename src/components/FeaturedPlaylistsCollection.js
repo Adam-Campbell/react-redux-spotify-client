@@ -9,6 +9,7 @@ const FeaturedPlaylistsCollectionCard = props => (
         cardImage={imageSizePicker(props.item.playlistImage, 250, 250)}
         cardTitle={props.item.playlistName}
         isRounded={false}
+        isArtist={false}
         cardDestination={`/playlist/${props.item.ownerID}/${props.item.playlistID}`}
     />
 );

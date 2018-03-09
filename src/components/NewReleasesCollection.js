@@ -10,6 +10,7 @@ const NewReleasesCollectionCard = props => (
         cardImage={imageSizePicker(props.item.albumImage, 250, 250)}
         cardDestination={`/album/${props.item.albumID}`}
         isRounded={false}
+        isArtist={false}
     >
         <p className="card__text--small">{props.item.artistName}</p>
     </Card>

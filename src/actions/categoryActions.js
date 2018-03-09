@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapper, dummyImageArray } from '../helpers';
+import { fetchWrapper, placeholderMusicImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
 
 
@@ -11,7 +11,7 @@ const formatCategory = data => (
     data.map(playlist => ({
         playlistID: playlist.id,
         playlistName: playlist.name,
-        playlistImage: playlist.images.length ? playlist.images : dummyImageArray,
+        playlistImage: playlist.images.length ? playlist.images : placeholderMusicImageArray,
         ownerID: playlist.owner.id
     }))
 );

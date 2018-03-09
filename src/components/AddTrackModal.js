@@ -9,8 +9,8 @@ import { imageSizePicker } from '../helpers';
 const AddTrackModal = props => {
     if (props.currentModal === 'AddTrackModal') {
         return (
-            <div className="modal__overlay">
-                <div className="modal__dialog-box">
+            <div className="modal__overlay fade-in-quick">
+                <div className="modal__dialog-box slide-up">
                     <h1 className="modal__title">Select a playlist to add the track to</h1>
 
                     <ul className="modal__list">

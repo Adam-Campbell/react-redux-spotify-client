@@ -73,6 +73,21 @@ const userInfo = (state=defaultState, action) => {
                 ]
             }
 
+        case ActionTypes.FOLLOW_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlists: [
+                    action.payload.playlistObject,
+                    ...state.playlists
+                ]
+            }
+
+        case ActionTypes.UNFOLLOW_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlists: state.playlists.filter(playlist => playlist.playlistID !== action.payload.key)
+            }
+
         default:
             return state;
 

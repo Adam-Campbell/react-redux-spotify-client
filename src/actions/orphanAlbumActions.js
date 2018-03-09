@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { convertMsToMinSec, fetchWrapper, dummyImageArray } from '../helpers';
+import { convertMsToMinSec, fetchWrapper, placeholderMusicImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
 import { getOrSetMarket } from '../helpers';
 
@@ -18,7 +18,7 @@ const formatOrphanAlbum = album => {
         albumID: albumID,
         albumName: albumName,
         releaseDate: album.release_date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1'),
-        albumImage: album.images.length ? album.images : dummyImageArray,
+        albumImage: album.images.length ? album.images : placeholderMusicImageArray,
         albumTracks: album.tracks.items.map(track => ({
                 trackName: track.name,
                 trackID: track.id,
@@ -30,7 +30,7 @@ const formatOrphanAlbum = album => {
                 previewURL: track.preview_url,
                 duration: convertMsToMinSec(track.duration_ms),
                 trackNumber: track.track_number,
-                albumImage: album.images.length ? album.images : dummyImageArray,
+                albumImage: album.images.length ? album.images : placeholderMusicImageArray,
                 identifier: albumID
         }))
     }

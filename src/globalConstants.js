@@ -1,15 +1,16 @@
 const permissionsRequired = [
-    'playlist-read-private',
+    'playlist-modify-private',
+    'playlist-modify-public',
     'playlist-read-collaborative',
+    'playlist-read-private',
+    'ugc-image-upload',
+    'user-follow-modify',
     'user-follow-read',
     'user-library-read',
-    'user-top-read',
-    'user-read-recently-played',
     'user-read-playback-state',
     'user-read-private',
-    'ugc-image-upload',
-    'playlist-modify-public',
-    'playlist-modify-private'
+    'user-read-recently-played',
+    'user-top-read'   
 ];
 const clientID = 'bc785a3e64da41a8a122a4458dc4afc3';
 const redirectURI = 'http:%2F%2Flocalhost:8080';
