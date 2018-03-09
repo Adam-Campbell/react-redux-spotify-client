@@ -8,10 +8,14 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
 import faList from '@fortawesome/fontawesome-free-solid/faList';
 import faUser from '@fortawesome/fontawesome-free-solid/faUser';
+import faSpotify from '@fortawesome/fontawesome-free-brands/faSpotify';
 
 
 const Navigation = props => (
     <div className="nav-container">
+        <div className="nav__logo-container">
+            <FontAwesomeIcon icon={faSpotify}/>
+        </div>
         <nav className="nav">
             <ul className="nav__list">
                 <li className="nav__list-item">

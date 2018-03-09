@@ -13,6 +13,7 @@ const CategoryCollection = props => (
                 cardTitle={category.categoryName}
                 cardDestination={`/category/${category.categoryID}`}
                 isRounded={false}
+                isArtist={false}
                 key={category.categoryID}
             />
         ))}

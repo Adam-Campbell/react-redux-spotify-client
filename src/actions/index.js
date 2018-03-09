@@ -12,3 +12,4 @@ export * from './playlistInfoEditingActions';
 export * from './playlistTrackEditingActions.js';
 export * from './playerActions';
 export * from './modalActions';
+export * from './followActions';

@@ -84,6 +84,30 @@ const playlists = (state=defaultState, action) => {
                 }
             }
 
+        case ActionTypes.FOLLOW_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlistData: {
+                    ...state.playlistData,
+                    [action.payload.key]: {
+                        ...state.playlistData[action.payload.key],
+                        isFollowing: true
+                    }
+                }
+            }
+
+        case ActionTypes.UNFOLLOW_PLAYLIST_SUCCESS:
+            return {
+                ...state,
+                playlistData: {
+                    ...state.playlistData,
+                    [action.payload]: {
+                        ...state.playlistData[action.payload],
+                        isFollowing: false
+                    }
+                }
+            }
+
         default:
             return state;
 

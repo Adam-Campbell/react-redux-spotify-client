@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapperWithSettings } from '../helpers';
+import { fetchWrapperWithSettings, placeholderMusicImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
 
 
@@ -11,7 +11,7 @@ const createPlaylistObject = data => ({
     playlistName: data.name,
     playlistID: data.id,
     ownerID: data.owner.id,
-    playlistImage: ''
+    playlistImage: placeholderMusicImageArray
 });
 
 
@@ -26,9 +26,8 @@ const createPlaylistSuccess = playlist => ({
 
 export const createPlaylist = newPlaylistName => async (dispatch, getState) => {
     const currentState = getState();
-    const token = currentState.accessToken;
+    const token = currentState.accessToken.token;
     const userID = currentState.userInfo.userID;
-
     const url = `https://api.spotify.com/v1/users/${userID}/playlists`;
     const settings = {
         headers: {

@@ -13,6 +13,7 @@ const ArtistCollection = props => (
                 cardTitle={artist.artistName}
                 cardDestination={`/artist/${artist.artistID}/`}
                 isRounded={true}
+                isArtist={true}
                 key={index}
             />
         ))}

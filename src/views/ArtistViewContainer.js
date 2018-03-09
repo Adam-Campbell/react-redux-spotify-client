@@ -35,6 +35,9 @@ class ArtistViewContainer extends Component {
                     url={url}
                     playPauseTrack={this.props.playPauseArtistTopTrack}
                     currentlySelectedCollection={this.props.currentlySelectedCollection}
+                    followArtist={this.props.followArtist}
+                    unfollowArtist={this.props.unfollowArtist}
+                    accessToken={this.props.accessToken}
                 />    
             );
         } else if (this.props.artists.isFetching) {
@@ -58,6 +61,8 @@ export default withRouter(connect(
     {
         fetchArtist: ActionCreators.fetchArtist,
         switchCurrentArtist: ActionCreators.switchCurrentArtist,
-        playPauseArtistTopTrack: ActionCreators.playPauseArtistTopTrack
+        playPauseArtistTopTrack: ActionCreators.playPauseArtistTopTrack,
+        followArtist: ActionCreators.followArtist,
+        unfollowArtist: ActionCreators.unfollowArtist
     }
 )(ArtistViewContainer));

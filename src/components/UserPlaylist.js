@@ -6,7 +6,7 @@ import PlaylistTracks from './PlaylistTracks';
 import Paginator from './Paginator';
 import UserPlaylistName from './UserPlaylistName';
 import withPagination from './withPagination';
-
+import FollowerCountAndStatus from './FollowerCountAndStatus';
 
 class UserPlaylist extends Component {
 
@@ -62,6 +62,14 @@ class UserPlaylist extends Component {
                                 playlistName={this.props.playlistName}
                             />
                             <p className="showcase__paragraph">A playlist by {this.props.ownerName}</p>
+                            <FollowerCountAndStatus 
+                                followerCount={this.props.followerCount}
+                                isFollowing={this.props.isFollowing}
+                                shouldShowButton={true}
+                                shouldCenter={false}
+                                follow={this.props.followPlaylist}
+                                unfollow={this.props.unfollowPlaylist}
+                            />
                         </div>
                     </div>
                     <PlaylistTracks 

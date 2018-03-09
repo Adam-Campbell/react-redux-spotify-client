@@ -32,6 +32,30 @@ const artistInfo = (state=defaultState, action) => {
                 currentArtist: action.payload
             }
 
+        case ActionTypes.FOLLOW_ARTIST_SUCCESS:
+            return {
+                ...state,
+                artistData: {
+                    ...state.artistData,
+                    [action.payload]: {
+                        ...state.artistData[action.payload],
+                        isFollowing: true,
+                    }
+                }
+            }
+
+            case ActionTypes.UNFOLLOW_ARTIST_SUCCESS:
+                return {
+                    ...state,
+                    artistData: {
+                        ...state.artistData,
+                        [action.payload]: {
+                            ...state.artistData[action.payload],
+                            isFollowing: false,
+                        }
+                    }
+                }
+
         default:
             return state;
     }      

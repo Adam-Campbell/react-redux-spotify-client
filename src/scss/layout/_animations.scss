@@ -38,6 +38,25 @@
     animation: fade-into-view 0.6s ease-out;
 }
 
+@keyframes slide-up {
+    0% {
+        transform: translateY(999px);
+    }
+    50% {
+        transform: translateY(999px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.fade-in-quick {
+    animation: fade-into-view 0.3s ease-out;
+}
+
+.slide-up {
+    animation: slide-up 0.6s ease-out;
+}
 
 
 

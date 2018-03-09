@@ -15,6 +15,7 @@ const AlbumCollection = props => (
                         cardTitle={album.albumName}
                         cardDestination={`/album/${album.albumID}`}
                         isRounded={false}
+                        isArtist={false}
                         key={index}
                     />
                 ); 

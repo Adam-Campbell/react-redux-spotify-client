@@ -7,7 +7,7 @@ import faArrowAltCircleRight from '@fortawesome/fontawesome-free-solid/faArrowAl
 const Card = props => (
     <div className="card-collection__card-holder">
         <Link to={props.cardDestination} className="card">
-            <div className={props.isRounded ? "card__image-outer card__image-outer--rounded" : "card__image-outer"}>
+            <div className={`${props.isRounded ? "card__image-outer card__image-outer--rounded" : "card__image-outer"} ${props.isArtist ? "card__image-outer--artist" : "card__image-outer--music"}`}>
                 <div className="card__image-inner" style={{backgroundImage: `url('${props.cardImage}')`}}></div>
                 <div className="card__image-overlay">
                     <FontAwesomeIcon icon={faArrowAltCircleRight} />

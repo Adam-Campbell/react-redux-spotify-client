@@ -15,6 +15,15 @@
         padding-bottom: 100%;
         position: relative;
         overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    &__image-outer--artist {
+        background-image: url('/img/group-icon.jpg');
+    }
+    &__image-outer--music {
+        background-image: url('/img/cd-icon.jpg');
     }
     &__image-outer--rounded {
         border-radius: 100%;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import PlaylistTracks from './PlaylistTracks';
 import Paginator from './Paginator';
 import withPagination from './withPagination';
+import FollowerCountAndStatus from './FollowerCountAndStatus';
 
 const Playlist = props => (
     <div className="fade-into-view">
@@ -11,7 +12,15 @@ const Playlist = props => (
                 <img src={props.playlistImage} alt="" className="showcase__image"></img>
                 <div className="showcase__info">
                     <h1 className="heading heading--regular">{props.playlistName}</h1>
-                    <p className="showcase__paragraph">A playlist by {props.ownerName}</p>
+                    {props.ownerName && <p className="showcase__paragraph">A playlist by {props.ownerName}</p>}
+                    <FollowerCountAndStatus 
+                        followerCount={props.followerCount}
+                        isFollowing={props.isFollowing}
+                        shouldShowButton={true}
+                        shouldCenter={false}
+                        follow={props.followPlaylist}
+                        unfollow={props.unfollowPlaylist}
+                    />
                 </div>
             </div>
             <PlaylistTracks 

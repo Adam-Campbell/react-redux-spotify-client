@@ -3,11 +3,19 @@ import { setMarket } from './actions/userActions';
 //  Data structure that is used when Spotify didn't supply an image array.
 //  Imported from here to save from rewriting it every time. 
 
-export const dummyImageArray = [
+export const placeholderArtistImageArray = [
     {
         height: 1000,
         width: 1000,
-        url: ''
+        url: '/img/group-icon.jpg'
+    }
+];
+
+export const placeholderMusicImageArray = [
+    {
+        height: 1000,
+        width: 1000,
+        url: '/img/cd-icon.jpg'
     }
 ];
 
@@ -90,6 +98,17 @@ export const fetchWrapperWithSettings = async (url, settingsObject) => {
 //  don't return a JSON object in their response. 
 
 export const fetchWrapperNoResponseBody = async (url, settingsObject) => {
+    const response = await fetch(url, settingsObject);
+    if (response.ok) {
+        return response;
+    } else { 
+        const errorJSON = await response.json();
+        const { error } = errorJSON;
+        return Promise.reject( error );
+    }
+};
+
+export const fetchWrapperWithSettingsNoResponseBody = async (url, settingsObject) => {
     const response = await fetch(url, settingsObject);
     if (response.ok) {
         return response;

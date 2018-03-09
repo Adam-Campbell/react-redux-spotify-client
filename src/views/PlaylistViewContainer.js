@@ -25,6 +25,8 @@ class PlaylistViewContainer extends Component {
                     currentlySelectedCollection={this.props.currentlySelectedCollection}
                     accessToken={this.props.accessToken}
                     userID={this.props.userID}
+                    followPlaylist={() => this.props.followPlaylist(playlist.playlistID, playlist.ownerID, this.props.accessToken)}
+                    unfollowPlaylist={() => this.props.unfollowPlaylist(playlist.playlistID, playlist.ownerID, this.props.accessToken)}
                 />
             );
         } else if (this.props.playlists.isFetching) {
@@ -45,6 +47,8 @@ export default connect(
     mapStateToProps, 
     {
         fetchPlaylist: ActionCreators.fetchPlaylist,
-        playPausePlaylistTrack: ActionCreators.playPausePlaylistTrack
+        playPausePlaylistTrack: ActionCreators.playPausePlaylistTrack,
+        followPlaylist: ActionCreators.followPlaylist,
+        unfollowPlaylist: ActionCreators.unfollowPlaylist
     }
 )(PlaylistViewContainer);

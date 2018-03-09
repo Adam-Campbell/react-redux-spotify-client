@@ -17,6 +17,10 @@ const PlaylistViewPresenter = props => (
             currentlySelectedCollection={props.currentlySelectedCollection}
             accessToken={props.accessToken}
             userID={props.userID}
+            followPlaylist={props.followPlaylist}
+            unfollowPlaylist={props.unfollowPlaylist}
+            followerCount={props.playlist.followers}
+            isFollowing={props.playlist.isFollowing}
         />
     ) : (
         <Playlist 
@@ -30,6 +34,10 @@ const PlaylistViewPresenter = props => (
             currentlySelectedCollection={props.currentlySelectedCollection}
             accessToken={props.accessToken}
             userID={props.userID}
+            followPlaylist={props.followPlaylist}
+            unfollowPlaylist={props.unfollowPlaylist}
+            followerCount={props.playlist.followers}
+            isFollowing={props.playlist.isFollowing}
         />
     ) 
 );

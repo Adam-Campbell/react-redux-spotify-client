@@ -6,8 +6,8 @@ import * as ActionCreators from '../actions';
 const ErrorModal = props => {
     if (props.currentModal === 'ErrorModal') {
         return (
-            <div className="modal__overlay">
-                <div className="modal__dialog-box modal__dialog-box--warning">
+            <div className="modal__overlay fade-in-quick">
+                <div className="modal__dialog-box modal__dialog-box--warning slide-up">
 
                     <h1 className="modal__title">Oops, something went wrong!</h1>
                     <p className="modal__text">The following error was encountered:</p>

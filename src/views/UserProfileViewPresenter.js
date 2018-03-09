@@ -11,6 +11,7 @@ const UserProfileViewPresenter = props => (
         <UserHeader 
             userName={props.userInfo.userName}
             userImage={props.userInfo.userImage}
+            userFollowers={props.userInfo.followers}
         />
         <InlineTrackCollection 
             trackArray={props.userInfo.recentTracks}

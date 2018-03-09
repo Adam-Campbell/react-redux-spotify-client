@@ -5,6 +5,15 @@
         margin-right: 16px;
         width: 24px;
     }
+    &__logo-container {
+        text-align: center;   
+        margin-top: 16px;
+        margin-bottom: 16px;   
+        .fa-spotify {
+            color: $color--brand-green;
+            font-size: em(64px);
+        }
+    }
     &__list {
 
     }

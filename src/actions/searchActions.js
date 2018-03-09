@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapper, dummyImageArray } from '../helpers';
+import { fetchWrapper, placeholderMusicImageArray, placeholderArtistImageArray } from '../helpers';
 import { errorModalOpen } from './modalActions';
 import { getOrSetMarket } from '../helpers';
 
@@ -11,7 +11,7 @@ const formatArtistSearchResults = data => (
     data.map(artist => ({
         artistName: artist.name,
         artistID: artist.id,
-        artistImage: artist.images.length ? artist.images : dummyImageArray
+        artistImage: artist.images.length ? artist.images : placeholderArtistImageArray
     }))
 );
 
@@ -21,7 +21,7 @@ const formatAlbumSearchResults = data => (
         artistID: album.artists[0].id,
         albumName: album.name,
         albumID: album.id,
-        albumImage: album.images.length ? album.images : dummyImageArray
+        albumImage: album.images.length ? album.images : placeholderMusicImageArray
     }))
 );
 
@@ -31,7 +31,7 @@ const formatPlaylistSearchResults = data => (
         ownerID: playlist.owner.id,
         playlistName: playlist.name,
         playlistID: playlist.id,
-        playlistImage: playlist.images.length ? playlist.images : dummyImageArray
+        playlistImage: playlist.images.length ? playlist.images : placeholderMusicImageArray
     }))
 );
 
