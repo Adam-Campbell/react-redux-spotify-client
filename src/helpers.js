@@ -1,4 +1,6 @@
-import { setMarket } from './actions/userActions';  
+import { setMarket } from './actions/userActions';
+import CDIcon from './cd-icon.jpg';
+import GroupIcon from './group-icon.jpg';
 
 //  Data structure that is used when Spotify didn't supply an image array.
 //  Imported from here to save from rewriting it every time. 
@@ -7,15 +9,16 @@ export const placeholderArtistImageArray = [
     {
         height: 1000,
         width: 1000,
-        url: '/img/group-icon.jpg'
+        url: GroupIcon
     }
 ];
+
 
 export const placeholderMusicImageArray = [
     {
         height: 1000,
         width: 1000,
-        url: '/img/cd-icon.jpg'
+        url: CDIcon
     }
 ];
 

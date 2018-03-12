@@ -80,6 +80,9 @@ export const toggleRepeat = () => ({
     type: ActionTypes.TOGGLE_REPEAT
 });
 
+export const skipToStartOfCurrentTrack = () => ({
+    type: ActionTypes.SKIP_TO_START_OF_CURRENT_TRACK
+});
 
 
 

@@ -3,20 +3,12 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 
 module.exports = {
     entry: {
         app: './src/index.js',
         lib: './src/fontawesome-all.min.js'
-    },
-    devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './dist',
-        hot: true,
-        historyApiFallback: true
     },
     output: {
         filename: '[name].bundle.js',
@@ -25,20 +17,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.scss$/,
-                // use: ExtractTextPlugin.extract({
-                //     //use: [{loader: 'css-loader', options: {minimize: true}}, 'sass-loader']
-                //     use: ['style-loader', 'css-loader', 'sass-loader']
-                // })
-                use: ['style-loader', 'css-loader', 'sass-loader']
-            },
-            {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: ['file-loader']
             },
             {
                 test: /\.js$/,
-                exclude: /node_modules/,
+                exclude: [
+                    /node_modules/,
+                    path.resolve(__dirname, 'src/fontawesome-all.min.js')
+                ],
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -57,27 +44,6 @@ module.exports = {
         }),
         new ScriptExtHtmlWebpackPlugin({
             defer: 'lib.bundle.js'
-        }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    ]
-    // plugins: [
-    //     new ExtractTextPlugin('style.css')
-    //     // new MinifyPlugin(null, {
-    //     //     test: /\.js$/,
-    //     //     exclude: /node_modules/
-    //     // })
-    // ]
+        })
+    ] 
 }
-
-
-
-
-
-
-// {
-//     test: /\.scss$/,
-//     use: ExtractTextPlugin.extract({
-//         use: ['css-loader', 'sass-loader']
-//     })
-// },

@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 const AddTrackModalListItem = props => (
     <li 
         className="modal__list-item"
-        onClick={() => props.addTrackToPlaylist(
-            props.userID, props.playlistID, props.trackToAdd, props.accessToken
-        )}
+        onClick={() => {
+            props.addTrackToPlaylist(
+                props.userID, props.playlistID, props.trackToAdd, props.accessToken
+            );
+            props.closeModal();
+        }}
     >
         <div 
             className="modal__image-holder"

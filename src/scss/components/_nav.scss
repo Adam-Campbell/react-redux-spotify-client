@@ -1,5 +1,7 @@
 .nav {
     margin-top: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
     .svg-inline--fa,
     .fas {
         margin-right: 16px;
@@ -7,8 +9,10 @@
     }
     &__logo-container {
         text-align: center;   
-        margin-top: 16px;
-        margin-bottom: 16px;   
+        margin-top: 32px;
+        margin-bottom: 32px; 
+        opacity: 0;
+        transition: opacity 0.3s ease-out;  
         .fa-spotify {
             color: $color--brand-green;
             font-size: em(64px);
@@ -67,4 +71,10 @@
     background-color: $color--brand-grey;
     border-radius: 4px;
 
+}
+
+
+.nav-open .nav__logo-container,
+.nav-open .nav {
+    opacity: 1;
 }

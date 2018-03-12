@@ -69,6 +69,7 @@ class PlayerControls extends Component {
                             if (this.props.audio.currentTime <= 3) {
                                 this.props.skipToPreviousTrack()
                             } else {
+                                this.props.skipToStartOfCurrentTrack();
                                 this.props.audio.currentTime = 0;
                                 this.props.audio.play();
                             }

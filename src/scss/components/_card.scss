@@ -1,7 +1,7 @@
 .card {
     display: inline-block;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 8px;
     background-color: $color--brand-grey-lightened;
     border-radius: 4px;
@@ -20,10 +20,10 @@
         background-repeat: no-repeat;
     }
     &__image-outer--artist {
-        background-image: url('/img/group-icon.jpg');
+        background-image: url('../group-icon.jpg');
     }
     &__image-outer--music {
-        background-image: url('/img/cd-icon.jpg');
+        background-image: url('../cd-icon.jpg');
     }
     &__image-outer--rounded {
         border-radius: 100%;
