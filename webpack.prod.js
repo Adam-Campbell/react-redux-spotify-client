@@ -26,7 +26,10 @@ module.exports = merge(common, {
             ]
         }),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production'),
+                'callbackURL': JSON.stringify('https%3A%2F%2Freactify.herokuapp.com%2F')
+            }
         })
     ]
 });
