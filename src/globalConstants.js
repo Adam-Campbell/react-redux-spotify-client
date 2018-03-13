@@ -13,7 +13,8 @@ const permissionsRequired = [
     'user-top-read'   
 ];
 const clientID = 'bc785a3e64da41a8a122a4458dc4afc3';
-const redirectURI = 'http:%2F%2Flocalhost:8080';
+//const redirectURI = 'http:%2F%2Flocalhost:3000';
+const redirectURI = process.env.callbackURL;
 
 
 export const authURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}&show_dialog=false&scope=${permissionsRequired.join(',')}`;

@@ -86,6 +86,7 @@ class Player extends Component {
                         playPause={() => this.props.playPauseFromPlayer(selectedTrack.trackID)}
                         toggleRepeat={this.props.toggleRepeat}
                         audio={this.audio}
+                        skipToStartOfCurrentTrack={this.props.skipToStartOfCurrentTrack}
                     />
 
                     <PlayerVolumeControls 
@@ -119,6 +120,7 @@ export default connect(
         skipToPreviousTrack: ActionCreators.skipToPreviousTrack,
         shuffleCurrentCollection: ActionCreators.shuffleCurrentCollection,
         unshuffleCurrentCollection: ActionCreators.unshuffleCurrentCollection,
-        toggleRepeat: ActionCreators.toggleRepeat
+        toggleRepeat: ActionCreators.toggleRepeat,
+        skipToStartOfCurrentTrack: ActionCreators.skipToStartOfCurrentTrack
     }
 )(Player);

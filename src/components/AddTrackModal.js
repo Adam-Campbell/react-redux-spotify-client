@@ -21,6 +21,7 @@ const AddTrackModal = props => {
                                         <AddTrackModalListItem 
                                             key={index}
                                             addTrackToPlaylist={props.addTrackToPlaylist}
+                                            closeModal={props.closeModal}
                                             playlistName={playlist.playlistName}
                                             playlistID={playlist.playlistID}
                                             playlistImage={imageSizePicker(playlist.playlistImage, 80, 80)}

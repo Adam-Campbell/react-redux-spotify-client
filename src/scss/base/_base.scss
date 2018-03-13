@@ -9,6 +9,7 @@ BASE STYLES
 
 body {
     color: #fff;
+    background-color: $color--brand-grey-darkened;
     font-size: $base__font-size;
     line-height: ($base__line/$base__font-size);
 }

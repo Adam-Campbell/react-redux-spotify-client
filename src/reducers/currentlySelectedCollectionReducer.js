@@ -152,6 +152,15 @@ const currentlySelectedCollection = (state=defaultState, action) => {
                 isRepeating: !state.isRepeating
             }
 
+        case ActionTypes.SKIP_TO_START_OF_CURRENT_TRACK:
+            return {
+                ...state,
+                collection: state.collection.map(track => ({
+                    ...track,
+                    isPlaying: track.isCurrentlySelected ? true : track.isPlaying
+                }))
+            }
+
         default:
             return state;
     }
