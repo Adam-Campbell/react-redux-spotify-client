@@ -34,7 +34,9 @@
 }
 
 .tooltip-group-container:hover .tooltip {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-    visibility: visible;
+    @media(min-width: 768px) {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        visibility: visible;
+    }
 }

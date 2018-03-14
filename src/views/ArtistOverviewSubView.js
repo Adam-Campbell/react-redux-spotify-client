@@ -16,8 +16,11 @@ const ArtistOverviewSubView = props => (
             />
 
             <AlbumCollection 
-                albumArray={props.artist.albums.filter(album => album.albumType === "album").slice(0,6)}
-                title="Albums"
+                albumArray={[
+                    ...props.artist.albums.filter(album => album.albumType === "album"),
+                    ...props.artist.albums.filter(album => album.albumType === "single")
+                ].slice(0,10)}
+                title="Music"
                 accessToken={props.accessToken}
             >
                 <Button 
@@ -28,7 +31,7 @@ const ArtistOverviewSubView = props => (
 
 
             <ArtistCollection 
-                artistArray={props.artist.relatedArtists.slice(0,6)}
+                artistArray={props.artist.relatedArtists.slice(0,10)}
                 title='Related Artists'
                 accessToken={props.accessToken}
                 fetchArtist={props.fetchArtist}

@@ -1,1 +1,1 @@
-web: publicServer.js
+web: node publicServer.js

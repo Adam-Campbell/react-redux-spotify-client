@@ -6,7 +6,6 @@ import {
     placeholderMusicImageArray 
 } from '../helpers';
 import { errorModalOpen } from './modalActions';
-import { getOrSetMarket } from '../helpers';
 
 
 //
@@ -72,9 +71,10 @@ export const switchCurrentArtist = artistID => ({
 });
 
 export const fetchArtist = (id, token) => async (dispatch, getState) => {
-    const currentState =  getState();
-    const market = await getOrSetMarket(currentState.market, dispatch, token);
-    dispatch(requestArtist())
+    
+    const market = getState().userInfo.market;
+    dispatch(requestArtist());
+
     try {
         const artistInfo = fetchWrapper(`https://api.spotify.com/v1/artists/${id}`, token);
         const topTracks = fetchWrapper(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=${market}`, token);

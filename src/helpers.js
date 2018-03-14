@@ -122,23 +122,10 @@ export const fetchWrapperWithSettingsNoResponseBody = async (url, settingsObject
     }
 };
 
-
-
-export const getOrSetMarket = async (marketFromState, dispatch, token) => {
-    if (marketFromState) { 
-        return marketFromState;
-    }
-    const userInfo = await fetchWrapper('https://api.spotify.com/v1/me', token);
-    const market = userInfo.country;
-    dispatch(setMarket(market));
-    saveMarketToLocalStorage(market);
-    return market;
-} 
-
-export const saveMarketToLocalStorage = market => {
+export const saveUserInfoToLocalStorage = userInfo => {
     try {
-        const JSONMarket = JSON.stringify(market);
-        localStorage.setItem('market', JSONMarket);
+        const JSONUserInfo = JSON.stringify(userInfo);
+        localStorage.setItem('userInfo', JSONUserInfo);
     } catch(err) {
         console.log(err);
     }

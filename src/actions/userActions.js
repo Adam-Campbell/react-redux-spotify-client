@@ -3,10 +3,12 @@ import {
     convertMsToMinSec, 
     fetchWrapper, 
     placeholderMusicImageArray, 
-    placeholderArtistImageArray 
+    placeholderArtistImageArray,
+    saveUserInfoToLocalStorage,
+    saveMarketToLocalStorage
 } from '../helpers';
 import { errorModalOpen } from './modalActions';
-import { saveMarketToLocalStorage } from '../helpers'; 
+
 
 //
 // Helper / formatting functions 
@@ -68,6 +70,33 @@ export const setMarket = market => ({
     payload: market
 });
 
+
+export const partialFetchUserProfile = token => async (dispatch, getState) => {
+    dispatch(requestUser());
+    const userInfo = getState().userInfo;
+    try {
+        const usersSavedPlaylists = fetchWrapper('https://api.spotify.com/v1/me/playlists', token);
+        const usersRecentTracks = fetchWrapper('https://api.spotify.com/v1/me/player/recently-played', token);
+        const usersSavedPlaylistsComplete = await usersSavedPlaylists;
+        const usersRecentTracksComplete = await usersRecentTracks;
+        const userObject = {
+            ...userInfo,
+            playlists: formatUsersSavedPlaylists(usersSavedPlaylistsComplete),
+            recentTracks: formatUsersRecentTracks(usersRecentTracksComplete),
+            timestamp: Date.now()
+        };
+        dispatch(receiveUser(userObject));
+        saveUserInfoToLocalStorage({
+            ...userObject,
+            hasFetched: true, 
+            isFetching: false
+        });
+    } catch(e) {
+        dispatch(errorModalOpen(e));
+    }
+
+}
+
 export const fetchUserProfile = token => async dispatch => {
     dispatch(requestUser());
     try {
@@ -85,13 +114,20 @@ export const fetchUserProfile = token => async dispatch => {
             userID: userInfoComplete.id,
             userImage: (userInfoComplete.images.length) ? userInfoComplete.images[0].url : placeholderArtistImageArray,
             followers: userInfoComplete.followers.total,
+            market: userInfoComplete.country,
             topArtists: formatUsersTopArtists(usersTopArtistsComplete),
             playlists: formatUsersSavedPlaylists(usersSavedPlaylistsComplete),
-            recentTracks: formatUsersRecentTracks(usersRecentTracksComplete)
+            recentTracks: formatUsersRecentTracks(usersRecentTracksComplete),
+            timestamp: Date.now() 
         };
         dispatch(receiveUser(userObject));
-        dispatch(setMarket(userInfoComplete.country));
-        saveMarketToLocalStorage(userInfoComplete.country);
+        //dispatch(setMarket(userInfoComplete.country));
+        //saveMarketToLocalStorage(userInfoComplete.country);
+        saveUserInfoToLocalStorage({
+            ...userObject,
+            hasFetched: true,
+            isFetching: false
+        });
     } catch(e) { 
         dispatch(errorModalOpen(e));
     }
