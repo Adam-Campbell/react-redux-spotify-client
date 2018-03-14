@@ -85,7 +85,7 @@ const userInfo = (state=defaultState, action) => {
         case ActionTypes.UNFOLLOW_PLAYLIST_SUCCESS:
             return {
                 ...state,
-                playlists: state.playlists.filter(playlist => playlist.playlistID !== action.payload.key)
+                playlists: state.playlists.filter(playlist => playlist.playlistID !== action.payload)
             }
 
         default:

@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapperNoResponseBody } from '../helpers';
+import { fetchWrapperNoResponseBody, saveUserInfoToLocalStorage } from '../helpers';
 import { errorModalOpen } from './modalActions';
 
 
@@ -23,8 +23,8 @@ const updatePlaylistNameSuccess = (newName, playlistID) => ({
     }
 });
 
-export const updatePlaylistImage = (ownerID, playlistID, image, token) => async dispatch => {
-    //console.log(image.length);
+export const updatePlaylistImage = (ownerID, playlistID, image, token) => async (dispatch, getState) => {
+    const currentState = getState();
     const formattedImageURI = image.replace(/^data:image\/(jpeg|jpg|png);base64,/, '');
     const url = `https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/images`;
     const settings = {
@@ -39,12 +39,25 @@ export const updatePlaylistImage = (ownerID, playlistID, image, token) => async 
     try {
         const updateImageResponse = await fetchWrapperNoResponseBody(url, settings);
         dispatch(updatePlaylistImageSuccess(image, playlistID));
+        saveUserInfoToLocalStorage({
+            ...currentState.userInfo,
+            playlists: currentState.userInfo.playlists.map(playlist => {
+                return playlistID !== playlist.playlistID ?
+                    playlist :
+                    {
+                        ...playlist,
+                        playlistImage: [{ height: 1000, width: 1000, url: image }]
+                    }
+            })
+        });
     } catch(e) {
         dispatch(errorModalOpen(e));
     }
 };
 
-export const updatePlaylistName = (ownerID, playlistID, newName, token) => async dispatch => {
+export const updatePlaylistName = (ownerID, playlistID, newName, token) => async (dispatch, getState) => {
+    const currentState = getState();
+
     const url = `https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}`;
     const settings = {
         headers: {
@@ -60,6 +73,17 @@ export const updatePlaylistName = (ownerID, playlistID, newName, token) => async
     try {
         const updatePlaylistNameResponse = await fetchWrapperNoResponseBody(url, settings);
         dispatch(updatePlaylistNameSuccess(newName, playlistID));
+        saveUserInfoToLocalStorage({
+            ...currentState.userInfo,
+            playlists: currentState.userInfo.playlists.map(playlist => {
+                return playlistID !== playlist.playlistID ?
+                        playlist :
+                        {
+                            ...playlist,
+                            playlistName: newName
+                        }
+            })
+        });
     } catch(e) {
         console.log(e);
     }
