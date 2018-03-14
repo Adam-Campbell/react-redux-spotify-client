@@ -8,7 +8,6 @@ import highlights from './highlightsReducer';
 import orphanAlbums from './orphanAlbumsReducer';
 import playlists from './playlistsReducer';
 import currentlySelectedCollection from './currentlySelectedCollectionReducer';
-import market from './marketReducer';
 import modalInfo from './modalReducer';
 
 
@@ -21,6 +20,5 @@ export default combineReducers({
     orphanAlbums,
     playlists,
     currentlySelectedCollection,
-    market,
     modalInfo
 });

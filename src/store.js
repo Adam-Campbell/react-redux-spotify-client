@@ -29,20 +29,20 @@ const loadTokenFromLocalStorage = () => {
     }
 };
 
-const loadMarketFromLocalStorage = () => {
+const loadUserInfoFromLocalStorage = () => {
     try {
-        const JSONMarket = localStorage.getItem('market');
-        if (JSONMarket === null) { 
-            return undefined; 
+        const JSONUserInfo = localStorage.getItem('userInfo');
+        if (JSONUserInfo === null) {
+            return undefined;
         }
-        const market = JSON.parse(JSONMarket);
+        const userInfo = JSON.parse(JSONUserInfo);
         return {
-            market: market
+            userInfo: userInfo
         };
-    } catch(err) {
+    } catch (err) {
         return undefined;
     }
-};
+}
 
 const authMiddleware = store => next => action => {
     if (action.type === 'STORE_TOKEN') {
@@ -63,11 +63,11 @@ const authMiddleware = store => next => action => {
 
 
 const localStorageToken = loadTokenFromLocalStorage();
-const localStorageMarket = loadMarketFromLocalStorage();
+const localStorageUserInfo = loadUserInfoFromLocalStorage();
 
 const combinedInitialState = {
     ...localStorageToken,
-    ...localStorageMarket
+    ...localStorageUserInfo
 };
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

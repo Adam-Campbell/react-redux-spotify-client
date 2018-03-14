@@ -42,7 +42,6 @@ class CategoryViewContainer extends Component {
 
 const mapStateToProps = state => ({
     highlights: state.highlights,
-    isFetchingHighlights: state.isFetchingHighlights,
     accessToken: state.accessToken.token
 });
 

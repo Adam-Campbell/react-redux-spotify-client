@@ -10,6 +10,8 @@ class UserProfileViewContainer extends Component {
     componentDidMount() {
         if(!this.props.userInfo.hasFetched) {
             this.props.fetchUserProfile(this.props.accessToken);
+        } else if (Date.now() - this.props.userInfo.timestamp > 120000) {
+            this.props.partialFetchUserProfile(this.props.accessToken);
         }
     }
 
@@ -38,6 +40,7 @@ export default connect(
     mapStateToProps, 
     {
         fetchUserProfile: ActionCreators.fetchUserProfile,
+        partialFetchUserProfile: ActionCreators.partialFetchUserProfile,
         playPauseUserRecentTrack: ActionCreators.playPauseUserRecentTrack
     }
 )(UserProfileViewContainer);

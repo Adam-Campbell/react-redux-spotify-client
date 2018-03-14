@@ -6,7 +6,10 @@ const AddTrackModalListItem = props => (
         className="modal__list-item"
         onClick={() => {
             props.addTrackToPlaylist(
-                props.userID, props.playlistID, props.trackToAdd, props.accessToken
+                props.userID, 
+                props.playlistID, 
+                {...props.trackToAdd, identifier: props.playlistID}, 
+                props.accessToken
             );
             props.closeModal();
         }}

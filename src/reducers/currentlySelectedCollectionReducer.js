@@ -85,6 +85,7 @@ const currentlySelectedCollection = (state=defaultState, action) => {
         case ActionTypes.SWITCH_CURRENTLY_SELECTED_COLLECTION:
             return {
                 ...state,
+                isShuffled: false,
                 collectionKey: action.payload.collectionKey,
                 collection: action.payload.collection.map((track, index) => {
                     return {
