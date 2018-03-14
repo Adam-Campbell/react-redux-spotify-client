@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapperWithSettings, placeholderMusicImageArray } from '../helpers';
+import { fetchWrapperWithSettings, placeholderMusicImageArray, saveUserInfoToLocalStorage } from '../helpers';
 import { errorModalOpen } from './modalActions';
 
 
@@ -44,6 +44,13 @@ export const createPlaylist = newPlaylistName => async (dispatch, getState) => {
         const createPlaylistResponse = await fetchWrapperWithSettings(url, settings);
         const playlistObject = createPlaylistObject(createPlaylistResponse);
         dispatch(createPlaylistSuccess(playlistObject));
+        saveUserInfoToLocalStorage({
+            ...currentState.userInfo,
+            playlists: [
+                playlistObject,
+                ...currentState.userInfo.playlists
+            ]
+        });
     } catch(e) {
         dispatch(errorModalOpen(e)); 
     }

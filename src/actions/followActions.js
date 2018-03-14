@@ -1,5 +1,5 @@
 import * as ActionTypes from '../actiontypes';
-import { fetchWrapperWithSettingsNoResponseBody } from '../helpers';
+import { fetchWrapperWithSettingsNoResponseBody, saveUserInfoToLocalStorage } from '../helpers';
 import { errorModalOpen } from './modalActions';
 
 
@@ -125,6 +125,13 @@ export const followPlaylist = (playlistID, ownerID, token) => async (dispatch, g
             ownerID: thisPlaylist.ownerID,
         };
         dispatch(followPlaylistSuccess(playlistID, playlistObject));
+        saveUserInfoToLocalStorage({
+            ...currentState.userInfo,
+            playlists: [
+                playlistObject,
+                ...currentState.userInfo.playlists
+            ]
+        });
     } catch(e) {
         console.log(e);
         dispatch(errorModalOpen(e));
@@ -132,7 +139,8 @@ export const followPlaylist = (playlistID, ownerID, token) => async (dispatch, g
 }
 
 
-export const unfollowPlaylist = (playlistID, ownerID, token) => async dispatch => {
+export const unfollowPlaylist = (playlistID, ownerID, token) => async (dispatch, getState) => {
+    const currentState = getState();
     dispatch(unfollowPlaylistRequest());
     const url = `https://api.spotify.com/v1/users/${ownerID}/playlists/${playlistID}/followers`;
     const settings = {
@@ -145,6 +153,10 @@ export const unfollowPlaylist = (playlistID, ownerID, token) => async dispatch =
     try {
         const hasUnfollowed = await fetchWrapperWithSettingsNoResponseBody(url, settings);
         dispatch(unfollowPlaylistSuccess(playlistID));
+        saveUserInfoToLocalStorage({
+            ...currentState.userInfo,
+            playlists: currentState.userInfo.playlists.filter(playlist => playlist.playlistID !== playlistID)
+        });
     } catch(e) {
         console.log(e);
         dispatch(errorModalOpen(e));
