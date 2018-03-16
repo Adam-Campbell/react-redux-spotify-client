@@ -12,34 +12,52 @@ class PlayerControls extends Component {
 
     constructor(props) {
         super(props);
-        this.scrubTrack = this.scrubTrack.bind(this);
-        this.state = {
-            trackProgressPercent: 0
-        }
+        this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.handleTouchMove = this.handleTouchMove.bind(this);
+        this.handleTouchEnd = this.handleTouchEnd.bind(this);
+        this.handleMouseDown = this.handleMouseDown.bind(this);
+    }
+
+    componentDidMount(e) {
+        //  Touch events have to be bound directly to the DOM rather than using synthetic
+        //  events in order for preventDefault to work. 
+        this.knob.addEventListener('touchstart', this.handleTouchStart);
+        this.knob.addEventListener('touchmove', this.handleTouchMove);
+        this.knob.addEventListener('touchend', this.handleTouchEnd);
+    }
+
+    handleTouchStart(e) {
+        e.preventDefault();
+        this.props.makeTrackControlActive();
+    }
+
+    handleTouchMove(e) {
+        this.props.updateTrackScrubber(e.touches[0].clientX);
+    }
+
+    handleTouchEnd(e) {
+        this.props.setNewTrackTime();
+    }
+
+    handleMouseDown(e) {
+        e.preventDefault();
+        this.props.makeTrackControlActive(e);
     }
 
 
     // This function initializes the setInterval that ensures that the progress bar stays in sync
     // with the track progress.
-    componentDidMount() {
-        setInterval(() => {
-            if (this.props.audio) {
-                this.setState({
-                    trackProgressPercent: (this.props.audio.currentTime * 100) / this.props.audio.duration
-                });
-            }
-        }, 50);
-    }
+    
 
     // When the user interacts with the scrub bar this function works out which point in the song
     // the users 'scrub' action maps to, and moves the song to that point. It doesn't update the 
     // scrub bar itself, because this is updated via a setInterval initialized in componentDidMount.
-    scrubTrack(e) {
-        const { width, left } = this.progressBarOuter.getBoundingClientRect();
-        const scrubTo = e.clientX - left; 
-        const percent = (scrubTo * 100) / width;
-        this.props.audio.currentTime = (this.props.audio.duration / 100) * percent;
-    }
+    // scrubTrack(e) {
+    //     const { width, left } = this.progressBarOuter.getBoundingClientRect();
+    //     const scrubTo = e.clientX - left; 
+    //     const percent = (scrubTo * 100) / width;
+    //     this.props.audio.currentTime = (this.props.audio.duration / 100) * percent;
+    // }
 
     render() {
         return (
@@ -93,19 +111,27 @@ class PlayerControls extends Component {
                     } 
                     onClick={this.props.toggleRepeat} 
                 />
-                <div 
+                <span 
                     className="progress-bar--outer"
                     onClick={this.scrubTrack}
-                    ref={el => this.progressBarOuter = el}
+                    ref={this.props.progressBarOuterRef}
                 >
                     <div 
                         className="progress-bar--inner"
                         ref={el => this.progressBarInner = el}
                         style={{
-                            width: `${this.state.trackProgressPercent}%`
+                            width: `${this.props.trackProgressPercent}%`
                         }}
                     ></div>
-                </div>
+                    <span
+                        className="progress-bar--knob"
+                        ref={el => this.knob = el}
+                        onMouseDown={this.handleMouseDown}
+                        style={{
+                            left: `${this.props.trackProgressPercent}%`
+                        }}
+                    ></span>
+                </span>
             </div>
         );
     }

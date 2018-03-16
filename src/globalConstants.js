@@ -13,7 +13,6 @@ const permissionsRequired = [
     'user-top-read'   
 ];
 const clientID = 'bc785a3e64da41a8a122a4458dc4afc3';
-//const redirectURI = 'http:%2F%2Flocalhost:3000';
 const redirectURI = process.env.callbackURL;
 
 

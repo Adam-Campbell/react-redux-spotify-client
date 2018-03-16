@@ -54,18 +54,44 @@
 }
 
 .progress-bar--outer {
+    display: none;
     width: 220px;
     height: 6px;
     border-radius: 6px;
-    background-color: #fafafa;
-    margin-top: 8px;
+    background-color: $color--midtone;
+    margin-top: 24px;
+    position: relative;
     cursor: pointer;
+    @media(min-width: 768px) {
+        display: block;
+    }
 }
 
 .progress-bar--inner {
+    display: none;
+    position: absolute;
     height: 6px;
     border-radius: 6px;
     background-color: $color--brand-green;
+    @media(min-width: 768px) {
+        display: block;
+    }
+}
+
+.progress-bar--knob {
+    display: none;
+    width: 24px;
+    height: 24px;
+    background-color: $color--off-white;
+    border-radius: 12px;
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    @media(min-width: 768px) {
+        display: inline-block;
+    }
 }
 
 .track-info {
@@ -145,27 +171,47 @@
 
 .volume-control--outer {
     display: none;
+    width: 6px;
+    height: 60px;
+    border-radius: 6px;
+    background-color: $color--midtone;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
     @media(min-width: 768px) {
         display: block;
-        width: 6px;
-        height: 70px;
-        border-radius: 6px;
-        background-color: #fafafa;
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
     }
 }
 
 .volume-control--inner {
+    display: none;
     width: 6px;
     height: 100%;
     border-radius: 6px;
     background-color: $color--brand-green;
     position: absolute;
     bottom: 0;
+    @media(min-width: 768px) {
+        display: block;
+    }
+}
+
+.volume-control--knob {
+    display: none;
+    width: 16px;
+    height: 16px;
+    background-color: $color--off-white;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    cursor: pointer;
+    @media(min-width: 768px) {
+        display: inline-block;
+    }
 }
 
 
@@ -217,5 +263,12 @@
     & .volume-control--outer {
         top: 10px;
         transform: none;
+    }
+    .progress-bar--outer,
+    .progress-bar--inner {
+        display: block;
+    }
+    .progress-bar--knob {
+        display: inline-block;
     }
 }
