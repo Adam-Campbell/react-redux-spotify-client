@@ -51,13 +51,17 @@ class PlayerVolumeControls extends Component {
                         }}
                     ></div>
                     <span 
-                        className="volume-control--knob"
+                        className={`volume-control--knob ${this.props.volumeControlActive ? 'volume-control--knob-background' : ''}`}
                         ref={el => this.knob = el}
                         onMouseDown={this.handleMouseDown}
                         style={{
                             bottom: `${this.props.volume}%`
                         }}
-                    ></span>
+                    >
+                        <span
+                            className="volume-control--knob-inner"
+                        ></span>
+                    </span>
             </span>
         );
     }

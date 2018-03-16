@@ -124,13 +124,17 @@ class PlayerControls extends Component {
                         }}
                     ></div>
                     <span
-                        className="progress-bar--knob"
+                        className={`progress-bar--knob ${this.props.trackControlActive ? 'progress-bar--knob-background' : ''}`}
                         ref={el => this.knob = el}
                         onMouseDown={this.handleMouseDown}
                         style={{
                             left: `${this.props.trackProgressPercent}%`
                         }}
-                    ></span>
+                    >
+                        <span
+                            className="progress-bar--knob-inner"
+                        ></span>
+                    </span>
                 </span>
             </div>
         );

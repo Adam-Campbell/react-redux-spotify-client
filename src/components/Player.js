@@ -192,6 +192,7 @@ class Player extends Component {
                         trackProgressPercent={this.state.trackProgressPercent}
                         makeTrackControlActive={this.makeTrackControlActive}
                         makeTrackControlInactive={this.makeTrackControlInactive}
+                        trackControlActive={this.state.trackControlActive}
                         updateTrackScrubber={this.updateTrackScrubber}
                         progressBarOuterRef={el => this.progressBarOuter = el}
                         setNewTrackTime={this.setNewTrackTime}
@@ -203,6 +204,7 @@ class Player extends Component {
                         volume={this.state.volume}
                         makeVolumeControlActive={this.makeVolumeControlActive}
                         makeVolumeControlInactive={this.makeVolumeControlInactive}
+                        volumeControlActive={this.state.volumeControlActive}
                         changeVolume={this.changeVolume}
                     />
 
