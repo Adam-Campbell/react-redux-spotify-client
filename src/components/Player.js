@@ -15,10 +15,34 @@ class Player extends Component {
 
     constructor(props) {
         super(props);
+        this.changeVolume = this.changeVolume.bind(this);
+        this.updateTrackScrubber = this.updateTrackScrubber.bind(this);
+        this.setNewTrackTime = this.setNewTrackTime.bind(this);
+        this.makeVolumeControlActive = this.makeVolumeControlActive.bind(this);
+        this.makeVolumeControlInactive = this.makeVolumeControlInactive.bind(this);
+        this.makeTrackControlActive = this.makeTrackControlActive.bind(this);
+        this.makeTrackControlInactive = this.makeTrackControlInactive.bind(this);
         this.toggleFullScreen = this.toggleFullScreen.bind(this);
+        this.handleMousemove = this.handleMousemove.bind(this);
+        this.handleMouseleave = this.handleMouseleave.bind(this);
+        this.handleMouseup = this.handleMouseup.bind(this);
         this.state = {
-            isFullScreen: false
+            isFullScreen: false,
+            volumeControlActive: false,
+            volume: 100,
+            trackControlActive: false,
+            trackProgressPercent: 0
         };
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            if (this.audio && !this.state.trackControlActive) {
+                this.setState({
+                    trackProgressPercent: (this.audio.currentTime * 100) / this.audio.duration
+                });
+            }
+        }, 50);
     }
 
     // This function works out which of the tracks from the currentlySelectedCollection is 
@@ -50,6 +74,79 @@ class Player extends Component {
         }
     }
 
+    changeVolume(pos) {
+        if (this.state.volumeControlActive) {
+            const { top, bottom, height } = this.volumeControlOuter.getBoundingClientRect();
+            if (pos <= top) {
+                this.setState({ volume: 100 });
+                this.audio.volume = 1;
+            } else if (pos >= bottom) {
+                this.setState({volume: 0});
+                this.audio.volume = 0;
+            } else {
+                const posFromBottom = height - (pos - top);
+                const percentFromBottom = (posFromBottom * 100) / height;
+                this.setState({ volume: percentFromBottom});
+                this.audio.volume = percentFromBottom / 100;
+            }
+        }
+    }
+
+    updateTrackScrubber(pos) {
+        if (this.state.trackControlActive) {
+            const { left, right, width } = this.progressBarOuter.getBoundingClientRect(); 
+            if (pos <= left) {
+                this.setState({ trackProgressPercent: 0 });
+            } else if (pos >= right) {
+                this.setState({ trackProgressPercent: 99.99 });
+            } else {
+                const posFromLeft = pos - left;
+                const percentFromLeft = (posFromLeft * 100) / width;
+                this.setState({ trackProgressPercent: percentFromLeft });
+            }
+        }
+    }
+
+    setNewTrackTime() {
+        if (this.state.trackControlActive) {
+            this.audio.currentTime = (this.audio.duration / 100) * this.state.trackProgressPercent;
+            this.setState({ trackControlActive: false });
+        }
+    }
+
+
+    makeVolumeControlActive() {
+        this.setState({ volumeControlActive: true });
+    }
+
+    makeVolumeControlInactive() {
+        this.setState({ volumeControlActive: false });
+    }
+
+    makeTrackControlActive() {
+        this.setState({ trackControlActive: true });
+    }
+
+    makeTrackControlInactive() {
+        this.setState({ trackControlActive: false });
+    }
+
+    handleMousemove(e) {
+        this.changeVolume(e.clientY);
+        this.updateTrackScrubber(e.clientX);
+    }
+
+    handleMouseleave(e) {
+        this.setState({ volumeControlActive: false });
+        this.setState({ trackControlActive: false });
+    }
+
+    handleMouseup(e) {
+        this.setState({ volumeControlActive: false });
+        this.setNewTrackTime();
+    }
+
+
     // This function is simply responsible for toggling the player between being full screen
     // and being minimized.
     toggleFullScreen() {
@@ -61,7 +158,12 @@ class Player extends Component {
         const selectedTrack = collection[collection.findIndex(track => track.isCurrentlySelected)] || false;
         
         return (
-            <section className={`player-controls ${collection.length ? 'show-player' : ''} ${this.state.isFullScreen ? 'full-screen-player' : ''}`}>
+            <section 
+                className={`player-controls ${collection.length ? 'show-player' : ''} ${this.state.isFullScreen ? 'full-screen-player' : ''}`}
+                onMouseMove={this.handleMousemove}
+                onMouseLeave={this.handleMouseleave}
+                onMouseUp={this.handleMouseup}
+            >
                 <div className="player-controls__inner-wrapper">
 
                     <FontAwesomeIcon 
@@ -87,10 +189,23 @@ class Player extends Component {
                         toggleRepeat={this.props.toggleRepeat}
                         audio={this.audio}
                         skipToStartOfCurrentTrack={this.props.skipToStartOfCurrentTrack}
+                        trackProgressPercent={this.state.trackProgressPercent}
+                        makeTrackControlActive={this.makeTrackControlActive}
+                        makeTrackControlInactive={this.makeTrackControlInactive}
+                        trackControlActive={this.state.trackControlActive}
+                        updateTrackScrubber={this.updateTrackScrubber}
+                        progressBarOuterRef={el => this.progressBarOuter = el}
+                        setNewTrackTime={this.setNewTrackTime}
                     />
 
                     <PlayerVolumeControls 
                         audio={this.audio}
+                        volumeControlOuterRef={el => this.volumeControlOuter = el}
+                        volume={this.state.volume}
+                        makeVolumeControlActive={this.makeVolumeControlActive}
+                        makeVolumeControlInactive={this.makeVolumeControlInactive}
+                        volumeControlActive={this.state.volumeControlActive}
+                        changeVolume={this.changeVolume}
                     />
 
                     <PlayerAudioElement 

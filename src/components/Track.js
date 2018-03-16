@@ -26,7 +26,7 @@ const Track = props => {
                         if (props.track.previewURL) {    
                             props.playPauseTrack();
                         } else {
-                            console.log("Sorry, for some reason Spotify haven't provided a preview for this track.");
+                            console.log("Sorry, there doesn't seem to be a preview URL for this track.");
                         }
                     }
             }

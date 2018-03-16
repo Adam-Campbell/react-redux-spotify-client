@@ -23,28 +23,22 @@ export const placeholderMusicImageArray = [
 ];
 
 
-//  Function takes an image array which is arranged from largest image to smallest, along
-//  with a minimum desired width and height. It then utilises recursion (via the inner function
-//  recursiveImageTest) to go backwards through the image array until it finds an image that
-//  satisfies the minimum height and width requirements, or until it reaches the first (and 
-//  therefore largest) image in the array.
+//  Function takes an image array which is arranged from largest to smallest, and starting at the
+//  last (smallest) image, it checks each image until it finds one that meets the minWidth and
+//  minHeight requirements specified as arguments. Or, if it doesn't find one that meets the
+//  requirements it will just return the largest one available. 
 
 export const imageSizePicker = (imageArray, minWidth, minHeight) => {
-
-    const recursiveImageTest = index => {
-        const image = imageArray[index];
-        return (index === 0 || (image.width >= minWidth && image.height >= minHeight) ) ?
-                image.url :
-                recursiveImageTest(index - 1);
-    };
-
     if (imageArray.length === 1) {
         return imageArray[0].url;
     }
 
     let index = imageArray.length - 1;
-    return recursiveImageTest(index);
+    while( index > 0 && (imageArray[index].width < minWidth && imageArray[index].height < minHeight) ) {
+        index--;
+    }
 
+    return imageArray[index].url;
 };
 
 

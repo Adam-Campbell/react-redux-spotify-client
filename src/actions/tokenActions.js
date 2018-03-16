@@ -8,5 +8,3 @@ export const storeToken = (token, timestamp) => ({
         timestamp: timestamp
     }
 });
-
-

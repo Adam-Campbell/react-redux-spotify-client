@@ -7,18 +7,11 @@ import * as ActionTypes from '../actiontypes';
 const skipForwards = collection => {
     const currentIndex = collection.findIndex(track => track.isCurrentlySelected);
     const length = collection.length;
-    let nextIndex;
+    let nextIndex = (currentIndex === length - 1) ? 0 : currentIndex + 1;
 
-    const skipRecursively = index => {
-        const next = (index === length - 1) ? 0 : index + 1;
-        if (collection[next].previewURL) {
-            nextIndex = next;
-        } else {
-            skipRecursively(next);
-        }
+    while (!collection[nextIndex].previewURL) {
+        nextIndex = (nextIndex === length - 1) ? 0 : nextIndex + 1;
     }
-
-    skipRecursively(currentIndex);
     
     return collection.map((track, index) => ({
         ...track,
@@ -32,19 +25,12 @@ const skipForwards = collection => {
 const skipBackwards = collection => {
     const currentIndex = collection.findIndex(track => track.isCurrentlySelected);
     const length = collection.length;
-    let nextIndex;
+    let nextIndex = (currentIndex === 0) ? length - 1 : currentIndex - 1;
 
-    const skipRecursively = index => {
-        const next = (index === 0) ? length - 1 : index - 1;
-        if (collection[next].previewURL) {
-            nextIndex = next;
-        } else {
-            skipRecursively(next);
-        }
+    while (!collection[nextIndex].previewURL) {
+        nextIndex = (nextIndex === 0) ? length - 1 : nextIndex - 1;
     }
 
-    skipRecursively(currentIndex);
-    
     return collection.map((track, index) => ({
         ...track,
         isCurrentlySelected: (index === nextIndex) ? true : false,
@@ -168,5 +154,3 @@ const currentlySelectedCollection = (state=defaultState, action) => {
 }
 
 export default currentlySelectedCollection;
-
-
